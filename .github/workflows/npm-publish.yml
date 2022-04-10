@@ -1,6 +1,8 @@
 name: Npm Publish
 on:
   release:
+    branches:
+      - trunk
   types: [published]
 jobs:
   build:
