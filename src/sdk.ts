@@ -7,7 +7,7 @@ import {
 } from './types';
 import axios from 'axios';
 
-const baseUrl = 'https://core.operand.ai/';
+const baseUrl = 'https://core.operand.ai';
 
 export class Operand {
   private apiKey: string;
