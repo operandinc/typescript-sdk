@@ -1,9 +1,7 @@
 name: Npm Publish
 on:
   release:
-    branches:
-      - trunk
-  types: [published]
+    types: [published]
 jobs:
   build:
     name: 'Build and publish to NPM'
