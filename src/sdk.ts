@@ -5,29 +5,31 @@ import {
   GroupMetadata,
   SearchResponse,
 } from './types';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 const baseUrl = 'https://core.operand.ai';
 
 export class Operand {
-  private apiKey: string;
-  public endpoint: string;
+  private requester: AxiosInstance;
 
   constructor(apiKey: string, endpoint?: string) {
-    this.apiKey = apiKey;
-    this.endpoint = endpoint || baseUrl;
+    let instance = axios.create({ baseURL: endpoint || baseUrl });
+    instance.interceptors.request.use(config => {
+      config.headers = {
+        Authorization: `${apiKey}`,
+        ...config.headers,
+      };
+      return config;
+    });
+
+    this.requester = instance;
   }
 
   // COLLECTIONS
 
   // Get a collection by id
   async getCollection(collectionId: string): Promise<Collection> {
-    let url = `${this.endpoint}/collection/${collectionId}`;
-    let response = await axios.get(url, {
-      headers: {
-        Authorization: `${this.apiKey}`,
-      },
-    });
+    let response = await this.requester.get(`/collection/${collectionId}`);
     return response.data as Collection;
   }
 
@@ -39,14 +41,10 @@ export class Operand {
     collections: Collection[];
     more: boolean;
   }> {
-    let url = `${this.endpoint}/collection`;
-    let response = await axios.get(url, {
+    let response = await this.requester.get('/collection', {
       params: {
         limit: limit,
         offset: offset,
-      },
-      headers: {
-        Authorization: `${this.apiKey}`,
       },
     });
     return response.data as { collections: Collection[]; more: boolean };
@@ -54,27 +52,16 @@ export class Operand {
 
   // Create a collection
   async createCollection(source: Source): Promise<Collection> {
-    let url = `${this.endpoint}/collection`;
-    let response = await axios.post(
-      url,
-      { source: source.source, metadata: source.metadata },
-      {
-        headers: {
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
+    let response = await this.requester.post('/collection', {
+      source: source.source,
+      metadata: source.metadata,
+    });
     return response.data as Collection;
   }
 
   // Delete a collection
   async deleteCollection(collectionId: string): Promise<{ deleted: boolean }> {
-    let url = `${this.endpoint}/collection/${collectionId}`;
-    let response = await axios.delete(url, {
-      headers: {
-        Authorization: `${this.apiKey}`,
-      },
-    });
+    let response = await this.requester.delete(`/collection/${collectionId}`);
     return response.data as { deleted: boolean };
   }
 
@@ -82,12 +69,7 @@ export class Operand {
 
   // Get a group by id
   async getGroup(groupId: string): Promise<Group> {
-    let url = `${this.endpoint}/group/${groupId}`;
-    let response = await axios.get(url, {
-      headers: {
-        Authorization: `${this.apiKey}`,
-      },
-    });
+    let response = await this.requester.get(`/group/${groupId}`);
     return response.data as Group;
   }
 
@@ -100,15 +82,11 @@ export class Operand {
     groups: Group[];
     more: boolean;
   }> {
-    let url = `${this.endpoint}/group`;
-    let response = await axios.get(url, {
+    let response = await this.requester.get('/group', {
       params: {
         limit: limit,
         offset: offset,
         collection: collection,
-      },
-      headers: {
-        Authorization: `${this.apiKey}`,
       },
     });
     return response.data as { groups: Group[]; more: boolean };
@@ -119,27 +97,16 @@ export class Operand {
     collectionId: string,
     metadata: GroupMetadata
   ): Promise<Group> {
-    let url = `${this.endpoint}/group`;
-    let response = await axios.post(
-      url,
-      { collectionId, ...metadata },
-      {
-        headers: {
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
+    let response = await this.requester.post('/group', {
+      collectionId,
+      ...metadata,
+    });
     return response.data as Group;
   }
 
   // Delete a group
   async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
-    let url = `${this.endpoint}/group/${groupId}`;
-    let response = await axios.delete(url, {
-      headers: {
-        Authorization: `${this.apiKey}`,
-      },
-    });
+    let response = await this.requester.delete(`/group/${groupId}`);
     return response.data as { deleted: boolean };
   }
 
@@ -149,20 +116,11 @@ export class Operand {
     query: string,
     limit?: number
   ): Promise<SearchResponse> {
-    let url = `${this.endpoint}/search`;
-    let response = await axios.post(
-      url,
-      {
-        collections,
-        query,
-        limit,
-      },
-      {
-        headers: {
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
+    let response = await this.requester.post('/search', {
+      collections,
+      query,
+      limit,
+    });
     return response.data as SearchResponse;
   }
 }
