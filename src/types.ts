@@ -59,6 +59,12 @@ export type GroupMetadata =
 
 export type Source =
   | {
+      source: 'notion';
+      metadata: {
+        accessToken: string;
+      };
+    }
+  | {
       source: 'rss';
       metadata: {
         url: string;
