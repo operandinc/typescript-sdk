@@ -5,32 +5,33 @@ import {
   GroupMetadata,
   SearchResponse,
 } from './types';
-import axios, { AxiosInstance } from 'axios';
 
 const baseUrl = 'https://core.operand.ai';
 
 export class Operand {
-  private requester: AxiosInstance;
+  private apiKey: string;
+  public endpoint: string;
 
   constructor(apiKey: string, endpoint?: string) {
-    let instance = axios.create({ baseURL: endpoint || baseUrl });
-    instance.interceptors.request.use(config => {
-      config.headers = {
-        Authorization: `${apiKey}`,
-        ...config.headers,
-      };
-      return config;
-    });
-
-    this.requester = instance;
+    this.apiKey = apiKey;
+    this.endpoint = endpoint || baseUrl;
   }
 
   // COLLECTIONS
 
   // Get a collection by id
   async getCollection(collectionId: string): Promise<Collection> {
-    let response = await this.requester.get(`/collection/${collectionId}`);
-    return response.data as Collection;
+    const response = await fetch(
+      `${this.endpoint}/collection/${collectionId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${this.apiKey}`,
+        },
+      }
+    );
+    return (await response.json()) as Collection;
   }
 
   // List collections
@@ -41,36 +42,71 @@ export class Operand {
     collections: Collection[];
     more: boolean;
   }> {
-    let response = await this.requester.get('/collection', {
-      params: {
-        limit: limit,
-        offset: offset,
-      },
-    });
-    return response.data as { collections: Collection[]; more: boolean };
+    if (!limit) {
+      limit = 100;
+    }
+    if (!offset) {
+      offset = 0;
+    }
+    const response = await fetch(
+      `${this.endpoint}/collection?offset=${offset}&limit=${limit}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${this.apiKey}`,
+        },
+      }
+    );
+    return (await response.json()) as {
+      collections: Collection[];
+      more: boolean;
+    };
   }
 
   // Create a collection
   async createCollection(source: Source): Promise<Collection> {
-    let response = await this.requester.post('/collection', {
-      source: source.source,
-      metadata: source.metadata,
+    const response = await fetch(`${this.endpoint}/collection`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        source: source.source,
+        metadata: source.metadata,
+      }),
     });
-    return response.data as Collection;
+    return (await response.json()) as Collection;
   }
 
   // Delete a collection
   async deleteCollection(collectionId: string): Promise<{ deleted: boolean }> {
-    let response = await this.requester.delete(`/collection/${collectionId}`);
-    return response.data as { deleted: boolean };
+    const response = await fetch(
+      `${this.endpoint}/collection/${collectionId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${this.apiKey}`,
+        },
+      }
+    );
+    return (await response.json()) as { deleted: boolean };
   }
 
   // GROUPS
 
   // Get a group by id
   async getGroup(groupId: string): Promise<Group> {
-    let response = await this.requester.get(`/group/${groupId}`);
-    return response.data as Group;
+    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as Group;
   }
 
   // List groups
@@ -82,14 +118,25 @@ export class Operand {
     groups: Group[];
     more: boolean;
   }> {
-    let response = await this.requester.get('/group', {
-      params: {
-        limit: limit,
-        offset: offset,
-        collection: collection,
+    if (!limit) {
+      limit = 100;
+    }
+    if (!offset) {
+      offset = 0;
+    }
+    let url = `${this.endpoint}/group?offset=${offset}&limit=${limit}`;
+    if (collection) {
+      url += `&collection=${collection}`;
+    }
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
       },
     });
-    return response.data as { groups: Group[]; more: boolean };
+    return (await response.json()) as { groups: Group[]; more: boolean };
   }
 
   // Create a group
@@ -97,17 +144,30 @@ export class Operand {
     collectionId: string,
     metadata: GroupMetadata
   ): Promise<Group> {
-    let response = await this.requester.post('/group', {
-      collectionId,
-      ...metadata,
+    const response = await fetch(`${this.endpoint}/group`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        collectionId,
+        ...metadata,
+      }),
     });
-    return response.data as Group;
+    return (await response.json()) as Group;
   }
 
   // Delete a group
   async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
-    let response = await this.requester.delete(`/group/${groupId}`);
-    return response.data as { deleted: boolean };
+    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as { deleted: boolean };
   }
 
   // Search
@@ -116,11 +176,21 @@ export class Operand {
     query: string,
     limit?: number
   ): Promise<SearchResponse> {
-    let response = await this.requester.post('/search', {
-      collections,
-      query,
-      limit,
+    if (!limit) {
+      limit = 12;
+    }
+    const response = await fetch(`${this.endpoint}/search`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        collections,
+        query,
+        limit,
+      }),
     });
-    return response.data as SearchResponse;
+    return (await response.json()) as SearchResponse;
   }
 }
