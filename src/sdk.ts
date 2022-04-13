@@ -158,6 +158,21 @@ export class Operand {
     return (await response.json()) as Group;
   }
 
+  // Update a group
+  async updateGroup(groupId: string, metadata: GroupMetadata): Promise<Group> {
+    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        ...metadata,
+      }),
+    });
+    return (await response.json()) as Group;
+  }
+
   // Delete a group
   async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
     const response = await fetch(`${this.endpoint}/group/${groupId}`, {
