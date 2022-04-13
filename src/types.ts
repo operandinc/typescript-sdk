@@ -49,6 +49,14 @@ export type RelatedResponse = {
 
 export type GroupMetadata =
   | {
+      kind: 'notion_page';
+      metadata: {
+        pageId: string;
+        url: string;
+        title?: string;
+      };
+    }
+  | {
       kind: 'rss_item';
       metadata: {
         title?: string;
