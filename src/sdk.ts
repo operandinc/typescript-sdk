@@ -4,6 +4,7 @@ import {
   Source,
   GroupMetadata,
   SearchResponse,
+  RelatedResponse,
 } from './types';
 
 const baseUrl = 'https://core.operand.ai';
@@ -207,5 +208,29 @@ export class Operand {
       }),
     });
     return (await response.json()) as SearchResponse;
+  }
+
+  // Find related groups.
+  async related(
+    groupId: string,
+    collections: string[],
+    limit?: number
+  ): Promise<RelatedResponse> {
+    if (!limit) {
+      limit = 5;
+    }
+    const response = await fetch(`${this.endpoint}/related`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        groupId,
+        collections,
+        limit,
+      }),
+    });
+    return (await response.json()) as RelatedResponse;
   }
 }

@@ -40,6 +40,13 @@ export type SearchResponse = {
   };
 };
 
+export type RelatedResponse = {
+  latencyMs: number;
+  groups: (Group & {
+    score: number;
+  })[];
+};
+
 export type GroupMetadata =
   | {
       kind: 'rss_item';
