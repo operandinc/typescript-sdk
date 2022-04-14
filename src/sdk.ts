@@ -73,10 +73,7 @@ export class Operand {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        source: source.source,
-        metadata: source.metadata,
-      }),
+      body: JSON.stringify(source),
     });
     return (await response.json()) as Collection;
   }

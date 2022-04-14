@@ -72,7 +72,7 @@ export type GroupMetadata =
       };
     };
 
-export type Source =
+export type Source = (
   | {
       source: 'notion';
       metadata: {
@@ -88,4 +88,7 @@ export type Source =
   | {
       source: 'none';
       metadata: {};
-    };
+    }
+) & {
+  embeddingSource?: string;
+};
