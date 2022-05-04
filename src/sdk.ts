@@ -23,7 +23,7 @@ export class Operand {
   // Get a collection by id
   async getCollection(collectionId: string): Promise<Collection> {
     const response = await fetch(
-      `${this.endpoint}/collection/${collectionId}`,
+      `${this.endpoint}/v2/collection/${collectionId}`,
       {
         method: 'GET',
         headers: {
@@ -50,7 +50,7 @@ export class Operand {
       offset = 0;
     }
     const response = await fetch(
-      `${this.endpoint}/collection?offset=${offset}&limit=${limit}`,
+      `${this.endpoint}/v2/collection?offset=${offset}&limit=${limit}`,
       {
         method: 'GET',
         headers: {
@@ -67,7 +67,7 @@ export class Operand {
 
   // Create a collection
   async createCollection(source: Source): Promise<Collection> {
-    const response = await fetch(`${this.endpoint}/collection`, {
+    const response = await fetch(`${this.endpoint}/v2/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export class Operand {
   // Delete a collection
   async deleteCollection(collectionId: string): Promise<{ deleted: boolean }> {
     const response = await fetch(
-      `${this.endpoint}/collection/${collectionId}`,
+      `${this.endpoint}/v2/collection/${collectionId}`,
       {
         method: 'DELETE',
         headers: {
@@ -97,7 +97,7 @@ export class Operand {
 
   // Get a group by id
   async getGroup(groupId: string): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export class Operand {
     if (!offset) {
       offset = 0;
     }
-    let url = `${this.endpoint}/group?offset=${offset}&limit=${limit}`;
+    let url = `${this.endpoint}/v2/group?offset=${offset}&limit=${limit}`;
     if (collection) {
       url += `&collection=${collection}`;
     }
@@ -142,7 +142,7 @@ export class Operand {
     collectionId: string,
     metadata: GroupMetadata
   ): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/group`, {
+    const response = await fetch(`${this.endpoint}/v2/group`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ export class Operand {
 
   // Update a group
   async updateGroup(groupId: string, metadata: GroupMetadata): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ export class Operand {
 
   // Delete a group
   async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
-    const response = await fetch(`${this.endpoint}/group/${groupId}`, {
+    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ export class Operand {
     if (!limit) {
       limit = 12;
     }
-    const response = await fetch(`${this.endpoint}/search`, {
+    const response = await fetch(`${this.endpoint}/v2/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -216,7 +216,7 @@ export class Operand {
     if (!limit) {
       limit = 5;
     }
-    const response = await fetch(`${this.endpoint}/related`, {
+    const response = await fetch(`${this.endpoint}/v2/related`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
