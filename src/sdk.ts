@@ -1,4 +1,5 @@
 import { Collection, Group, SearchResponse, AskResponse } from './types';
+import fetch from 'node-fetch';
 
 export class Operand {
   private apiKey: string;
