@@ -1,26 +1,14 @@
-import {
-  Collection,
-  Group,
-  Source,
-  GroupMetadata,
-  SearchResponse,
-  RelatedResponse,
-} from './types';
-
-const baseUrl = 'https://core.operand.ai';
+import { Collection, Group, SearchResponse, AskResponse } from './types';
 
 export class Operand {
   private apiKey: string;
-  public endpoint: string;
+  private endpoint: string;
 
-  constructor(apiKey: string, endpoint?: string) {
+  constructor(apiKey: string, endpoint: string) {
     this.apiKey = apiKey;
-    this.endpoint = endpoint || baseUrl;
+    this.endpoint = endpoint;
   }
 
-  // COLLECTIONS
-
-  // Get a collection by id
   async getCollection(collectionId: string): Promise<Collection> {
     const response = await fetch(
       `${this.endpoint}/v2/collection/${collectionId}`,
@@ -35,7 +23,6 @@ export class Operand {
     return (await response.json()) as Collection;
   }
 
-  // List collections
   async listCollections(
     limit?: number,
     offset?: number
@@ -65,20 +52,21 @@ export class Operand {
     };
   }
 
-  // Create a collection
-  async createCollection(source: Source): Promise<Collection> {
+  async createCollection(source: string, metadata: any): Promise<Collection> {
     const response = await fetch(`${this.endpoint}/v2/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify(source),
+      body: JSON.stringify({
+        source,
+        metadata,
+      }),
     });
     return (await response.json()) as Collection;
   }
 
-  // Delete a collection
   async deleteCollection(collectionId: string): Promise<{ deleted: boolean }> {
     const response = await fetch(
       `${this.endpoint}/v2/collection/${collectionId}`,
@@ -93,9 +81,6 @@ export class Operand {
     return (await response.json()) as { deleted: boolean };
   }
 
-  // GROUPS
-
-  // Get a group by id
   async getGroup(groupId: string): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'GET',
@@ -107,7 +92,6 @@ export class Operand {
     return (await response.json()) as Group;
   }
 
-  // List groups
   async listGroups(
     collection?: string,
     limit?: number,
@@ -137,10 +121,11 @@ export class Operand {
     return (await response.json()) as { groups: Group[]; more: boolean };
   }
 
-  // Create a group
   async createGroup(
     collectionId: string,
-    metadata: GroupMetadata
+    kind: string,
+    metadata: any,
+    properties: any
   ): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group`, {
       method: 'POST',
@@ -150,14 +135,20 @@ export class Operand {
       },
       body: JSON.stringify({
         collectionId,
-        ...metadata,
+        kind,
+        metadata,
+        properties,
       }),
     });
     return (await response.json()) as Group;
   }
 
-  // Update a group
-  async updateGroup(groupId: string, metadata: GroupMetadata): Promise<Group> {
+  async updateGroup(
+    groupId: string,
+    kind: string,
+    metadata: any,
+    properties: any
+  ): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'PUT',
       headers: {
@@ -165,13 +156,14 @@ export class Operand {
         Authorization: `${this.apiKey}`,
       },
       body: JSON.stringify({
-        ...metadata,
+        kind,
+        metadata,
+        properties,
       }),
     });
     return (await response.json()) as Group;
   }
 
-  // Delete a group
   async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
     const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'DELETE',
@@ -183,51 +175,37 @@ export class Operand {
     return (await response.json()) as { deleted: boolean };
   }
 
-  // Search
-  async search(
-    collections: string[],
-    query: string,
-    limit?: number
-  ): Promise<SearchResponse> {
-    if (!limit) {
-      limit = 12;
-    }
+  async search(req: {
+    collections: string[];
+    query: string;
+    limit?: number;
+    filter: any;
+  }): Promise<SearchResponse> {
     const response = await fetch(`${this.endpoint}/v2/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        collections,
-        query,
-        limit,
-      }),
+      body: JSON.stringify(req),
     });
     return (await response.json()) as SearchResponse;
   }
 
-  // Find related groups.
-  async related(
-    groupId: string,
-    collections: string[],
-    limit?: number
-  ): Promise<RelatedResponse> {
-    if (!limit) {
-      limit = 5;
-    }
-    const response = await fetch(`${this.endpoint}/v2/related`, {
+  async ask(req: {
+    collections: string[];
+    query: string;
+    limit?: number;
+    filter: any;
+  }): Promise<AskResponse> {
+    const response = await fetch(`${this.endpoint}/v2/ask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        groupId,
-        collections,
-        limit,
-      }),
+      body: JSON.stringify(req),
     });
-    return (await response.json()) as RelatedResponse;
+    return (await response.json()) as AskResponse;
   }
 }

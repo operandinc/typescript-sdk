@@ -1,94 +1,84 @@
-// A single collection
+/* Type Definitions */
+
 export type Collection = {
   id: string;
-  createdAt: number;
-  updatedAt: number;
-  source: string;
-  metadata: any;
-  status: Status;
-};
-
-export type Status = 'indexing' | 'ready';
+  createdAt: Date;
+  updatedAt: Date;
+  embeddingSource: string;
+} & (
+  | {
+      source: 'none';
+      metadata: {};
+    }
+  | {
+      source: 'epub';
+      metadata: {
+        epubUrl: string;
+      };
+    }
+);
 
 export type Group = {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   collectionId: string;
-  createdAt: number;
-  kind: string;
-  metadata: any;
-};
-
-export type Atom = {
-  id: string;
-  groupId: string;
-  createdAt: number;
-  content: string;
-  kind: AtomKind;
-};
-
-export type AtomKind = 'title' | 'content' | 'link' | 'image' | 'code';
-
-export type ScoredAtom = Atom & {
-  score: number;
-};
-
-export type SearchResponse = {
-  latencyMs: number;
-  atoms: ScoredAtom[];
-  groups?: {
-    [groupId: string]: Group;
-  };
-};
-
-export type RelatedResponse = {
-  latencyMs: number;
-  groups: (Group & {
-    score: number;
-  })[];
-};
-
-export type GroupMetadata =
+  properties: any; // Near-arbritrary.
+} & (
   | {
-      kind: 'notion_page';
+      kind: 'text';
       metadata: {
-        pageId: string;
-        url: string;
-        title?: string;
-      };
-    }
-  | {
-      kind: 'rss_item';
-      metadata: {
-        title?: string;
-        description?: string;
-        link: string;
+        text: string;
       };
     }
   | {
       kind: 'html';
       metadata: {
         html: string;
-        title?: string;
+        title?: string; // If not provided, will attempt to deduce.
       };
-    };
+    }
+  | {
+      kind: 'markdown';
+      metadata: {
+        markdown: string;
+        title?: string; // If not provided, will attempt to deduce.
+      };
+    }
+  | {
+      kind: 'email';
+      metadata: {
+        email: string;
+        sent?: Date; // If not provided, will attempt to deduce.
+        from?: string; // If not provided, will attempt to deduce.
+        subject?: string; // If not provided, will attempt to deduce.
+        to?: string[]; // If not provided, will attempt to deduce.
+      };
+    }
+);
 
-export type Source = (
-  | {
-      source: 'notion';
-      metadata: {
-        accessToken: string;
-      };
-    }
-  | {
-      source: 'rss';
-      metadata: {
-        url: string;
-      };
-    }
-  | {
-      source: 'none';
-      metadata: {};
-    }
-) & {
-  embeddingSource?: string;
+export type Atom = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  groupId: string;
+  content: string;
+  kind: 'title' | 'content' | 'link' | 'image' | 'code';
+};
+
+export type SearchResponse = {
+  latencyMs: number;
+  atoms: (Atom & {
+    score: number;
+  })[];
+  groups: {
+    [groupId: string]: Group;
+  };
+};
+
+export type AskResponse = {
+  latencyMs: number;
+  answer: string;
+  confidence: number;
+  sources: Group[];
 };
