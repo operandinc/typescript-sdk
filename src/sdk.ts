@@ -180,7 +180,7 @@ export class Operand {
     collections: string[];
     query: string;
     limit?: number;
-    filter: any;
+    filter?: any;
   }): Promise<SearchResponse> {
     const response = await fetch(`${this.endpoint}/v2/search`, {
       method: 'POST',
