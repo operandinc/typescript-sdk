@@ -5,6 +5,7 @@ export type Collection = {
   createdAt: Date;
   updatedAt: Date;
   embeddingSource: string;
+  indexingStatus: 'indexing' | 'ready';
 } & (
   | {
       source: 'none';
