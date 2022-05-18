@@ -82,8 +82,12 @@ export class Operand {
     return (await response.json()) as { deleted: boolean };
   }
 
-  async getGroup(groupId: string): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
+  async getGroup(groupId: string, related?: number): Promise<Group> {
+    let endpoint = `${this.endpoint}/v2/group/${groupId}`;
+    if (related) {
+      endpoint += `?related=${related}`;
+    }
+    const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
