@@ -25,6 +25,7 @@ export type Group = {
   updatedAt: Date;
   collectionId: string;
   properties: any; // Near-arbritrary.
+  related?: Group[]; // Only used if ?related=N is passed to getGroup.
 } & (
   | {
       kind: 'text';
