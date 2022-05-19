@@ -69,6 +69,7 @@ export type Atom = {
 };
 
 export type SearchResponse = {
+  id: string;
   latencyMs: number;
   atoms: (Atom & {
     score: number;
@@ -79,6 +80,7 @@ export type SearchResponse = {
 };
 
 export type AskResponse = {
+  id: string;
   latencyMs: number;
   answer: string;
   confidence: number;

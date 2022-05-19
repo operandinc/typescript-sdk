@@ -213,4 +213,25 @@ export class Operand {
     });
     return (await response.json()) as AskResponse;
   }
+
+  async feedback(req: {
+    search?: {
+      id: string;
+      clicked_id: string;
+    };
+    ask?: {
+      id: string;
+      reaction: boolean;
+    };
+  }): Promise<{}> {
+    const response = await fetch(`${this.endpoint}/v2/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as {};
+  }
 }
