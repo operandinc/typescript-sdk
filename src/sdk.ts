@@ -150,9 +150,9 @@ export class Operand {
 
   async updateGroup(
     groupId: string,
-    kind: string,
-    metadata: any,
-    properties: any
+    kind?: string,
+    metadata?: any,
+    properties?: any
   ): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'PUT',
