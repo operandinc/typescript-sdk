@@ -53,17 +53,17 @@ export class Operand {
     };
   }
 
-  async createCollection(source: string, metadata: any): Promise<Collection> {
+  async createCollection(req: {
+    source: string;
+    metadata: any;
+  }): Promise<Collection> {
     const response = await fetch(`${this.endpoint}/v2/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        source,
-        metadata,
-      }),
+      body: JSON.stringify(req),
     });
     return (await response.json()) as Collection;
   }
@@ -82,10 +82,10 @@ export class Operand {
     return (await response.json()) as { deleted: boolean };
   }
 
-  async getGroup(groupId: string, related?: number): Promise<Group> {
-    let endpoint = `${this.endpoint}/v2/group/${groupId}`;
-    if (related) {
-      endpoint += `?related=${related}`;
+  async getGroup(req: { groupId: string; related?: number }): Promise<Group> {
+    let endpoint = `${this.endpoint}/v2/group/${req.groupId}`;
+    if (req.related) {
+      endpoint += `?related=${req.related}`;
     }
     const response = await fetch(endpoint, {
       method: 'GET',
@@ -97,23 +97,23 @@ export class Operand {
     return (await response.json()) as Group;
   }
 
-  async listGroups(
-    collection?: string,
-    limit?: number,
-    offset?: number
-  ): Promise<{
+  async listGroups(req: {
+    collection?: string;
+    limit?: number;
+    offset?: number;
+  }): Promise<{
     groups: Group[];
     more: boolean;
   }> {
-    if (!limit) {
-      limit = 100;
+    if (!req.limit) {
+      req.limit = 100;
     }
-    if (!offset) {
-      offset = 0;
+    if (!req.offset) {
+      req.offset = 0;
     }
-    let url = `${this.endpoint}/v2/group?offset=${offset}&limit=${limit}`;
-    if (collection) {
-      url += `&collection=${collection}`;
+    let url = `${this.endpoint}/v2/group?offset=${req.offset}&limit=${req.limit}`;
+    if (req.collection) {
+      url += `&collectionId=${req.collection}`;
     }
 
     const response = await fetch(url, {
@@ -126,33 +126,30 @@ export class Operand {
     return (await response.json()) as { groups: Group[]; more: boolean };
   }
 
-  async createGroup(
-    collectionId: string,
-    kind: string,
-    metadata: any,
-    properties: any
-  ): Promise<Group> {
+  async createGroup(req: {
+    collectionId: string;
+    kind: string;
+    metadata: any;
+    properties: any;
+  }): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        collectionId,
-        kind,
-        metadata,
-        properties,
-      }),
+      body: JSON.stringify(req),
     });
     return (await response.json()) as Group;
   }
 
   async updateGroup(
     groupId: string,
-    kind?: string,
-    metadata?: any,
-    properties?: any
+    req: {
+      kind?: string;
+      metadata?: any;
+      properties?: any;
+    }
   ): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
       method: 'PUT',
@@ -160,11 +157,7 @@ export class Operand {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        kind,
-        metadata,
-        properties,
-      }),
+      body: JSON.stringify(req),
     });
     return (await response.json()) as Group;
   }
@@ -200,8 +193,8 @@ export class Operand {
   async ask(req: {
     collections: string[];
     query: string;
-    limit?: number;
     filter: any;
+    answerStyle?: 'paraphrase' | 'direct'; // If omitted, defaults to paraphrase.
   }): Promise<AskResponse> {
     const response = await fetch(`${this.endpoint}/v2/ask`, {
       method: 'POST',
@@ -217,7 +210,7 @@ export class Operand {
   async feedback(req: {
     search?: {
       id: string;
-      clicked_id: string;
+      clickedId: string;
     };
     ask?: {
       id: string;
