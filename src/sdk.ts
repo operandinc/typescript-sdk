@@ -1,4 +1,10 @@
-import { Collection, Group, SearchResponse, AskResponse } from './types';
+import {
+  Collection,
+  Group,
+  SearchResponse,
+  AskResponse,
+  CompletionResponse,
+} from './types';
 const fetch = require('node-fetch');
 
 export class Operand {
@@ -53,17 +59,17 @@ export class Operand {
     };
   }
 
-  async createCollection(req: {
-    source: string;
-    metadata: any;
-  }): Promise<Collection> {
+  async createCollection(metadata: any): Promise<Collection> {
     const response = await fetch(`${this.endpoint}/v2/collection`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify(req),
+      body: JSON.stringify({
+        source: 'none',
+        metadata,
+      }),
     });
     return (await response.json()) as Collection;
   }
@@ -226,5 +232,22 @@ export class Operand {
       body: JSON.stringify(req),
     });
     return (await response.json()) as {};
+  }
+
+  async completion(req: {
+    collections: string[];
+    text: string;
+    count?: number;
+    filter?: any;
+  }): Promise<CompletionResponse> {
+    const response = await fetch(`${this.endpoint}/v2/completion`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as CompletionResponse;
   }
 }
