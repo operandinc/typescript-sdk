@@ -16,6 +16,7 @@ export type Group = {
   updatedAt: Date;
   indexingStatus: 'indexing' | 'ready';
   parentId?: string;
+  collectionId?: string;
   properties: any; // Near-arbritrary.
   related?: Group[]; // Only used if ?related=N is passed to getGroup.
 } & (

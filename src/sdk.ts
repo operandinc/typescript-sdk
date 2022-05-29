@@ -59,7 +59,7 @@ export class Operand {
     };
   }
 
-  async createCollection(metadata: any): Promise<Collection> {
+  async createCollection(): Promise<Collection> {
     const response = await fetch(`${this.endpoint}/v2/collection`, {
       method: 'POST',
       headers: {
@@ -68,7 +68,7 @@ export class Operand {
       },
       body: JSON.stringify({
         source: 'none',
-        metadata,
+        metadata: {},
       }),
     });
     return (await response.json()) as Collection;
@@ -180,7 +180,7 @@ export class Operand {
   }
 
   async search(req: {
-    collections: string[];
+    collections?: string[];
     query: string;
     limit?: number;
     filter?: any;
@@ -235,7 +235,7 @@ export class Operand {
   }
 
   async completion(req: {
-    collections: string[];
+    collections?: string[];
     text: string;
     count?: number;
     filter?: any;
