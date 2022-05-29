@@ -6,27 +6,24 @@ export type Collection = {
   updatedAt: Date;
   embeddingSource: string;
   indexingStatus: 'indexing' | 'ready';
-} & (
-  | {
-      source: 'none';
-      metadata: {};
-    }
-  | {
-      source: 'epub';
-      metadata: {
-        epubUrl: string;
-      };
-    }
-);
+  source: string;
+  metadata: any;
+};
 
 export type Group = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  collectionId: string;
+  indexingStatus: 'indexing' | 'ready';
+  parentId?: string;
+  collectionId?: string;
   properties: any; // Near-arbritrary.
   related?: Group[]; // Only used if ?related=N is passed to getGroup.
 } & (
+  | {
+      kind: 'collection';
+      metadata: {};
+    }
   | {
       kind: 'text';
       metadata: {
@@ -57,6 +54,43 @@ export type Group = {
         to?: string[]; // If not provided, will attempt to deduce.
       };
     }
+  | {
+      kind: 'notion_page';
+      metadata: {
+        pageId: string;
+        url: string;
+        title?: string;
+      };
+    }
+  | {
+      kind: 'epub';
+      metadata: {
+        epubUrl: string;
+        title?: string;
+        language?: string;
+      };
+    }
+  | {
+      kind: 'notion';
+      metadata: {
+        accessToken: string;
+      };
+    }
+  | {
+      kind: 'github_repository';
+      metadata: {
+        accessToken: string;
+        repoOwner: string;
+        repoName: string;
+        rootPath: string;
+      };
+    }
+  | {
+      kind: 'pdf';
+      metadata: {
+        pdfUrl: string;
+      };
+    }
 );
 
 export type Atom = {
@@ -84,5 +118,11 @@ export type AskResponse = {
   latencyMs: number;
   answer: string;
   confidence: number;
+  sources: Group[];
+};
+
+export type CompletionResponse = {
+  latencyMs: number;
+  completions: string[];
   sources: Group[];
 };
