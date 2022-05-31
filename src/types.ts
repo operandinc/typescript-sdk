@@ -19,6 +19,7 @@ export type Group = {
   collectionId?: string;
   properties: any; // Near-arbritrary.
   related?: Group[]; // Only used if ?related=N is passed to getGroup.
+  atoms?: number; // Only if ?atoms=true is passed to getGroup.
 } & (
   | {
       kind: 'collection';

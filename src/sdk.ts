@@ -88,11 +88,23 @@ export class Operand {
     return (await response.json()) as { deleted: boolean };
   }
 
-  async getGroup(req: { groupId: string; related?: number }): Promise<Group> {
+  async getGroup(req: {
+    groupId: string;
+    related?: number;
+    atoms?: boolean;
+  }): Promise<Group> {
     let endpoint = `${this.endpoint}/v2/group/${req.groupId}`;
+
+    // Add related and count query params, if provided.
     if (req.related) {
       endpoint += `?related=${req.related}`;
+      if (req.atoms) {
+        endpoint += `&atoms=${req.atoms}`;
+      }
+    } else if (req.atoms) {
+      endpoint += `?atoms=${req.atoms}`;
     }
+
     const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
@@ -136,7 +148,7 @@ export class Operand {
     collectionId: string;
     kind: string;
     metadata: any;
-    properties: any;
+    properties?: any;
   }): Promise<Group> {
     const response = await fetch(`${this.endpoint}/v2/group`, {
       method: 'POST',
