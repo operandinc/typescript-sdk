@@ -1,13 +1,17 @@
 import {
-  Collection,
-  Group,
-  SearchResponse,
-  AskResponse,
-  CompletionResponse,
+  Object,
+  GetObjectRequest,
+  ListObjectsRequest,
+  ListObjectsResponse,
+  CreateObjectRequest,
+  DeleteObjectRequest,
+  DeleteObjectResponse,
+  SearchVariantContentsRequest,
+  SearchVariantContentsResponse,
 } from './types';
 const fetch = require('node-fetch');
 
-export class Operand {
+export class OperandV3 {
   private apiKey: string;
   private endpoint: string;
 
@@ -16,67 +20,49 @@ export class Operand {
     this.endpoint = endpoint;
   }
 
-  async getCollection(collectionId: string): Promise<Collection> {
-    const response = await fetch(
-      `${this.endpoint}/v2/collection/${collectionId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
-    return (await response.json()) as Collection;
+  async getObject(req: GetObjectRequest): Promise<Object> {
+    let endpoint = `${this.endpoint}/v3/objects/${req.objectId}`;
+    const response = await fetch(endpoint, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as Object;
   }
 
-  async listCollections(
-    limit?: number,
-    offset?: number
-  ): Promise<{
-    collections: Collection[];
-    more: boolean;
-  }> {
-    if (!limit) {
-      limit = 100;
+  async listObjects(req: ListObjectsRequest): Promise<ListObjectsResponse> {
+    if (!req.limit) {
+      req.limit = 100;
     }
-    if (!offset) {
-      offset = 0;
-    }
-    const response = await fetch(
-      `${this.endpoint}/v2/collection?offset=${offset}&limit=${limit}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
-    return (await response.json()) as {
-      collections: Collection[];
-      more: boolean;
-    };
+    let url = `${this.endpoint}/v3/objects`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as ListObjectsResponse;
   }
 
-  async createCollection(): Promise<Collection> {
-    const response = await fetch(`${this.endpoint}/v2/collection`, {
+  async createObject(req: CreateObjectRequest): Promise<Object> {
+    const response = await fetch(`${this.endpoint}/v3/objects`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify({
-        source: 'none',
-        metadata: {},
-      }),
+      body: JSON.stringify(req),
     });
-    return (await response.json()) as Collection;
+    return (await response.json()) as Object;
   }
 
-  async deleteCollection(collectionId: string): Promise<{ deleted: boolean }> {
+  async deleteObject(req: DeleteObjectRequest): Promise<DeleteObjectResponse> {
     const response = await fetch(
-      `${this.endpoint}/v2/collection/${collectionId}`,
+      `${this.endpoint}/v3/objects/${req.objectId}`,
       {
         method: 'DELETE',
         headers: {
@@ -85,72 +71,13 @@ export class Operand {
         },
       }
     );
-    return (await response.json()) as { deleted: boolean };
+    return (await response.json()) as DeleteObjectResponse;
   }
 
-  async getGroup(req: {
-    groupId: string;
-    related?: number;
-    atoms?: boolean;
-  }): Promise<Group> {
-    let endpoint = `${this.endpoint}/v2/group/${req.groupId}`;
-
-    // Add related and count query params, if provided.
-    if (req.related) {
-      endpoint += `?related=${req.related}`;
-      if (req.atoms) {
-        endpoint += `&atoms=${req.atoms}`;
-      }
-    } else if (req.atoms) {
-      endpoint += `?atoms=${req.atoms}`;
-    }
-
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-    });
-    return (await response.json()) as Group;
-  }
-
-  async listGroups(req: {
-    collection?: string;
-    limit?: number;
-    offset?: number;
-  }): Promise<{
-    groups: Group[];
-    more: boolean;
-  }> {
-    if (!req.limit) {
-      req.limit = 100;
-    }
-    if (!req.offset) {
-      req.offset = 0;
-    }
-    let url = `${this.endpoint}/v2/group?offset=${req.offset}&limit=${req.limit}`;
-    if (req.collection) {
-      url += `&collectionId=${req.collection}`;
-    }
-
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-    });
-    return (await response.json()) as { groups: Group[]; more: boolean };
-  }
-
-  async createGroup(req: {
-    collectionId: string;
-    kind: string;
-    metadata: any;
-    properties?: any;
-  }): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/v2/group`, {
+  async searchContents(
+    req: SearchVariantContentsRequest
+  ): Promise<SearchVariantContentsResponse> {
+    const response = await fetch(`${this.endpoint}/v3/search/contents`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,108 +85,6 @@ export class Operand {
       },
       body: JSON.stringify(req),
     });
-    return (await response.json()) as Group;
-  }
-
-  async updateGroup(
-    groupId: string,
-    req: {
-      kind?: string;
-      metadata?: any;
-      properties?: any;
-    }
-  ): Promise<Group> {
-    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-      body: JSON.stringify(req),
-    });
-    return (await response.json()) as Group;
-  }
-
-  async deleteGroup(groupId: string): Promise<{ deleted: boolean }> {
-    const response = await fetch(`${this.endpoint}/v2/group/${groupId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-    });
-    return (await response.json()) as { deleted: boolean };
-  }
-
-  async search(req: {
-    collections?: string[];
-    query: string;
-    limit?: number;
-    filter?: any;
-  }): Promise<SearchResponse> {
-    const response = await fetch(`${this.endpoint}/v2/search`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-      body: JSON.stringify(req),
-    });
-    return (await response.json()) as SearchResponse;
-  }
-
-  async ask(req: {
-    collections: string[];
-    query: string;
-    filter: any;
-    answerStyle?: 'paraphrase' | 'direct'; // If omitted, defaults to paraphrase.
-  }): Promise<AskResponse> {
-    const response = await fetch(`${this.endpoint}/v2/ask`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-      body: JSON.stringify(req),
-    });
-    return (await response.json()) as AskResponse;
-  }
-
-  async feedback(req: {
-    search?: {
-      id: string;
-      clickedId: string;
-    };
-    ask?: {
-      id: string;
-      reaction: boolean;
-    };
-  }): Promise<{}> {
-    const response = await fetch(`${this.endpoint}/v2/feedback`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-      body: JSON.stringify(req),
-    });
-    return (await response.json()) as {};
-  }
-
-  async completion(req: {
-    collections?: string[];
-    text: string;
-    count?: number;
-    filter?: any;
-  }): Promise<CompletionResponse> {
-    const response = await fetch(`${this.endpoint}/v2/completion`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${this.apiKey}`,
-      },
-      body: JSON.stringify(req),
-    });
-    return (await response.json()) as CompletionResponse;
+    return (await response.json()) as SearchVariantContentsResponse;
   }
 }

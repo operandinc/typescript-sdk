@@ -1,32 +1,23 @@
 /* Type Definitions */
 
-export type Collection = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  embeddingSource: string;
-  indexingStatus: 'indexing' | 'ready';
-  source: string;
-  metadata: any;
+export type ObjectProperties = {
+  [key: string]: any;
 };
 
-export type Group = {
+export type Object = {
   id: string;
+  parentId?: string;
   createdAt: Date;
   updatedAt: Date;
-  indexingStatus: 'indexing' | 'ready';
-  parentId?: string;
-  collectionId?: string;
-  properties: any; // Near-arbritrary.
-  related?: Group[]; // Only used if ?related=N is passed to getGroup.
-  atoms?: number; // Only if ?atoms=true is passed to getGroup.
+  properties: ObjectProperties;
+  indexingStatus: 'indexed' | 'ready';
 } & (
   | {
-      kind: 'collection';
+      type: 'collection';
       metadata: {};
     }
   | {
-      kind: 'text';
+      type: 'text';
       metadata: {
         text: string;
       };
@@ -45,85 +36,88 @@ export type Group = {
         title?: string; // If not provided, will attempt to deduce.
       };
     }
+);
+
+// Object Endpoints Types
+export type GetObjectRequest = {
+  objectId: string;
+};
+
+export type ListObjectsRequest = {
+  parentId?: string;
+  limit?: number;
+  startingAfter?: string;
+  endingBefore?: string;
+};
+
+export type ListObjectsResponse = {
+  objects: Object[];
+  hasMore: boolean;
+};
+
+export type CreateObjectRequest = {
+  parentId?: string;
+  properties?: ObjectProperties;
+} & (
   | {
-      kind: 'email';
+      type: 'collection';
+      metadata: {};
+    }
+  | {
+      type: 'text';
       metadata: {
-        email: string;
-        sent?: Date; // If not provided, will attempt to deduce.
-        from?: string; // If not provided, will attempt to deduce.
-        subject?: string; // If not provided, will attempt to deduce.
-        to?: string[]; // If not provided, will attempt to deduce.
+        text: string;
       };
     }
   | {
-      kind: 'notion_page';
+      kind: 'html';
       metadata: {
-        pageId: string;
-        url: string;
-        title?: string;
+        html: string;
+        title?: string; // If not provided, will attempt to deduce.
       };
     }
   | {
-      kind: 'epub';
+      kind: 'markdown';
       metadata: {
-        epubUrl: string;
-        title?: string;
-        language?: string;
-      };
-    }
-  | {
-      kind: 'notion';
-      metadata: {
-        accessToken: string;
-      };
-    }
-  | {
-      kind: 'github_repository';
-      metadata: {
-        accessToken: string;
-        repoOwner: string;
-        repoName: string;
-        rootPath: string;
-      };
-    }
-  | {
-      kind: 'pdf';
-      metadata: {
-        pdfUrl: string;
+        markdown: string;
+        title?: string; // If not provided, will attempt to deduce.
       };
     }
 );
+
+export type DeleteObjectRequest = {
+  objectId: string;
+};
+
+export type DeleteObjectResponse = {
+  deleted: boolean;
+};
+
+// Operation Endpoints Types
 
 export type Atom = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  groupId: string;
+  objectId: string;
   content: string;
-  kind: 'title' | 'content' | 'link' | 'image' | 'code';
+  type: 'title' | 'content' | 'link' | 'image' | 'code' | 'list_item';
 };
 
-export type SearchResponse = {
+export type SearchVariantContentsRequest = {
+  query: string;
+  parents?: string[];
+  max?: number;
+  filter?: Filter;
+};
+
+export type SearchVariantContentsResponse = {
   id: string;
   latencyMs: number;
-  atoms: (Atom & {
-    score: number;
-  })[];
-  groups: {
-    [groupId: string]: Group;
-  };
+  contents: Atom[];
+  objects: Map<string, Object>;
 };
 
-export type AskResponse = {
-  id: string;
-  latencyMs: number;
-  answer: string;
-  confidence: number;
-  sources: Group[];
-};
-
-export type CompletionResponse = {
-  latencyMs: number;
-  completions: string[];
-  sources: Group[];
+export type Filter = {
+  [key: string]: any;
 };
