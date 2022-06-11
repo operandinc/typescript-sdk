@@ -1,42 +1,48 @@
 /* Type Definitions */
 
-export type ObjectProperties = {
-  [key: string]: any;
-};
-
-export type Object = {
+export interface Object {
   id: string;
   parentId?: string;
   createdAt: Date;
   updatedAt: Date;
+  // Type of the object determine the type of the metadata
+  type: ObjectType;
+  // Metadata of the object derived from the type
+  metadata:
+    | CollectionObjectMetadata
+    | TextObjectMetadata
+    | HtmlObjectMetadata
+    | MarkdownObjectMetadata;
+  // Properties of the object
   properties: ObjectProperties;
-  indexingStatus: 'indexed' | 'ready';
-} & (
-  | {
-      type: 'collection';
-      metadata: {};
-    }
-  | {
-      type: 'text';
-      metadata: {
-        text: string;
-      };
-    }
-  | {
-      kind: 'html';
-      metadata: {
-        html: string;
-        title?: string; // If not provided, will attempt to deduce.
-      };
-    }
-  | {
-      kind: 'markdown';
-      metadata: {
-        markdown: string;
-        title?: string; // If not provided, will attempt to deduce.
-      };
-    }
-);
+  // Indexing Status of the object
+  indexingStatus: IndexingStatus;
+}
+
+// Type of the object determine the type of the metadata
+export type ObjectType = 'collection' | 'text' | 'html' | 'markdown';
+
+export type CollectionObjectMetadata = {};
+
+export type TextObjectMetadata = {
+  text: string;
+};
+
+export type HtmlObjectMetadata = {
+  html: string;
+  title?: string;
+};
+
+export type MarkdownObjectMetadata = {
+  markdown: string;
+  title?: string;
+};
+
+export type ObjectProperties = {
+  [key: string]: any;
+};
+
+export type IndexingStatus = 'indexed' | 'ready';
 
 // Object Endpoints Types
 export type GetObjectRequest = {
@@ -57,33 +63,14 @@ export type ListObjectsResponse = {
 
 export type CreateObjectRequest = {
   parentId?: string;
+  type: ObjectType;
+  metadata:
+    | CollectionObjectMetadata
+    | TextObjectMetadata
+    | HtmlObjectMetadata
+    | MarkdownObjectMetadata;
   properties?: ObjectProperties;
-} & (
-  | {
-      type: 'collection';
-      metadata: {};
-    }
-  | {
-      type: 'text';
-      metadata: {
-        text: string;
-      };
-    }
-  | {
-      kind: 'html';
-      metadata: {
-        html: string;
-        title?: string; // If not provided, will attempt to deduce.
-      };
-    }
-  | {
-      kind: 'markdown';
-      metadata: {
-        markdown: string;
-        title?: string; // If not provided, will attempt to deduce.
-      };
-    }
-);
+};
 
 export type DeleteObjectRequest = {
   objectId: string;
@@ -95,10 +82,7 @@ export type DeleteObjectResponse = {
 
 // Operation Endpoints Types
 
-export type Atom = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
+export type Snippet = {
   objectId: string;
   content: string;
   type: 'title' | 'content' | 'link' | 'image' | 'code' | 'list_item';
@@ -114,8 +98,10 @@ export type SearchVariantContentsRequest = {
 export type SearchVariantContentsResponse = {
   id: string;
   latencyMs: number;
-  contents: Atom[];
-  objects: Map<string, Object>;
+  contents: Snippet[];
+  objects: {
+    [objectId: string]: Object;
+  };
 };
 
 export type Filter = {
