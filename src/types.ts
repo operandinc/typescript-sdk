@@ -46,7 +46,7 @@ export type IndexingStatus = 'indexed' | 'ready';
 
 // Object Endpoints Types
 export type GetObjectRequest = {
-  objectId: string;
+  id: string;
 };
 
 export type ListObjectsRequest = {
@@ -73,7 +73,7 @@ export type CreateObjectRequest = {
 };
 
 export type DeleteObjectRequest = {
-  objectId: string;
+  id: string;
 };
 
 export type DeleteObjectResponse = {

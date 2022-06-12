@@ -21,7 +21,7 @@ export class OperandV3 {
   }
 
   async getObject(req: GetObjectRequest): Promise<Object> {
-    let endpoint = `${this.endpoint}/v3/objects/${req.objectId}`;
+    let endpoint = `${this.endpoint}/v3/objects/${req.id}`;
     const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
@@ -60,16 +60,13 @@ export class OperandV3 {
   }
 
   async deleteObject(req: DeleteObjectRequest): Promise<DeleteObjectResponse> {
-    const response = await fetch(
-      `${this.endpoint}/v3/objects/${req.objectId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${this.apiKey}`,
-        },
-      }
-    );
+    const response = await fetch(`${this.endpoint}/v3/objects/${req.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
     return (await response.json()) as DeleteObjectResponse;
   }
 
