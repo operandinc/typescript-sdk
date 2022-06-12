@@ -36,14 +36,13 @@ export class OperandV3 {
     if (!req.limit) {
       req.limit = 100;
     }
-    let url = `${this.endpoint}/v3/objects`;
+    let url = `${this.endpoint}/v3/objects/?limit=${req.limit}&parentId=${req.parentId}&startingAfter=${req.startingAfter}&endingBefore=${req.endingBefore}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,
       },
-      body: JSON.stringify(req),
     });
     return (await response.json()) as ListObjectsResponse;
   }
