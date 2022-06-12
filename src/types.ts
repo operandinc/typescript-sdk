@@ -90,7 +90,7 @@ export type Snippet = {
 
 export type SearchVariantContentsRequest = {
   query: string;
-  parents?: string[];
+  parentIds?: string[];
   max?: number;
   filter?: Filter;
 };
