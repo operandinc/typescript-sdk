@@ -8,6 +8,7 @@ import {
   DeleteObjectResponse,
   SearchVariantContentsRequest,
   SearchVariantContentsResponse,
+  SearchVariantRelatedRequest,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -74,6 +75,20 @@ export class OperandV3 {
     req: SearchVariantContentsRequest
   ): Promise<SearchVariantContentsResponse> {
     const response = await fetch(`${this.endpoint}/v3/search/contents`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as SearchVariantContentsResponse;
+  }
+
+  async searchRelated(
+    req: SearchVariantRelatedRequest
+  ): Promise<SearchVariantContentsResponse> {
+    const response = await fetch(`${this.endpoint}/v3/search/related`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

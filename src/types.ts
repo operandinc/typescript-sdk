@@ -104,6 +104,19 @@ export type SearchVariantContentsResponse = {
   };
 };
 
+export type SearchVariantRelatedRequest = {
+  parentIds?: string[];
+  objectId: string;
+  max?: number;
+  filter?: Filter;
+};
+
+export type SearchVariantRelatedResponse = {
+  id: string;
+  latencyMs: number;
+  objects: Object[];
+};
+
 export type Filter = {
   [key: string]: any;
 };
