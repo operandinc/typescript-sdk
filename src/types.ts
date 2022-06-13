@@ -42,7 +42,7 @@ export type ObjectProperties = {
   [key: string]: any;
 };
 
-export type IndexingStatus = 'indexed' | 'ready';
+export type IndexingStatus = 'indexing' | 'ready';
 
 // Object Endpoints Types
 export type GetObjectRequest = {
