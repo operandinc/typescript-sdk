@@ -17,6 +17,8 @@ export interface Object {
   properties: ObjectProperties;
   // Indexing Status of the object
   indexingStatus: IndexingStatus;
+  // Label of the object, optional.
+  label?: string;
 }
 
 // Type of the object determine the type of the metadata
@@ -70,6 +72,7 @@ export type CreateObjectRequest = {
     | HtmlObjectMetadata
     | MarkdownObjectMetadata;
   properties?: ObjectProperties;
+  label?: string;
 };
 
 export type DeleteObjectRequest = {

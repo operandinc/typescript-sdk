@@ -37,7 +37,16 @@ export class OperandV3 {
     if (!req.limit) {
       req.limit = 100;
     }
-    let url = `${this.endpoint}/v3/objects/?limit=${req.limit}&parent=${req.parentId}&startingAfter=${req.startingAfter}&endingBefore=${req.endingBefore}`;
+    let url = `${this.endpoint}/v3/objects/?limit=${req.limit}`;
+    if (req.parentId) {
+      url += `&parent=${req.parentId}`;
+    }
+    if (req.startingAfter) {
+      url += `&startingAfter=${req.startingAfter}`;
+    }
+    if (req.endingBefore) {
+      url += `&endingBefore=${req.endingBefore}`;
+    }
     const response = await fetch(url, {
       method: 'GET',
       headers: {
