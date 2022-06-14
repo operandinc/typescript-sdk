@@ -37,7 +37,7 @@ export class OperandV3 {
     if (!req.limit) {
       req.limit = 100;
     }
-    let url = `${this.endpoint}/v3/objects/?limit=${req.limit}`;
+    let url = `${this.endpoint}/v3/objects?limit=${req.limit}`;
     if (req.parentId) {
       url += `&parent=${req.parentId}`;
     }
