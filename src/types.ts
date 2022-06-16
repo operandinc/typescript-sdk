@@ -22,7 +22,7 @@ export interface Object {
 }
 
 // Type of the object determine the type of the metadata
-export type ObjectType = 'collection' | 'text' | 'html' | 'markdown';
+export type ObjectType = 'collection' | 'text' | 'html' | 'markdown' | 'pdf';
 
 export type CollectionObjectMetadata = {};
 
@@ -38,6 +38,10 @@ export type HtmlObjectMetadata = {
 export type MarkdownObjectMetadata = {
   markdown: string;
   title?: string;
+};
+
+export type PDFObjectMetadata = {
+  pdfUrl: string;
 };
 
 export type ObjectProperties = {
@@ -70,7 +74,8 @@ export type CreateObjectRequest = {
     | CollectionObjectMetadata
     | TextObjectMetadata
     | HtmlObjectMetadata
-    | MarkdownObjectMetadata;
+    | MarkdownObjectMetadata
+    | PDFObjectMetadata;
   properties?: ObjectProperties;
   label?: string;
 };
