@@ -12,7 +12,9 @@ export interface Object {
     | CollectionObjectMetadata
     | TextObjectMetadata
     | HtmlObjectMetadata
-    | MarkdownObjectMetadata;
+    | MarkdownObjectMetadata
+    | PDFObjectMetadata
+    | ImageObjectMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -22,7 +24,13 @@ export interface Object {
 }
 
 // Type of the object determine the type of the metadata
-export type ObjectType = 'collection' | 'text' | 'html' | 'markdown' | 'pdf';
+export type ObjectType =
+  | 'collection'
+  | 'text'
+  | 'html'
+  | 'markdown'
+  | 'pdf'
+  | 'image';
 
 export type CollectionObjectMetadata = {};
 
@@ -42,6 +50,10 @@ export type MarkdownObjectMetadata = {
 
 export type PDFObjectMetadata = {
   pdfUrl: string;
+};
+
+export type ImageObjectMetadata = {
+  imageUrl: string;
 };
 
 export type ObjectProperties = {
@@ -75,7 +87,8 @@ export type CreateObjectRequest = {
     | TextObjectMetadata
     | HtmlObjectMetadata
     | MarkdownObjectMetadata
-    | PDFObjectMetadata;
+    | PDFObjectMetadata
+    | ImageObjectMetadata;
   properties?: ObjectProperties;
   label?: string;
 };
