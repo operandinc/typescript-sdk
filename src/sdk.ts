@@ -43,7 +43,7 @@ export class OperandV3 {
     }
     let url = `${this.endpoint}/v3/objects?limit=${req.limit}`;
     if (req.parentId) {
-      url += `&parent=${req.parentId}`;
+      url += `&parentId=${req.parentId}`;
     }
     if (req.startingAfter) {
       url += `&startingAfter=${req.startingAfter}`;
