@@ -9,6 +9,10 @@ import {
   SearchVariantContentsRequest,
   SearchVariantContentsResponse,
   SearchVariantRelatedRequest,
+  CompletionVariantAnswerRequest,
+  CompletionVariantAnswerResponse,
+  CompletionVariantTypeAheadResponse,
+  CompletionVariantTypeAheadRequest,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -106,5 +110,33 @@ export class OperandV3 {
       body: JSON.stringify(req),
     });
     return (await response.json()) as SearchVariantContentsResponse;
+  }
+
+  async completionAnswer(
+    req: CompletionVariantAnswerRequest
+  ): Promise<CompletionVariantAnswerResponse> {
+    const response = await fetch(`${this.endpoint}/v3/completion/answer`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as CompletionVariantAnswerResponse;
+  }
+
+  async completionTypeAhead(
+    req: CompletionVariantTypeAheadRequest
+  ): Promise<CompletionVariantTypeAheadResponse> {
+    const response = await fetch(`${this.endpoint}/v3/completion/typeahead`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as CompletionVariantTypeAheadResponse;
   }
 }

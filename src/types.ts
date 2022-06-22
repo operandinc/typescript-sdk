@@ -138,6 +138,33 @@ export type SearchVariantRelatedResponse = {
   objects: Object[];
 };
 
+export type CompletionVariantAnswerRequest = {
+  parentIds?: string[];
+  question: string;
+  filter?: Filter;
+};
+
+export type CompletionVariantAnswerResponse = {
+  id: string;
+  latencyMs: number;
+  answer: string;
+  sources: Object[];
+};
+
+export type CompletionVariantTypeAheadRequest = {
+  parentIds?: string[];
+  text: string;
+  count?: number;
+  filter: Filter;
+};
+
+export type CompletionVariantTypeAheadResponse = {
+  id: string;
+  latencyMs: number;
+  completions: string[];
+  sources: Object[];
+};
+
 export type Filter = {
   [key: string]: any;
 };
