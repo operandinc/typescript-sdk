@@ -31,7 +31,8 @@ export type ObjectType =
   | 'html'
   | 'markdown'
   | 'pdf'
-  | 'image';
+  | 'image'
+  | 'github_repository';
 
 export type CollectionObjectMetadata = {};
 
