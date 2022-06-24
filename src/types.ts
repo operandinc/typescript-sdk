@@ -14,7 +14,8 @@ export interface Object {
     | HtmlObjectMetadata
     | MarkdownObjectMetadata
     | PDFObjectMetadata
-    | ImageObjectMetadata;
+    | ImageObjectMetadata
+    | GitHubRepositoryObjectMeta;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -56,6 +57,14 @@ export type ImageObjectMetadata = {
   imageUrl: string;
 };
 
+export type GitHubRepositoryObjectMeta = {
+  accessToken: string;
+  repoOwner: string;
+  repoName: string;
+  rootPath?: string;
+  rootURL?: string;
+};
+
 export type ObjectProperties = {
   [key: string]: any;
 };
@@ -88,7 +97,8 @@ export type CreateObjectRequest = {
     | HtmlObjectMetadata
     | MarkdownObjectMetadata
     | PDFObjectMetadata
-    | ImageObjectMetadata;
+    | ImageObjectMetadata
+    | GitHubRepositoryObjectMeta;
   properties?: ObjectProperties;
   label?: string;
 };
