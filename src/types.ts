@@ -15,7 +15,8 @@ export interface Object {
     | MarkdownObjectMetadata
     | PDFObjectMetadata
     | ImageObjectMetadata
-    | GitHubRepositoryObjectMeta;
+    | GitHubRepositoryObjectMeta
+    | EpubObjectMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
