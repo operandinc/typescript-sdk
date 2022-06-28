@@ -32,7 +32,8 @@ export type ObjectType =
   | 'markdown'
   | 'pdf'
   | 'image'
-  | 'github_repository';
+  | 'github_repository'
+  | 'epub';
 
 export type CollectionObjectMetadata = {};
 
@@ -64,6 +65,12 @@ export type GitHubRepositoryObjectMeta = {
   repoName: string;
   rootPath?: string;
   rootURL?: string;
+};
+
+export type EpubObjectMetadata = {
+  epubUrl: string;
+  title?: string;
+  language?: string;
 };
 
 export type ObjectProperties = {
