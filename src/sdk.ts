@@ -27,6 +27,9 @@ export class OperandV3 {
 
   async getObject(req: GetObjectRequest): Promise<Object> {
     let endpoint = `${this.endpoint}/v3/objects/${req.id}`;
+    if (req.includeAtomCount && req.includeAtomCount === true) {
+      endpoint += '?count=true';
+    }
     const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
