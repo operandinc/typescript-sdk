@@ -177,7 +177,7 @@ export type CompletionVariantTypeAheadRequest = {
   parentIds?: string[];
   text: string;
   count?: number;
-  filter: Filter;
+  filter?: Filter;
 };
 
 export type CompletionVariantTypeAheadResponse = {
