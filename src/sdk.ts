@@ -13,6 +13,7 @@ import {
   CompletionVariantAnswerResponse,
   CompletionVariantTypeAheadResponse,
   CompletionVariantTypeAheadRequest,
+  SearchVariantRelatedResponse,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -103,7 +104,7 @@ export class OperandV3 {
 
   async searchRelated(
     req: SearchVariantRelatedRequest
-  ): Promise<SearchVariantContentsResponse> {
+  ): Promise<SearchVariantRelatedResponse> {
     const response = await fetch(`${this.endpoint}/v3/search/related`, {
       method: 'POST',
       headers: {
@@ -112,7 +113,7 @@ export class OperandV3 {
       },
       body: JSON.stringify(req),
     });
-    return (await response.json()) as SearchVariantContentsResponse;
+    return (await response.json()) as SearchVariantRelatedResponse;
   }
 
   async completionAnswer(
