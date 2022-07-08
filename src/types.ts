@@ -16,7 +16,8 @@ export interface Object {
     | PDFObjectMetadata
     | ImageObjectMetadata
     | GitHubRepositoryObjectMeta
-    | EpubObjectMetadata;
+    | EpubObjectMetadata
+    | AudioObjectMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -36,7 +37,8 @@ export type ObjectType =
   | 'pdf'
   | 'image'
   | 'github_repository'
-  | 'epub';
+  | 'epub'
+  | 'audio';
 
 export type CollectionObjectMetadata = {};
 
@@ -74,6 +76,11 @@ export type EpubObjectMetadata = {
   epubUrl: string;
   title?: string;
   language?: string;
+};
+
+export type AudioObjectMetadata = {
+  audioUrl: string;
+  gcsUri?: string;
 };
 
 export type ObjectProperties = {
