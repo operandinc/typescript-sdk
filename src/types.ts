@@ -17,7 +17,8 @@ export interface Object {
     | ImageObjectMetadata
     | GitHubRepositoryObjectMeta
     | EpubObjectMetadata
-    | AudioObjectMetadata;
+    | AudioObjectMetadata
+    | RSSObjectMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -38,7 +39,8 @@ export type ObjectType =
   | 'image'
   | 'github_repository'
   | 'epub'
-  | 'audio';
+  | 'audio'
+  | 'rss';
 
 export type CollectionObjectMetadata = {};
 
@@ -83,6 +85,10 @@ export type AudioObjectMetadata = {
   gcsUri?: string;
 };
 
+export type RSSObjectMetadata = {
+  rssUrl: string;
+};
+
 export type ObjectProperties = {
   [key: string]: any;
 };
@@ -117,7 +123,10 @@ export type CreateObjectRequest = {
     | MarkdownObjectMetadata
     | PDFObjectMetadata
     | ImageObjectMetadata
-    | GitHubRepositoryObjectMeta;
+    | GitHubRepositoryObjectMeta
+    | EpubObjectMetadata
+    | AudioObjectMetadata
+    | RSSObjectMetadata;
   properties?: ObjectProperties;
   label?: string;
 };
