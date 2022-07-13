@@ -18,7 +18,8 @@ export interface Object {
     | GitHubRepositoryObjectMeta
     | EpubObjectMetadata
     | AudioObjectMetadata
-    | RSSObjectMetadata;
+    | RSSObjectMetadata
+    | NotionObjectMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -40,7 +41,8 @@ export type ObjectType =
   | 'github_repository'
   | 'epub'
   | 'audio'
-  | 'rss';
+  | 'rss'
+  | 'notion';
 
 export type CollectionObjectMetadata = {};
 
@@ -89,6 +91,10 @@ export type RSSObjectMetadata = {
   rssUrl: string;
 };
 
+export type NotionObjectMetadata = {
+  accessToken: string;
+};
+
 export type ObjectProperties = {
   [key: string]: any;
 };
@@ -126,7 +132,8 @@ export type CreateObjectRequest = {
     | GitHubRepositoryObjectMeta
     | EpubObjectMetadata
     | AudioObjectMetadata
-    | RSSObjectMetadata;
+    | RSSObjectMetadata
+    | NotionObjectMetadata;
   properties?: ObjectProperties;
   label?: string;
 };
