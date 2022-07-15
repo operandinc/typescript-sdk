@@ -32,7 +32,8 @@ export type ObjectType =
   | 'audio'
   | 'rss'
   | 'notion'
-  | 'mbox';
+  | 'mbox'
+  | 'email';
 
 export type ValidMetadata =
   | CollectionObjectMetadata
@@ -46,7 +47,8 @@ export type ValidMetadata =
   | AudioObjectMetadata
   | RSSObjectMetadata
   | NotionObjectMetadata
-  | MBOXObjectMetadata;
+  | MBOXObjectMetadata
+  | EmailObjectMetadata;
 
 export type CollectionObjectMetadata = {};
 
@@ -101,6 +103,14 @@ export type NotionObjectMetadata = {
 
 export type MBOXObjectMetadata = {
   mboxUrl: string;
+};
+
+export type EmailObjectMetadata = {
+  email: string;
+  sent: Date;
+  from: string;
+  subject: string;
+  to: string[];
 };
 
 export type ObjectProperties = {
