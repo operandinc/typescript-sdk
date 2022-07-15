@@ -8,18 +8,7 @@ export interface Object {
   // Type of the object determine the type of the metadata
   type: ObjectType;
   // Metadata of the object derived from the type
-  metadata:
-    | CollectionObjectMetadata
-    | TextObjectMetadata
-    | HtmlObjectMetadata
-    | MarkdownObjectMetadata
-    | PDFObjectMetadata
-    | ImageObjectMetadata
-    | GitHubRepositoryObjectMeta
-    | EpubObjectMetadata
-    | AudioObjectMetadata
-    | RSSObjectMetadata
-    | NotionObjectMetadata;
+  metadata: ValidMetadata;
   // Properties of the object
   properties: ObjectProperties;
   // Indexing Status of the object
@@ -42,7 +31,22 @@ export type ObjectType =
   | 'epub'
   | 'audio'
   | 'rss'
-  | 'notion';
+  | 'notion'
+  | 'mbox';
+
+export type ValidMetadata =
+  | CollectionObjectMetadata
+  | TextObjectMetadata
+  | HtmlObjectMetadata
+  | MarkdownObjectMetadata
+  | PDFObjectMetadata
+  | ImageObjectMetadata
+  | GitHubRepositoryObjectMeta
+  | EpubObjectMetadata
+  | AudioObjectMetadata
+  | RSSObjectMetadata
+  | NotionObjectMetadata
+  | MBOXObjectMetadata;
 
 export type CollectionObjectMetadata = {};
 
@@ -95,6 +99,10 @@ export type NotionObjectMetadata = {
   accessToken: string;
 };
 
+export type MBOXObjectMetadata = {
+  mboxUrl: string;
+};
+
 export type ObjectProperties = {
   [key: string]: any;
 };
@@ -122,18 +130,7 @@ export type ListObjectsResponse = {
 export type CreateObjectRequest = {
   parentId?: string;
   type: ObjectType;
-  metadata:
-    | CollectionObjectMetadata
-    | TextObjectMetadata
-    | HtmlObjectMetadata
-    | MarkdownObjectMetadata
-    | PDFObjectMetadata
-    | ImageObjectMetadata
-    | GitHubRepositoryObjectMeta
-    | EpubObjectMetadata
-    | AudioObjectMetadata
-    | RSSObjectMetadata
-    | NotionObjectMetadata;
+  metadata: ValidMetadata;
   properties?: ObjectProperties;
   label?: string;
 };
