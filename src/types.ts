@@ -47,7 +47,7 @@ export type ValidMetadata =
   | AudioObjectMetadata
   | RSSObjectMetadata
   | NotionObjectMetadata
-  | MBOXObjectMetadata
+  | MboxObjectMetadata
   | EmailObjectMetadata;
 
 export type CollectionObjectMetadata = {};
@@ -101,7 +101,7 @@ export type NotionObjectMetadata = {
   accessToken: string;
 };
 
-export type MBOXObjectMetadata = {
+export type MboxObjectMetadata = {
   mboxUrl: string;
 };
 
