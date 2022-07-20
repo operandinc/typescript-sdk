@@ -33,7 +33,8 @@ export type ObjectType =
   | 'rss'
   | 'notion'
   | 'mbox'
-  | 'email';
+  | 'email'
+  | 'notion_page';
 
 export type ValidMetadata =
   | CollectionObjectMetadata
