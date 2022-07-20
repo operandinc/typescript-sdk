@@ -48,7 +48,8 @@ export type ValidMetadata =
   | RSSObjectMetadata
   | NotionObjectMetadata
   | MboxObjectMetadata
-  | EmailObjectMetadata;
+  | EmailObjectMetadata
+  | NotionPageObjectMetadata;
 
 export type CollectionObjectMetadata = {};
 
@@ -111,6 +112,12 @@ export type EmailObjectMetadata = {
   from: string;
   subject: string;
   to: string[];
+};
+
+export type NotionPageObjectMetadata = {
+  pageId: string;
+  url: string;
+  title?: string;
 };
 
 export type ObjectProperties = {
