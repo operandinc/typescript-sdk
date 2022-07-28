@@ -14,6 +14,8 @@ import {
   CompletionVariantTypeAheadResponse,
   CompletionVariantTypeAheadRequest,
   SearchVariantRelatedResponse,
+  SearchVariantObjectsRequest,
+  SearchVariantObjectsResponse,
 } from './types';
 const fetch = require('node-fetch');
 
