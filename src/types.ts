@@ -185,6 +185,22 @@ export type SearchVariantContentsResponse = {
   };
 };
 
+export type SearchVariantObjectsRequest = {
+  query: string;
+  parentIds?: string[];
+  max?: number;
+  filter?: Filter;
+};
+
+export type SearchVariantObjectsResponse = {
+  id: string;
+  latencyMs: number;
+  results: {
+    snippet: string;
+    object: Object;
+  }[];
+};
+
 export type SearchVariantRelatedRequest = {
   parentIds?: string[];
   objectId: string;

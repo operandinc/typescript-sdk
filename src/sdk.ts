@@ -102,6 +102,20 @@ export class OperandV3 {
     return (await response.json()) as SearchVariantContentsResponse;
   }
 
+  async searchObjects(
+    req: SearchVariantObjectsRequest
+  ): Promise<SearchVariantObjectsResponse> {
+    const response = await fetch(`${this.endpoint}/v3/search/objects`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as SearchVariantObjectsResponse;
+  }
+
   async searchRelated(
     req: SearchVariantRelatedRequest
   ): Promise<SearchVariantRelatedResponse> {
