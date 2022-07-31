@@ -82,6 +82,7 @@ export type GitHubRepositoryObjectMeta = {
   repoName: string;
   rootPath?: string;
   rootURL?: string;
+  ref?: string;
 };
 
 export type EpubObjectMetadata = {
