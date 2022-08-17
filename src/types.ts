@@ -15,8 +15,8 @@ export interface Object {
   indexingStatus: IndexingStatus;
   // Label of the object, optional.
   label?: string;
-  // Atom count of the object and its children, optional.
-  atoms?: number;
+  // Object count of the object and its children, optional.
+  objects?: number;
 }
 
 // Type of the object determine the type of the metadata
@@ -131,7 +131,7 @@ export type IndexingStatus = 'indexing' | 'ready' | 'error';
 // Object Endpoints Types
 export type GetObjectRequest = {
   id: string;
-  includeAtomCount?: boolean;
+  includeObjectCount?: boolean;
 };
 
 export type ListObjectsRequest = {
