@@ -245,3 +245,53 @@ export type CompletionVariantTypeAheadResponse = {
 export type Filter = {
   [key: string]: any;
 };
+
+// Trigger Endpoints Types
+
+export type CallbackKind = 'webhook';
+
+export type WebhookCallbackMetadata = {
+  url: string;
+};
+
+export type ValidCallbackMetadata = WebhookCallbackMetadata;
+
+export type Trigger = {
+  id: string;
+  createdAt: Date;
+  query: string;
+  filter: Filter;
+  matchingThreshold: number;
+  callbackKind: CallbackKind;
+  callbackMetadata: ValidCallbackMetadata;
+};
+
+export type CreateTriggerRequest = {
+  query: string;
+  callbackKind: CallbackKind;
+  callbackMetadata: ValidCallbackMetadata;
+  filter?: Filter;
+  matchingThreshold?: number;
+};
+
+export type ListTriggersRequest = {
+  limit?: number;
+  offset?: number;
+};
+
+export type ListTriggersResponse = {
+  triggers: Trigger[];
+  hasMore: boolean;
+};
+
+export type GetTriggerRequest = {
+  id: string;
+};
+
+export type DeleteTriggerRequest = {
+  id: string;
+};
+
+export type DeleteTriggerResponse = {
+  deleted: boolean;
+};

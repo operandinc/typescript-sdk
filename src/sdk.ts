@@ -16,6 +16,13 @@ import {
   SearchVariantRelatedResponse,
   SearchVariantObjectsRequest,
   SearchVariantObjectsResponse,
+  CreateTriggerRequest,
+  Trigger,
+  ListTriggersRequest,
+  ListTriggersResponse,
+  GetTriggerRequest,
+  DeleteTriggerRequest,
+  DeleteTriggerResponse,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -158,5 +165,61 @@ export class OperandV3 {
       body: JSON.stringify(req),
     });
     return (await response.json()) as CompletionVariantTypeAheadResponse;
+  }
+
+  async createTrigger(req: CreateTriggerRequest): Promise<Trigger> {
+    const response = await fetch(`${this.endpoint}/v3/triggers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as Trigger;
+  }
+
+  async listTriggers(req: ListTriggersRequest): Promise<ListTriggersResponse> {
+    let url = `${this.endpoint}/v3/triggers`;
+    if (req.limit) {
+      url += `?limit=${req.limit}`;
+    } else {
+      url += '?limit=100';
+    }
+    if (req.offset) {
+      url += `&offset=${req.offset}`;
+    }
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as ListTriggersResponse;
+  }
+
+  async getTrigger(req: GetTriggerRequest): Promise<Trigger> {
+    const response = await fetch(`${this.endpoint}/v3/triggers/${req.id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as Trigger;
+  }
+
+  async deleteTrigger(
+    req: DeleteTriggerRequest
+  ): Promise<DeleteTriggerResponse> {
+    const response = await fetch(`${this.endpoint}/v3/triggers/${req.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+    });
+    return (await response.json()) as DeleteTriggerResponse;
   }
 }
