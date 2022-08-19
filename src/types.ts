@@ -264,6 +264,7 @@ export type Trigger = {
   matchingThreshold: number;
   callbackKind: CallbackKind;
   callbackMetadata: ValidCallbackMetadata;
+  lastFired?: Date;
 };
 
 export type CreateTriggerRequest = {
