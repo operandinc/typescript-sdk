@@ -61,6 +61,7 @@ export type TextObjectMetadata = {
 export type HtmlObjectMetadata = {
   html: string;
   title?: string;
+  url?: string;
 };
 
 export type MarkdownObjectMetadata = {
