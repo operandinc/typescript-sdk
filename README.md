@@ -1,6 +1,6 @@
 # Operand SDK
 
-The official Typescript SDK for the [Operand](https://operand.ai) API. If this is your first time using Operand, we recommend going through the [Getting Started Guide(https://docs.operand.ai/start) as well as [signing up for an account](https://operand.ai/auth).
+The official Typescript SDK for the [Operand](https://operand.ai) API. If this is your first time using Operand, we recommend going through the [Getting Started Guide](https://docs.operand.ai/start) as well as [signing up for an account](https://operand.ai/auth).
 
 ## Installation / Usage
 
