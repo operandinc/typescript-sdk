@@ -24,6 +24,7 @@ import {
   DeleteTriggerRequest,
   DeleteTriggerResponse,
   FeedbackRequest,
+  UpdateObjectRequest,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -78,6 +79,18 @@ export class OperandV3 {
   async createObject(req: CreateObjectRequest): Promise<Object> {
     const response = await fetch(`${this.endpoint}/v3/objects`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as Object;
+  }
+
+  async updateObject(id: string, req: UpdateObjectRequest): Promise<Object> {
+    const response = await fetch(`${this.endpoint}/v3/objects/${id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${this.apiKey}`,

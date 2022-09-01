@@ -155,6 +155,14 @@ export type CreateObjectRequest = {
   label?: string;
 };
 
+export type UpdateObjectRequest = {
+  type?: ObjectType;
+  metadata?: ValidMetadata; // Must be supplied if type is supplied, and vice versa.
+  properties?: ObjectProperties;
+  label?: string;
+  lifespan?: number;
+};
+
 export type DeleteObjectRequest = {
   id: string;
 };
