@@ -23,6 +23,7 @@ import {
   GetTriggerRequest,
   DeleteTriggerRequest,
   DeleteTriggerResponse,
+  FeedbackRequest,
 } from './types';
 const fetch = require('node-fetch');
 
@@ -221,5 +222,17 @@ export class OperandV3 {
       },
     });
     return (await response.json()) as DeleteTriggerResponse;
+  }
+
+  async feedback(req: FeedbackRequest): Promise<{}> {
+    const response = await fetch(`${this.endpoint}/v3/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${this.apiKey}`,
+      },
+      body: JSON.stringify(req),
+    });
+    return (await response.json()) as {};
   }
 }

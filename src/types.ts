@@ -297,3 +297,8 @@ export type DeleteTriggerRequest = {
 export type DeleteTriggerResponse = {
   deleted: boolean;
 };
+
+export type FeedbackRequest = {
+  searchId: string;
+  objectId: string;
+};
