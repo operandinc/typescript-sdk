@@ -227,6 +227,7 @@ export type SearchVariantRelatedResponse = {
 export type CompletionVariantAnswerRequest = {
   parentIds?: string[];
   question: string;
+  style?: 'direct' | 'operand';
   filter?: Filter;
 };
 
