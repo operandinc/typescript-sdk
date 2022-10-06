@@ -1,5 +1,5 @@
 {
-  "version": "3.0.39",
+  "version": "4.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,6 +11,7 @@
     "node": ">=10"
   },
   "scripts": {
+    "generate": "buf generate buf.build/operand/engine",
     "start": "tsdx watch",
     "build": "tsdx build --target node --tsconfig ./tsconfig.json",
     "test": "tsdx test",
@@ -31,7 +32,7 @@
     "trailingComma": "es5"
   },
   "name": "@operandinc/sdk",
-  "author": "Donwauchopex",
+  "author": "Operand, Inc.",
   "module": "dist/typescript-sdk.esm.js",
   "size-limit": [
     {
@@ -44,6 +45,8 @@
     }
   ],
   "devDependencies": {
+    "@bufbuild/protoc-gen-connect-web": "^0.2.1",
+    "@bufbuild/protoc-gen-es": "^0.1.1",
     "@size-limit/preset-small-lib": "^7.0.8",
     "husky": "^7.0.4",
     "size-limit": "^7.0.8",
@@ -52,6 +55,7 @@
     "typescript": "^3.9.10"
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "@bufbuild/connect-web": "^0.2.1",
+    "@bufbuild/protobuf": "^0.1.1"
   }
 }

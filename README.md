@@ -1,28 +1,4 @@
 # Operand SDK
 
-The official Typescript SDK for the [Operand](https://operand.ai) API. If this is your first time using Operand, we recommend going through the [Getting Started Guide](https://docs.operand.ai/start) as well as [signing up for an account](https://operand.ai/auth).
-
-## Installation / Usage
-
-To install the SDK, simply install the relevant NPM package:
-
-```bash
-npm install @operandinc/sdk
-```
-
-Then, you can initialize the SDK with the following code:
-
-```typescript
-import { OperandV3 } from "@operandinc/sdk";
-
-const operand = new OperandV3(
-  "<your api key>",
-  "https://prod.operand.ai",
-);
-
-...
-```
-
-## Getting Support
-
-Have any questions / feedback? [Click here](https://docs.operand.ai/start#getting-help).
+The official Typescript SDK for the [Operand](https://operand.ai) API. Currently, this SDK only supports
+web-based clients, i.e. not Node.js servers. The SDK itself is generated against our [public API](https://buf.build/operand/engine). If you're interested in learning more about this API, please visit [the landing page](https://operand.ai/engine).
