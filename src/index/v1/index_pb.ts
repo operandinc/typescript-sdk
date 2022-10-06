@@ -506,9 +506,113 @@ export class SearchResponse_Match extends Message<SearchResponse_Match> {
 }
 
 /**
- * @generated from message index.v1.FeedbackRequest
+ * @generated from message index.v1.AnswerRequest
  */
-export class FeedbackRequest extends Message<FeedbackRequest> {
+export class AnswerRequest extends Message<AnswerRequest> {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query = "";
+
+  /**
+   * @generated from field: repeated string roots = 2;
+   */
+  roots: string[] = [];
+
+  /**
+   * @generated from field: optional string session_id = 3;
+   */
+  sessionId?: string;
+
+  /**
+   * @generated from field: optional index.v1.Filter filter = 4;
+   */
+  filter?: Filter;
+
+  constructor(data?: PartialMessage<AnswerRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.AnswerRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "roots", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "filter", kind: "message", T: Filter, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AnswerRequest | PlainMessage<AnswerRequest> | undefined, b: AnswerRequest | PlainMessage<AnswerRequest> | undefined): boolean {
+    return proto3.util.equals(AnswerRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.AnswerResponse
+ */
+export class AnswerResponse extends Message<AnswerResponse> {
+  /**
+   * @generated from field: string answer_id = 1;
+   */
+  answerId = "";
+
+  /**
+   * @generated from field: string answer = 2;
+   */
+  answer = "";
+
+  /**
+   * @generated from field: float confidence = 3;
+   */
+  confidence = 0;
+
+  constructor(data?: PartialMessage<AnswerResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.AnswerResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AnswerResponse | PlainMessage<AnswerResponse> | undefined, b: AnswerResponse | PlainMessage<AnswerResponse> | undefined): boolean {
+    return proto3.util.equals(AnswerResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.SearchFeedback
+ */
+export class SearchFeedback extends Message<SearchFeedback> {
   /**
    * @generated from field: string search_id = 1;
    */
@@ -519,6 +623,99 @@ export class FeedbackRequest extends Message<FeedbackRequest> {
    */
   clickedMatchId = "";
 
+  constructor(data?: PartialMessage<SearchFeedback>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.SearchFeedback";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "search_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "clicked_match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchFeedback {
+    return new SearchFeedback().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchFeedback {
+    return new SearchFeedback().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchFeedback {
+    return new SearchFeedback().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SearchFeedback | PlainMessage<SearchFeedback> | undefined, b: SearchFeedback | PlainMessage<SearchFeedback> | undefined): boolean {
+    return proto3.util.equals(SearchFeedback, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.AnswerFeedback
+ */
+export class AnswerFeedback extends Message<AnswerFeedback> {
+  /**
+   * @generated from field: string answer_id = 1;
+   */
+  answerId = "";
+
+  /**
+   * @generated from field: bool positive_reaction = 2;
+   */
+  positiveReaction = false;
+
+  constructor(data?: PartialMessage<AnswerFeedback>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.AnswerFeedback";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "positive_reaction", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerFeedback {
+    return new AnswerFeedback().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AnswerFeedback {
+    return new AnswerFeedback().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AnswerFeedback {
+    return new AnswerFeedback().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AnswerFeedback | PlainMessage<AnswerFeedback> | undefined, b: AnswerFeedback | PlainMessage<AnswerFeedback> | undefined): boolean {
+    return proto3.util.equals(AnswerFeedback, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.FeedbackRequest
+ */
+export class FeedbackRequest extends Message<FeedbackRequest> {
+  /**
+   * @generated from oneof index.v1.FeedbackRequest.feedback
+   */
+  feedback: {
+    /**
+     * @generated from field: index.v1.SearchFeedback search = 1;
+     */
+    value: SearchFeedback;
+    case: "search";
+  } | {
+    /**
+     * @generated from field: index.v1.AnswerFeedback answer = 2;
+     */
+    value: AnswerFeedback;
+    case: "answer";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
   constructor(data?: PartialMessage<FeedbackRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -527,8 +724,8 @@ export class FeedbackRequest extends Message<FeedbackRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "index.v1.FeedbackRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "search_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "clicked_match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "search", kind: "message", T: SearchFeedback, oneof: "feedback" },
+    { no: 2, name: "answer", kind: "message", T: AnswerFeedback, oneof: "feedback" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeedbackRequest {
@@ -718,11 +915,6 @@ export class HTMLObjectMetadata extends Message<HTMLObjectMetadata> {
    */
   url?: string;
 
-  /**
-   * @generated from field: optional string title = 3;
-   */
-  title?: string;
-
   constructor(data?: PartialMessage<HTMLObjectMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -733,7 +925,6 @@ export class HTMLObjectMetadata extends Message<HTMLObjectMetadata> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "html", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): HTMLObjectMetadata {

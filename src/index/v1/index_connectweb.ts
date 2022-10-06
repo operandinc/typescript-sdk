@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
+import {AnswerRequest, AnswerResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -58,6 +58,19 @@ export const IndexService = {
       name: "Search",
       I: SearchRequest,
       O: SearchResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Answer optionally returns an answer to a natural language question.
+     * Along with the answer, we return a confidence level which should be checked
+     * against a threshold before displaying the answer to the user.
+     *
+     * @generated from rpc index.v1.IndexService.Answer
+     */
+    answer: {
+      name: "Answer",
+      I: AnswerRequest,
+      O: AnswerResponse,
       kind: MethodKind.Unary,
     },
     /**

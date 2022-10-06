@@ -139,13 +139,60 @@ export const SearchResponse_Match = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message index.v1.AnswerRequest
+ */
+export const AnswerRequest = proto3.makeMessageType(
+  "index.v1.AnswerRequest",
+  () => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "roots", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 3, name: "session_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "filter", kind: "message", T: Filter, opt: true },
+  ],
+);
+
+/**
+ * @generated from message index.v1.AnswerResponse
+ */
+export const AnswerResponse = proto3.makeMessageType(
+  "index.v1.AnswerResponse",
+  () => [
+    { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.SearchFeedback
+ */
+export const SearchFeedback = proto3.makeMessageType(
+  "index.v1.SearchFeedback",
+  () => [
+    { no: 1, name: "search_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "clicked_match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.AnswerFeedback
+ */
+export const AnswerFeedback = proto3.makeMessageType(
+  "index.v1.AnswerFeedback",
+  () => [
+    { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "positive_reaction", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
  * @generated from message index.v1.FeedbackRequest
  */
 export const FeedbackRequest = proto3.makeMessageType(
   "index.v1.FeedbackRequest",
   () => [
-    { no: 1, name: "search_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "clicked_match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "search", kind: "message", T: SearchFeedback, oneof: "feedback" },
+    { no: 2, name: "answer", kind: "message", T: AnswerFeedback, oneof: "feedback" },
   ],
 );
 
@@ -195,7 +242,6 @@ export const HTMLObjectMetadata = proto3.makeMessageType(
   () => [
     { no: 1, name: "html", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 

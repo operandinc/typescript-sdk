@@ -23,10 +23,11 @@ function createHeaderInterceptor(headers: {
 
 export function operandClient<T extends ServiceType>(
   service: T,
-  apiKey: string
+  apiKey: string,
+  endpoint?: string
 ): PromiseClient<T> {
   const transport = createConnectTransport({
-    baseUrl: 'https://engine.operand.ai',
+    baseUrl: endpoint || 'https://engine.operand.ai',
     interceptors: [createHeaderInterceptor({ Authorization: apiKey })],
   });
   return createPromiseClient(service, transport);
