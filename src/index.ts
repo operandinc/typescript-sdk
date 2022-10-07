@@ -19,7 +19,7 @@ import type {
 function createHeaderInterceptor(headers: {
   [key: string]: string | null;
 }): Interceptor {
-  return next => async req => {
+  return (next) => async (req) => {
     if (headers) {
       for (const [key, value] of Object.entries(headers)) {
         if (!req.header.has(key) && value) {
@@ -167,5 +167,5 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
 //   }) as NodeJSClient<T>;
 // }
 
-export * from './index/v1/index_connectweb';
-export * from './index/v1/index_pb';
+export * from './index/v1/index_connectweb.js';
+export * from './index/v1/index_pb.js';
