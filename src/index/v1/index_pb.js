@@ -66,6 +66,7 @@ export const ListObjectsRequest = proto3.makeMessageType(
     { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "cursor", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 4, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -96,6 +97,27 @@ export const DeleteObjectRequest = proto3.makeMessageType(
 export const DeleteObjectResponse = proto3.makeMessageType(
   "index.v1.DeleteObjectResponse",
   [],
+);
+
+/**
+ * @generated from message index.v1.CountObjectsRequest
+ */
+export const CountObjectsRequest = proto3.makeMessageType(
+  "index.v1.CountObjectsRequest",
+  () => [
+    { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message index.v1.CountObjectsResponse
+ */
+export const CountObjectsResponse = proto3.makeMessageType(
+  "index.v1.CountObjectsResponse",
+  () => [
+    { no: 1, name: "count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
 );
 
 /**

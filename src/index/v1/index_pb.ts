@@ -199,6 +199,15 @@ export class ListObjectsRequest extends Message<ListObjectsRequest> {
    */
   limit?: number;
 
+  /**
+   * If specified, we'll only return objects that have this label.
+   * Note: Labels aren't required to be unique, so it is up to the
+   * application to account for this.
+   *
+   * @generated from field: optional string label = 4;
+   */
+  label?: string;
+
   constructor(data?: PartialMessage<ListObjectsRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -210,6 +219,7 @@ export class ListObjectsRequest extends Message<ListObjectsRequest> {
     { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "cursor", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 4, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListObjectsRequest {
@@ -337,6 +347,88 @@ export class DeleteObjectResponse extends Message<DeleteObjectResponse> {
 
   static equals(a: DeleteObjectResponse | PlainMessage<DeleteObjectResponse> | undefined, b: DeleteObjectResponse | PlainMessage<DeleteObjectResponse> | undefined): boolean {
     return proto3.util.equals(DeleteObjectResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.CountObjectsRequest
+ */
+export class CountObjectsRequest extends Message<CountObjectsRequest> {
+  /**
+   * @generated from field: optional string parent_id = 1;
+   */
+  parentId?: string;
+
+  /**
+   * Same behavior as ListObjectsRequest.label.
+   *
+   * @generated from field: optional string label = 2;
+   */
+  label?: string;
+
+  constructor(data?: PartialMessage<CountObjectsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.CountObjectsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CountObjectsRequest {
+    return new CountObjectsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CountObjectsRequest {
+    return new CountObjectsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CountObjectsRequest {
+    return new CountObjectsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CountObjectsRequest | PlainMessage<CountObjectsRequest> | undefined, b: CountObjectsRequest | PlainMessage<CountObjectsRequest> | undefined): boolean {
+    return proto3.util.equals(CountObjectsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.CountObjectsResponse
+ */
+export class CountObjectsResponse extends Message<CountObjectsResponse> {
+  /**
+   * @generated from field: int32 count = 1;
+   */
+  count = 0;
+
+  constructor(data?: PartialMessage<CountObjectsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.CountObjectsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CountObjectsResponse {
+    return new CountObjectsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CountObjectsResponse {
+    return new CountObjectsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CountObjectsResponse {
+    return new CountObjectsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CountObjectsResponse | PlainMessage<CountObjectsResponse> | undefined, b: CountObjectsResponse | PlainMessage<CountObjectsResponse> | undefined): boolean {
+    return proto3.util.equals(CountObjectsResponse, a, b);
   }
 }
 

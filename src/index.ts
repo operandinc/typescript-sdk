@@ -15,6 +15,7 @@ import type {
   PartialMessage,
   ServiceType,
 } from '@bufbuild/protobuf';
+import fetch from 'cross-fetch';
 
 function createHeaderInterceptor(headers: {
   [key: string]: string | null;
@@ -55,6 +56,10 @@ function hasFetchApi(): boolean {
   }
 }
 
+function createRequestBody<T extends Message<T>>(message: T): BodyInit {
+  return message.toJsonString();
+}
+
 function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
   return {
     async unary<
@@ -75,7 +80,9 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
           'Content-Type': 'application/json',
           Authorization: apiKey,
         },
-        body: JSON.stringify(message),
+        body: createRequestBody(
+          message instanceof method.I ? message : new method.I(message)
+        ),
       });
       if (!response.ok) {
         return Promise.reject(new Error(response.statusText));
@@ -100,72 +107,6 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
   };
 }
 
-// If the above jank code doesn't work, we can try getting this to work:
-// declare type NodeJSClient<T extends ServiceType> = {
-//   [P in keyof T['methods']]: T['methods'][P] extends MethodInfoUnary<
-//     infer I,
-//     infer O
-//   >
-//     ? (request: PartialMessage<I>) => Promise<O>
-//     : never;
-// };
-
-// type AnyClient = Record<string, AnyClientMethod>;
-
-// declare type AnyClientMethod = (...args: any[]) => any;
-
-// function makeAnyClient(
-//   service: ServiceType,
-//   createMethod: (method: MethodInfo) => AnyClientMethod | null
-// ): AnyClient {
-//   const client: AnyClient = {};
-//   for (const [localName, methodInfo] of Object.entries(service.methods)) {
-//     const method = createMethod(methodInfo);
-//     if (method != null) {
-//       client[localName] = method;
-//     }
-//   }
-//   return client;
-// }
-
-// function makeUnaryFunc(
-//   endpoint: string,
-//   method: MethodInfo,
-//   apiKey: string
-// ): AnyClientMethod {
-//   return async (request: any) => {
-//     let url = endpoint + '/' + method.name;
-//     const response = await fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: apiKey,
-//       },
-//       body: JSON.stringify(request),
-//     });
-//     if (!response.ok) {
-//       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-//     }
-//     return await response.json();
-//   };
-// }
-
-// // This is a workaround for node-js clients that don't support connect-web.
-// export function nodejsClient<T extends ServiceType>(
-//   service: T,
-//   apiKey: string,
-//   endpoint?: string
-// ): NodeJSClient<T> {
-//   endpoint = endpoint || 'https://engine.operand.ai';
-//   endpoint += '/' + service.typeName;
-
-//   return makeAnyClient(service, method => {
-//     if (method.kind === MethodKind.Unary) {
-//       return makeUnaryFunc(endpoint!, method, apiKey);
-//     }
-//     return null;
-//   }) as NodeJSClient<T>;
-// }
-
 export * from './index/v1/index_connectweb.js';
 export * from './index/v1/index_pb.js';
+export type { PartialMessage } from '@bufbuild/protobuf'; // Re-export for convenience.

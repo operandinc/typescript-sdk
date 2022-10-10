@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AnswerRequest, AnswerResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
+import {AnswerRequest, AnswerResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -46,6 +46,18 @@ export const IndexService = {
       name: "DeleteObject",
       I: DeleteObjectRequest,
       O: DeleteObjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * CountObjects counts the number of objects within the index,
+     * at a given level in the tree (i.e. given parent, possibly nil).
+     *
+     * @generated from rpc index.v1.IndexService.CountObjects
+     */
+    countObjects: {
+      name: "CountObjects",
+      I: CountObjectsRequest,
+      O: CountObjectsResponse,
       kind: MethodKind.Unary,
     },
     /**
