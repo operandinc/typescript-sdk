@@ -29,6 +29,16 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_HTML = 3;
    */
   HTML = 3,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_IMAGE = 4;
+   */
+  IMAGE = 4,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_PDF = 5;
+   */
+  PDF = 5,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "index.v1.ObjectType", [
@@ -36,6 +46,8 @@ proto3.util.setEnumType(ObjectType, "index.v1.ObjectType", [
   { no: 1, name: "OBJECT_TYPE_COLLECTION" },
   { no: 2, name: "OBJECT_TYPE_TEXT" },
   { no: 3, name: "OBJECT_TYPE_HTML" },
+  { no: 4, name: "OBJECT_TYPE_IMAGE" },
+  { no: 5, name: "OBJECT_TYPE_PDF" },
 ]);
 
 /**
@@ -323,6 +335,11 @@ export class DeleteObjectRequest extends Message<DeleteObjectRequest> {
  * @generated from message index.v1.DeleteObjectResponse
  */
 export class DeleteObjectResponse extends Message<DeleteObjectResponse> {
+  /**
+   * @generated from field: int32 deleted = 1;
+   */
+  deleted = 0;
+
   constructor(data?: PartialMessage<DeleteObjectResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -331,6 +348,7 @@ export class DeleteObjectResponse extends Message<DeleteObjectResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "index.v1.DeleteObjectResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "deleted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteObjectResponse {
@@ -347,6 +365,88 @@ export class DeleteObjectResponse extends Message<DeleteObjectResponse> {
 
   static equals(a: DeleteObjectResponse | PlainMessage<DeleteObjectResponse> | undefined, b: DeleteObjectResponse | PlainMessage<DeleteObjectResponse> | undefined): boolean {
     return proto3.util.equals(DeleteObjectResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.BulkDeleteObjectsRequest
+ */
+export class BulkDeleteObjectsRequest extends Message<BulkDeleteObjectsRequest> {
+  /**
+   * Only affect objects with this parent.
+   * If unspecified, will default to the root, i.e.
+   * objects with no parent.
+   *
+   * @generated from field: optional string parent_id = 1;
+   */
+  parentId?: string;
+
+  /**
+   * Label can be an exact match, or use '%' as a wildcard.
+   * For example, 'foo%' will match all labels that start with 'foo'.
+   * This is case sensitive.
+   *
+   * @generated from field: string label = 2;
+   */
+  label = "";
+
+  constructor(data?: PartialMessage<BulkDeleteObjectsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.BulkDeleteObjectsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkDeleteObjectsRequest {
+    return new BulkDeleteObjectsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkDeleteObjectsRequest {
+    return new BulkDeleteObjectsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkDeleteObjectsRequest {
+    return new BulkDeleteObjectsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkDeleteObjectsRequest | PlainMessage<BulkDeleteObjectsRequest> | undefined, b: BulkDeleteObjectsRequest | PlainMessage<BulkDeleteObjectsRequest> | undefined): boolean {
+    return proto3.util.equals(BulkDeleteObjectsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.BulkDeleteObjectsResponse
+ */
+export class BulkDeleteObjectsResponse extends Message<BulkDeleteObjectsResponse> {
+  constructor(data?: PartialMessage<BulkDeleteObjectsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.BulkDeleteObjectsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkDeleteObjectsResponse {
+    return new BulkDeleteObjectsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkDeleteObjectsResponse {
+    return new BulkDeleteObjectsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkDeleteObjectsResponse {
+    return new BulkDeleteObjectsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkDeleteObjectsResponse | PlainMessage<BulkDeleteObjectsResponse> | undefined, b: BulkDeleteObjectsResponse | PlainMessage<BulkDeleteObjectsResponse> | undefined): boolean {
+    return proto3.util.equals(BulkDeleteObjectsResponse, a, b);
   }
 }
 
@@ -893,6 +993,18 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: HTMLObjectMetadata;
     case: "html";
+  } | {
+    /**
+     * @generated from field: index.v1.ImageObjectMetadata image = 4;
+     */
+    value: ImageObjectMetadata;
+    case: "image";
+  } | {
+    /**
+     * @generated from field: index.v1.PDFObjectMetadata pdf = 5;
+     */
+    value: PDFObjectMetadata;
+    case: "pdf";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -906,6 +1018,8 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 1, name: "collection", kind: "message", T: CollectionObjectMetadata, oneof: "metadata" },
     { no: 2, name: "text", kind: "message", T: TextObjectMetadata, oneof: "metadata" },
     { no: 3, name: "html", kind: "message", T: HTMLObjectMetadata, oneof: "metadata" },
+    { no: 4, name: "image", kind: "message", T: ImageObjectMetadata, oneof: "metadata" },
+    { no: 5, name: "pdf", kind: "message", T: PDFObjectMetadata, oneof: "metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -1033,6 +1147,88 @@ export class HTMLObjectMetadata extends Message<HTMLObjectMetadata> {
 
   static equals(a: HTMLObjectMetadata | PlainMessage<HTMLObjectMetadata> | undefined, b: HTMLObjectMetadata | PlainMessage<HTMLObjectMetadata> | undefined): boolean {
     return proto3.util.equals(HTMLObjectMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.ImageObjectMetadata
+ */
+export class ImageObjectMetadata extends Message<ImageObjectMetadata> {
+  /**
+   * Supports: JPEG/JPG, PNG.
+   *
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  /**
+   * @generated from field: optional string alt = 2;
+   */
+  alt?: string;
+
+  constructor(data?: PartialMessage<ImageObjectMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.ImageObjectMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "alt", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImageObjectMetadata {
+    return new ImageObjectMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ImageObjectMetadata {
+    return new ImageObjectMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ImageObjectMetadata {
+    return new ImageObjectMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ImageObjectMetadata | PlainMessage<ImageObjectMetadata> | undefined, b: ImageObjectMetadata | PlainMessage<ImageObjectMetadata> | undefined): boolean {
+    return proto3.util.equals(ImageObjectMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.PDFObjectMetadata
+ */
+export class PDFObjectMetadata extends Message<PDFObjectMetadata> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<PDFObjectMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.PDFObjectMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PDFObjectMetadata {
+    return new PDFObjectMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PDFObjectMetadata {
+    return new PDFObjectMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PDFObjectMetadata {
+    return new PDFObjectMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PDFObjectMetadata | PlainMessage<PDFObjectMetadata> | undefined, b: PDFObjectMetadata | PlainMessage<PDFObjectMetadata> | undefined): boolean {
+    return proto3.util.equals(PDFObjectMetadata, a, b);
   }
 }
 

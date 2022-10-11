@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AnswerRequest, AnswerResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
+import {AnswerRequest, AnswerResponse, BulkDeleteObjectsRequest, BulkDeleteObjectsResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -46,6 +46,18 @@ export const IndexService = {
       name: "DeleteObject",
       I: DeleteObjectRequest,
       O: DeleteObjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * BulkDeleteObjects deletes multiple objects, and all of their children.
+     * This is a big operation, so it is done in the background and returns instantly.
+     *
+     * @generated from rpc index.v1.IndexService.BulkDeleteObjects
+     */
+    bulkDeleteObjects: {
+      name: "BulkDeleteObjects",
+      I: BulkDeleteObjectsRequest,
+      O: BulkDeleteObjectsResponse,
       kind: MethodKind.Unary,
     },
     /**

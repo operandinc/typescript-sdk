@@ -15,6 +15,8 @@ export const ObjectType = proto3.makeEnum(
     {no: 1, name: "OBJECT_TYPE_COLLECTION", localName: "COLLECTION"},
     {no: 2, name: "OBJECT_TYPE_TEXT", localName: "TEXT"},
     {no: 3, name: "OBJECT_TYPE_HTML", localName: "HTML"},
+    {no: 4, name: "OBJECT_TYPE_IMAGE", localName: "IMAGE"},
+    {no: 5, name: "OBJECT_TYPE_PDF", localName: "PDF"},
   ],
 );
 
@@ -96,6 +98,27 @@ export const DeleteObjectRequest = proto3.makeMessageType(
  */
 export const DeleteObjectResponse = proto3.makeMessageType(
   "index.v1.DeleteObjectResponse",
+  () => [
+    { no: 1, name: "deleted", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.BulkDeleteObjectsRequest
+ */
+export const BulkDeleteObjectsRequest = proto3.makeMessageType(
+  "index.v1.BulkDeleteObjectsRequest",
+  () => [
+    { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.BulkDeleteObjectsResponse
+ */
+export const BulkDeleteObjectsResponse = proto3.makeMessageType(
+  "index.v1.BulkDeleteObjectsResponse",
   [],
 );
 
@@ -235,6 +258,8 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 1, name: "collection", kind: "message", T: CollectionObjectMetadata, oneof: "metadata" },
     { no: 2, name: "text", kind: "message", T: TextObjectMetadata, oneof: "metadata" },
     { no: 3, name: "html", kind: "message", T: HTMLObjectMetadata, oneof: "metadata" },
+    { no: 4, name: "image", kind: "message", T: ImageObjectMetadata, oneof: "metadata" },
+    { no: 5, name: "pdf", kind: "message", T: PDFObjectMetadata, oneof: "metadata" },
   ],
 );
 
@@ -264,6 +289,27 @@ export const HTMLObjectMetadata = proto3.makeMessageType(
   () => [
     { no: 1, name: "html", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message index.v1.ImageObjectMetadata
+ */
+export const ImageObjectMetadata = proto3.makeMessageType(
+  "index.v1.ImageObjectMetadata",
+  () => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "alt", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message index.v1.PDFObjectMetadata
+ */
+export const PDFObjectMetadata = proto3.makeMessageType(
+  "index.v1.PDFObjectMetadata",
+  () => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
