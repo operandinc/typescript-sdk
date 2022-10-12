@@ -39,6 +39,16 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_PDF = 5;
    */
   PDF = 5,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_AUDIO = 6;
+   */
+  AUDIO = 6,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_SLACK = 7;
+   */
+  SLACK = 7,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "index.v1.ObjectType", [
@@ -48,6 +58,8 @@ proto3.util.setEnumType(ObjectType, "index.v1.ObjectType", [
   { no: 3, name: "OBJECT_TYPE_HTML" },
   { no: 4, name: "OBJECT_TYPE_IMAGE" },
   { no: 5, name: "OBJECT_TYPE_PDF" },
+  { no: 6, name: "OBJECT_TYPE_AUDIO" },
+  { no: 7, name: "OBJECT_TYPE_SLACK" },
 ]);
 
 /**
@@ -666,6 +678,11 @@ export class SearchResponse_Match extends Message<SearchResponse_Match> {
    */
   score = 0;
 
+  /**
+   * @generated from field: optional index.v1.Properties extra = 5;
+   */
+  extra?: Properties;
+
   constructor(data?: PartialMessage<SearchResponse_Match>) {
     super();
     proto3.util.initPartial(data, this);
@@ -678,6 +695,7 @@ export class SearchResponse_Match extends Message<SearchResponse_Match> {
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 5, name: "extra", kind: "message", T: Properties, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResponse_Match {
@@ -1005,6 +1023,20 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: PDFObjectMetadata;
     case: "pdf";
+  } | {
+    /**
+     * @generated from field: index.v1.AudioObjectMetadata audio = 6;
+     */
+    value: AudioObjectMetadata;
+    case: "audio";
+  } | {
+    /**
+     * alpha -- do not use
+     *
+     * @generated from field: index.v1.SlackObjectMetadata slack = 7;
+     */
+    value: SlackObjectMetadata;
+    case: "slack";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -1020,6 +1052,8 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 3, name: "html", kind: "message", T: HTMLObjectMetadata, oneof: "metadata" },
     { no: 4, name: "image", kind: "message", T: ImageObjectMetadata, oneof: "metadata" },
     { no: 5, name: "pdf", kind: "message", T: PDFObjectMetadata, oneof: "metadata" },
+    { no: 6, name: "audio", kind: "message", T: AudioObjectMetadata, oneof: "metadata" },
+    { no: 7, name: "slack", kind: "message", T: SlackObjectMetadata, oneof: "metadata" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -1229,6 +1263,86 @@ export class PDFObjectMetadata extends Message<PDFObjectMetadata> {
 
   static equals(a: PDFObjectMetadata | PlainMessage<PDFObjectMetadata> | undefined, b: PDFObjectMetadata | PlainMessage<PDFObjectMetadata> | undefined): boolean {
     return proto3.util.equals(PDFObjectMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.AudioObjectMetadata
+ */
+export class AudioObjectMetadata extends Message<AudioObjectMetadata> {
+  /**
+   * @generated from field: string url = 1;
+   */
+  url = "";
+
+  constructor(data?: PartialMessage<AudioObjectMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.AudioObjectMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AudioObjectMetadata {
+    return new AudioObjectMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AudioObjectMetadata {
+    return new AudioObjectMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AudioObjectMetadata {
+    return new AudioObjectMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AudioObjectMetadata | PlainMessage<AudioObjectMetadata> | undefined, b: AudioObjectMetadata | PlainMessage<AudioObjectMetadata> | undefined): boolean {
+    return proto3.util.equals(AudioObjectMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.SlackObjectMetadata
+ */
+export class SlackObjectMetadata extends Message<SlackObjectMetadata> {
+  /**
+   * @generated from field: string bot_token = 1;
+   */
+  botToken = "";
+
+  /**
+   * @generated from field: optional string app_token = 2;
+   */
+  appToken?: string;
+
+  constructor(data?: PartialMessage<SlackObjectMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.SlackObjectMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "app_token", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlackObjectMetadata {
+    return new SlackObjectMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SlackObjectMetadata {
+    return new SlackObjectMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SlackObjectMetadata {
+    return new SlackObjectMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SlackObjectMetadata | PlainMessage<SlackObjectMetadata> | undefined, b: SlackObjectMetadata | PlainMessage<SlackObjectMetadata> | undefined): boolean {
+    return proto3.util.equals(SlackObjectMetadata, a, b);
   }
 }
 

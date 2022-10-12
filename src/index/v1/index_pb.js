@@ -17,6 +17,8 @@ export const ObjectType = proto3.makeEnum(
     {no: 3, name: "OBJECT_TYPE_HTML", localName: "HTML"},
     {no: 4, name: "OBJECT_TYPE_IMAGE", localName: "IMAGE"},
     {no: 5, name: "OBJECT_TYPE_PDF", localName: "PDF"},
+    {no: 6, name: "OBJECT_TYPE_AUDIO", localName: "AUDIO"},
+    {no: 7, name: "OBJECT_TYPE_SLACK", localName: "SLACK"},
   ],
 );
 
@@ -179,6 +181,7 @@ export const SearchResponse_Match = proto3.makeMessageType(
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 5, name: "extra", kind: "message", T: Properties, opt: true },
   ],
   {localName: "SearchResponse_Match"},
 );
@@ -260,6 +263,8 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 3, name: "html", kind: "message", T: HTMLObjectMetadata, oneof: "metadata" },
     { no: 4, name: "image", kind: "message", T: ImageObjectMetadata, oneof: "metadata" },
     { no: 5, name: "pdf", kind: "message", T: PDFObjectMetadata, oneof: "metadata" },
+    { no: 6, name: "audio", kind: "message", T: AudioObjectMetadata, oneof: "metadata" },
+    { no: 7, name: "slack", kind: "message", T: SlackObjectMetadata, oneof: "metadata" },
   ],
 );
 
@@ -310,6 +315,27 @@ export const PDFObjectMetadata = proto3.makeMessageType(
   "index.v1.PDFObjectMetadata",
   () => [
     { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.AudioObjectMetadata
+ */
+export const AudioObjectMetadata = proto3.makeMessageType(
+  "index.v1.AudioObjectMetadata",
+  () => [
+    { no: 1, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.SlackObjectMetadata
+ */
+export const SlackObjectMetadata = proto3.makeMessageType(
+  "index.v1.SlackObjectMetadata",
+  () => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "app_token", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
