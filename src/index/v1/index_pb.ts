@@ -46,6 +46,16 @@ export enum ObjectType {
   AUDIO = 6,
 
   /**
+   * Slack is a unique object type, which requires some additional work
+   * on the client side to get working. First off, when the object is first
+   * created, we'll do a fetch of all the messages that we have access to,
+   * i.e. all the channels that we've been added to. Following this, we await
+   * webhook events from Slack, sent via the Webhook API method of this service.
+   * We expect the client to essentially reverse proxy certain slack webhooks to
+   * the correct object ID, which we'll then use to update the object. Specifically,
+   * we support webhooks when we're added to a new channel, and when a new message
+   * is posted to a channel we're part of.
+   *
    * @generated from enum value: OBJECT_TYPE_SLACK = 7;
    */
   SLACK = 7,
@@ -307,6 +317,86 @@ export class ListObjectsResponse extends Message<ListObjectsResponse> {
 }
 
 /**
+ * @generated from message index.v1.GetObjectsRequest
+ */
+export class GetObjectsRequest extends Message<GetObjectsRequest> {
+  /**
+   * @generated from field: repeated string object_ids = 1;
+   */
+  objectIds: string[] = [];
+
+  constructor(data?: PartialMessage<GetObjectsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.GetObjectsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "object_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetObjectsRequest {
+    return new GetObjectsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetObjectsRequest {
+    return new GetObjectsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetObjectsRequest {
+    return new GetObjectsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetObjectsRequest | PlainMessage<GetObjectsRequest> | undefined, b: GetObjectsRequest | PlainMessage<GetObjectsRequest> | undefined): boolean {
+    return proto3.util.equals(GetObjectsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.GetObjectsResponse
+ */
+export class GetObjectsResponse extends Message<GetObjectsResponse> {
+  /**
+   * @generated from field: map<string, index.v1.Object> objects = 1;
+   */
+  objects: { [key: string]: Object$ } = {};
+
+  /**
+   * @generated from field: repeated string missing = 2;
+   */
+  missing: string[] = [];
+
+  constructor(data?: PartialMessage<GetObjectsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.GetObjectsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
+    { no: 2, name: "missing", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetObjectsResponse {
+    return new GetObjectsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetObjectsResponse {
+    return new GetObjectsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetObjectsResponse {
+    return new GetObjectsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetObjectsResponse | PlainMessage<GetObjectsResponse> | undefined, b: GetObjectsResponse | PlainMessage<GetObjectsResponse> | undefined): boolean {
+    return proto3.util.equals(GetObjectsResponse, a, b);
+  }
+}
+
+/**
  * @generated from message index.v1.DeleteObjectRequest
  */
 export class DeleteObjectRequest extends Message<DeleteObjectRequest> {
@@ -541,6 +631,92 @@ export class CountObjectsResponse extends Message<CountObjectsResponse> {
 
   static equals(a: CountObjectsResponse | PlainMessage<CountObjectsResponse> | undefined, b: CountObjectsResponse | PlainMessage<CountObjectsResponse> | undefined): boolean {
     return proto3.util.equals(CountObjectsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.WebhookRequest
+ */
+export class WebhookRequest extends Message<WebhookRequest> {
+  /**
+   * @generated from field: string object_id = 1;
+   */
+  objectId = "";
+
+  /**
+   * @generated from field: string operation = 2;
+   */
+  operation = "";
+
+  /**
+   * @generated from field: bytes body = 3;
+   */
+  body = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<WebhookRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.WebhookRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "operation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WebhookRequest {
+    return new WebhookRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WebhookRequest {
+    return new WebhookRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WebhookRequest {
+    return new WebhookRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WebhookRequest | PlainMessage<WebhookRequest> | undefined, b: WebhookRequest | PlainMessage<WebhookRequest> | undefined): boolean {
+    return proto3.util.equals(WebhookRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.WebhookResponse
+ */
+export class WebhookResponse extends Message<WebhookResponse> {
+  /**
+   * @generated from field: bytes body = 1;
+   */
+  body = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<WebhookResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.WebhookResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): WebhookResponse {
+    return new WebhookResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): WebhookResponse {
+    return new WebhookResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): WebhookResponse {
+    return new WebhookResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: WebhookResponse | PlainMessage<WebhookResponse> | undefined, b: WebhookResponse | PlainMessage<WebhookResponse> | undefined): boolean {
+    return proto3.util.equals(WebhookResponse, a, b);
   }
 }
 
@@ -1031,8 +1207,6 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     case: "audio";
   } | {
     /**
-     * alpha -- do not use
-     *
      * @generated from field: index.v1.SlackObjectMetadata slack = 7;
      */
     value: SlackObjectMetadata;
@@ -1313,9 +1487,11 @@ export class SlackObjectMetadata extends Message<SlackObjectMetadata> {
   botToken = "";
 
   /**
-   * @generated from field: optional string app_token = 2;
+   * Will be set automatically if omitted.
+   *
+   * @generated from field: optional string bot_user_id = 2;
    */
-  appToken?: string;
+  botUserId?: string;
 
   constructor(data?: PartialMessage<SlackObjectMetadata>) {
     super();
@@ -1326,7 +1502,7 @@ export class SlackObjectMetadata extends Message<SlackObjectMetadata> {
   static readonly typeName = "index.v1.SlackObjectMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "app_token", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "bot_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlackObjectMetadata {

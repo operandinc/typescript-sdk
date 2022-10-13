@@ -86,6 +86,27 @@ export const ListObjectsResponse = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message index.v1.GetObjectsRequest
+ */
+export const GetObjectsRequest = proto3.makeMessageType(
+  "index.v1.GetObjectsRequest",
+  () => [
+    { no: 1, name: "object_ids", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message index.v1.GetObjectsResponse
+ */
+export const GetObjectsResponse = proto3.makeMessageType(
+  "index.v1.GetObjectsResponse",
+  () => [
+    { no: 1, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
+    { no: 2, name: "missing", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ],
+);
+
+/**
  * @generated from message index.v1.DeleteObjectRequest
  */
 export const DeleteObjectRequest = proto3.makeMessageType(
@@ -142,6 +163,28 @@ export const CountObjectsResponse = proto3.makeMessageType(
   "index.v1.CountObjectsResponse",
   () => [
     { no: 1, name: "count", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.WebhookRequest
+ */
+export const WebhookRequest = proto3.makeMessageType(
+  "index.v1.WebhookRequest",
+  () => [
+    { no: 1, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "operation", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ],
+);
+
+/**
+ * @generated from message index.v1.WebhookResponse
+ */
+export const WebhookResponse = proto3.makeMessageType(
+  "index.v1.WebhookResponse",
+  () => [
+    { no: 1, name: "body", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
   ],
 );
 
@@ -335,7 +378,7 @@ export const SlackObjectMetadata = proto3.makeMessageType(
   "index.v1.SlackObjectMetadata",
   () => [
     { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "app_token", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "bot_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 

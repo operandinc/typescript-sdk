@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AnswerRequest, AnswerResponse, BulkDeleteObjectsRequest, BulkDeleteObjectsResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse} from "./index_pb.js";
+import {AnswerRequest, AnswerResponse, BulkDeleteObjectsRequest, BulkDeleteObjectsResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, GetObjectsRequest, GetObjectsResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse, WebhookRequest, WebhookResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -35,6 +35,17 @@ export const IndexService = {
       name: "ListObjects",
       I: ListObjectsRequest,
       O: ListObjectsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetObjects is used to get specific objects within the index.
+     *
+     * @generated from rpc index.v1.IndexService.GetObjects
+     */
+    getObjects: {
+      name: "GetObjects",
+      I: GetObjectsRequest,
+      O: GetObjectsResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -70,6 +81,19 @@ export const IndexService = {
       name: "CountObjects",
       I: CountObjectsRequest,
       O: CountObjectsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Webhook is used to send webhooks to particular objects, essentially, letting
+     * you interact with a given object of a specific type. Different object types
+     * accept different webhooks.
+     *
+     * @generated from rpc index.v1.IndexService.Webhook
+     */
+    webhook: {
+      name: "Webhook",
+      I: WebhookRequest,
+      O: WebhookResponse,
       kind: MethodKind.Unary,
     },
     /**
