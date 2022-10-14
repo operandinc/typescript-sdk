@@ -88,7 +88,9 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
         return Promise.reject(new Error(response.statusText));
       }
       return <UnaryResponse<O>>{
-        message: method.O.fromJson((await response.json()) as JsonValue),
+        message: method.O.fromJson((await response.json()) as JsonValue, {
+          ignoreUnknownFields: true,
+        }),
       };
     },
     async serverStream<
