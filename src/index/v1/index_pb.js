@@ -251,6 +251,7 @@ export const AnswerResponse = proto3.makeMessageType(
     { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "sources", kind: "message", T: Object$, repeated: true },
   ],
 );
 

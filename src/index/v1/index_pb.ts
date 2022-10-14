@@ -965,6 +965,11 @@ export class AnswerResponse extends Message<AnswerResponse> {
    */
   confidence = 0;
 
+  /**
+   * @generated from field: repeated index.v1.Object sources = 4;
+   */
+  sources: Object$[] = [];
+
   constructor(data?: PartialMessage<AnswerResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -976,6 +981,7 @@ export class AnswerResponse extends Message<AnswerResponse> {
     { no: 1, name: "answer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 4, name: "sources", kind: "message", T: Object$, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerResponse {
