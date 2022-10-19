@@ -85,7 +85,10 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
         ),
       });
       if (!response.ok) {
-        return Promise.reject(new Error(response.statusText));
+        const body = await response.text();
+        const message = `Request failed with code ${response.status}, status ${response.statusText}: ${body}`;
+        console.warn(message);
+        return Promise.reject(new Error(message));
       }
       return <UnaryResponse<O>>{
         message: method.O.fromJson((await response.json()) as JsonValue, {
