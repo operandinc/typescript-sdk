@@ -144,6 +144,15 @@ export class UpsertObjectRequest extends Message<UpsertObjectRequest> {
    */
   label?: string;
 
+  /**
+   * If true, the label of this object will be considered unique, and thus if an existing
+   * object (with the same parent id) already exists, existing_id will be set accordingly.
+   * Note: If this is true, the label must be set (i.e. non-empty) and existing_id must not be set.
+   *
+   * @generated from field: optional bool unique_label = 7;
+   */
+  uniqueLabel?: boolean;
+
   constructor(data?: PartialMessage<UpsertObjectRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -158,6 +167,7 @@ export class UpsertObjectRequest extends Message<UpsertObjectRequest> {
     { no: 4, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 5, name: "properties", kind: "message", T: Properties, opt: true },
     { no: 6, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "unique_label", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpsertObjectRequest {
@@ -211,6 +221,78 @@ export class UpsertObjectResponse extends Message<UpsertObjectResponse> {
 
   static equals(a: UpsertObjectResponse | PlainMessage<UpsertObjectResponse> | undefined, b: UpsertObjectResponse | PlainMessage<UpsertObjectResponse> | undefined): boolean {
     return proto3.util.equals(UpsertObjectResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message index.v1.BulkUpsertObjectsRequest
+ */
+export class BulkUpsertObjectsRequest extends Message<BulkUpsertObjectsRequest> {
+  /**
+   * TODO(Morgan): Add sync option (i.e. wait and return responses).
+   *
+   * @generated from field: repeated index.v1.UpsertObjectRequest requests = 1;
+   */
+  requests: UpsertObjectRequest[] = [];
+
+  constructor(data?: PartialMessage<BulkUpsertObjectsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.BulkUpsertObjectsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "requests", kind: "message", T: UpsertObjectRequest, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkUpsertObjectsRequest {
+    return new BulkUpsertObjectsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkUpsertObjectsRequest {
+    return new BulkUpsertObjectsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkUpsertObjectsRequest {
+    return new BulkUpsertObjectsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkUpsertObjectsRequest | PlainMessage<BulkUpsertObjectsRequest> | undefined, b: BulkUpsertObjectsRequest | PlainMessage<BulkUpsertObjectsRequest> | undefined): boolean {
+    return proto3.util.equals(BulkUpsertObjectsRequest, a, b);
+  }
+}
+
+/**
+ * Currently, no way of checking if this operation was successful.
+ *
+ * @generated from message index.v1.BulkUpsertObjectsResponse
+ */
+export class BulkUpsertObjectsResponse extends Message<BulkUpsertObjectsResponse> {
+  constructor(data?: PartialMessage<BulkUpsertObjectsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "index.v1.BulkUpsertObjectsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BulkUpsertObjectsResponse {
+    return new BulkUpsertObjectsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): BulkUpsertObjectsResponse {
+    return new BulkUpsertObjectsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): BulkUpsertObjectsResponse {
+    return new BulkUpsertObjectsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: BulkUpsertObjectsResponse | PlainMessage<BulkUpsertObjectsResponse> | undefined, b: BulkUpsertObjectsResponse | PlainMessage<BulkUpsertObjectsResponse> | undefined): boolean {
+    return proto3.util.equals(BulkUpsertObjectsResponse, a, b);
   }
 }
 

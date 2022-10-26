@@ -48,6 +48,7 @@ export const UpsertObjectRequest = proto3.makeMessageType(
     { no: 4, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 5, name: "properties", kind: "message", T: Properties, opt: true },
     { no: 6, name: "label", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "unique_label", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ],
 );
 
@@ -59,6 +60,26 @@ export const UpsertObjectResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "object", kind: "message", T: Object$ },
   ],
+);
+
+/**
+ * @generated from message index.v1.BulkUpsertObjectsRequest
+ */
+export const BulkUpsertObjectsRequest = proto3.makeMessageType(
+  "index.v1.BulkUpsertObjectsRequest",
+  () => [
+    { no: 1, name: "requests", kind: "message", T: UpsertObjectRequest, repeated: true },
+  ],
+);
+
+/**
+ * Currently, no way of checking if this operation was successful.
+ *
+ * @generated from message index.v1.BulkUpsertObjectsResponse
+ */
+export const BulkUpsertObjectsResponse = proto3.makeMessageType(
+  "index.v1.BulkUpsertObjectsResponse",
+  [],
 );
 
 /**

@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {AnswerRequest, AnswerResponse, BulkDeleteObjectsRequest, BulkDeleteObjectsResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, GetObjectsRequest, GetObjectsResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse, WebhookRequest, WebhookResponse} from "./index_pb.js";
+import {AnswerRequest, AnswerResponse, BulkDeleteObjectsRequest, BulkDeleteObjectsResponse, BulkUpsertObjectsRequest, BulkUpsertObjectsResponse, CountObjectsRequest, CountObjectsResponse, DeleteObjectRequest, DeleteObjectResponse, FeedbackRequest, FeedbackResponse, GetObjectsRequest, GetObjectsResponse, ListObjectsRequest, ListObjectsResponse, SearchRequest, SearchResponse, UpsertObjectRequest, UpsertObjectResponse, WebhookRequest, WebhookResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -24,6 +24,17 @@ export const IndexService = {
       name: "UpsertObject",
       I: UpsertObjectRequest,
       O: UpsertObjectResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * BulkUpsertObjects lets you insert or update multiple objects within the index.
+     *
+     * @generated from rpc index.v1.IndexService.BulkUpsertObjects
+     */
+    bulkUpsertObjects: {
+      name: "BulkUpsertObjects",
+      I: BulkUpsertObjectsRequest,
+      O: BulkUpsertObjectsResponse,
       kind: MethodKind.Unary,
     },
     /**
