@@ -41,17 +41,16 @@ export function operandClient<T extends ServiceType>(
   extraHeaders?: { [key: string]: string | null }
 ): PromiseClient<T> {
   const baseUrl = endpoint || 'https://engine.operand.ai';
+  const headers = {
+    ...extraHeaders,
+    Authorization: apiKey,
+  };
   const transport = hasFetchApi()
     ? createConnectTransport({
         baseUrl: baseUrl,
-        interceptors: [
-          createHeaderInterceptor({
-            ...extraHeaders,
-            Authorization: apiKey,
-          }),
-        ],
+        interceptors: [createHeaderInterceptor(headers)],
       })
-    : createNodeFetchTransport(baseUrl, apiKey);
+    : createNodeFetchTransport(baseUrl, headers);
   return createPromiseClient(service, transport);
 }
 
@@ -68,7 +67,10 @@ function createRequestBody<T extends Message<T>>(message: T): BodyInit {
   return message.toJsonString();
 }
 
-function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
+function createNodeFetchTransport(
+  baseUrl: string,
+  headers: { [key: string]: string | null }
+): Transport {
   return {
     async unary<
       I extends Message<I> = AnyMessage,
@@ -85,8 +87,8 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
+          ...headers,
           'Content-Type': 'application/json',
-          Authorization: apiKey,
         },
         body: createRequestBody(
           message instanceof method.I ? message : new method.I(message)
@@ -122,4 +124,6 @@ function createNodeFetchTransport(baseUrl: string, apiKey: string): Transport {
 
 export * from './index/v1/index_connectweb.js';
 export * from './index/v1/index_pb.js';
+export * from './operand/v1/object_connectweb.js';
+export * as Object from './operand/v1/object_pb.js';
 export type { PartialMessage } from '@bufbuild/protobuf'; // Re-export for convenience.
