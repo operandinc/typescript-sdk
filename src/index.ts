@@ -32,16 +32,24 @@ function createHeaderInterceptor(headers: {
   };
 }
 
+export const indexIDHeaderKey = 'Operand-Index-ID';
+
 export function operandClient<T extends ServiceType>(
   service: T,
   apiKey: string,
-  endpoint?: string
+  endpoint?: string,
+  extraHeaders?: { [key: string]: string | null }
 ): PromiseClient<T> {
   const baseUrl = endpoint || 'https://engine.operand.ai';
   const transport = hasFetchApi()
     ? createConnectTransport({
         baseUrl: baseUrl,
-        interceptors: [createHeaderInterceptor({ Authorization: apiKey })],
+        interceptors: [
+          createHeaderInterceptor({
+            ...extraHeaders,
+            Authorization: apiKey,
+          }),
+        ],
       })
     : createNodeFetchTransport(baseUrl, apiKey);
   return createPromiseClient(service, transport);
