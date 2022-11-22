@@ -1,7 +1,7 @@
 {
   "name": "@operandinc/sdk",
   "author": "Operand, Inc.",
-  "version": "4.1.2",
+  "version": "4.1.7",
   "license": "MIT",
   "main": "./dist/cjs/index.js",
   "type": "module",
@@ -20,7 +20,7 @@
     "npm": ">=8"
   },
   "scripts": {
-    "generate": "buf generate buf.build/operand/engine && buf generate buf.build/operand/operand --path operand",
+    "generate": "buf generate buf.build/operand/engine && buf generate buf.build/operand/operand --path operand,web",
     "clean": "rm -rf ./dist/cjs/* ./dist/esm/* ./dist/types/*",
     "build": "npm run build:cjs && npm run build:esm+types",
     "build:cjs": "npx tsc --project tsconfig.json --module commonjs --outDir ./dist/cjs && echo >./dist/cjs/package.json '{\"type\":\"commonjs\"}'",

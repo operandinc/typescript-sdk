@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {CountRequest, CountResponse, DeleteRequest, DeleteResponse, GetRequest, GetResponse, ListRequest, ListResponse, SearchRequest, SearchResponse, SearchWithinRequest, SearchWithinResponse, SuggestionsRequest, SuggestionsResponse, UpsertRequest, UpsertResponse} from "./object_pb.js";
+import {AnswerRequest, AnswerResponse, CountRequest, CountResponse, DeleteRequest, DeleteResponse, GetRequest, GetResponse, ListRequest, ListResponse, SearchWithinRequest, SearchWithinResponse, SuggestionsRequest, SuggestionsResponse, UpsertRequest, UpsertResponse} from "./object_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -86,18 +86,6 @@ export const ObjectService = {
       kind: MethodKind.Unary,
     },
     /**
-     * Search searches for objects within the index. Returns a set of objects that best match the
-     * query, along with some snippets of content within the object that is relevant to the query.
-     *
-     * @generated from rpc operand.v1.ObjectService.Search
-     */
-    search: {
-      name: "Search",
-      I: SearchRequest,
-      O: SearchResponse,
-      kind: MethodKind.Unary,
-    },
-    /**
      * SearchWithin searches for content within objects themselves, returning small snippets of
      * relevant content to the search query, along with the relevant objects themselves.
      *
@@ -107,6 +95,18 @@ export const ObjectService = {
       name: "SearchWithin",
       I: SearchWithinRequest,
       O: SearchWithinResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Answer generates a natural language to a question, using the content of the index as the
+     * ground truth. If we don't have a good answer, we don't answer.
+     *
+     * @generated from rpc operand.v1.ObjectService.Answer
+     */
+    answer: {
+      name: "Answer",
+      I: AnswerRequest,
+      O: AnswerResponse,
       kind: MethodKind.Unary,
     },
   }

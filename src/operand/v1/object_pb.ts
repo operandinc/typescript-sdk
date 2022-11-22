@@ -44,6 +44,21 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_PODCAST = 6;
    */
   PODCAST = 6,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_SITEMAP = 7;
+   */
+  SITEMAP = 7,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_PDF = 8;
+   */
+  PDF = 8,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_EPUB = 9;
+   */
+  EPUB = 9,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
@@ -54,6 +69,9 @@ proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
   { no: 4, name: "OBJECT_TYPE_RSS" },
   { no: 5, name: "OBJECT_TYPE_AUDIO" },
   { no: 6, name: "OBJECT_TYPE_PODCAST" },
+  { no: 7, name: "OBJECT_TYPE_SITEMAP" },
+  { no: 8, name: "OBJECT_TYPE_PDF" },
+  { no: 9, name: "OBJECT_TYPE_EPUB" },
 ]);
 
 /**
@@ -84,6 +102,11 @@ export enum AudioFileExt {
    * @generated from enum value: AUDIO_FILE_EXT_WAV = 4;
    */
   WAV = 4,
+
+  /**
+   * @generated from enum value: AUDIO_FILE_EXT_MP4 = 5;
+   */
+  MP4 = 5,
 }
 // Retrieve enum metadata with: proto3.getEnumType(AudioFileExt)
 proto3.util.setEnumType(AudioFileExt, "operand.v1.AudioFileExt", [
@@ -92,6 +115,7 @@ proto3.util.setEnumType(AudioFileExt, "operand.v1.AudioFileExt", [
   { no: 2, name: "AUDIO_FILE_EXT_OGG" },
   { no: 3, name: "AUDIO_FILE_EXT_FLAC" },
   { no: 4, name: "AUDIO_FILE_EXT_WAV" },
+  { no: 5, name: "AUDIO_FILE_EXT_MP4" },
 ]);
 
 /**
@@ -175,6 +199,24 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: PodcastMetadata;
     case: "podcast";
+  } | {
+    /**
+     * @generated from field: operand.v1.SitemapMetadata sitemap = 7;
+     */
+    value: SitemapMetadata;
+    case: "sitemap";
+  } | {
+    /**
+     * @generated from field: operand.v1.PDFMetadata pdf = 8;
+     */
+    value: PDFMetadata;
+    case: "pdf";
+  } | {
+    /**
+     * @generated from field: operand.v1.EPUBMetadata epub = 9;
+     */
+    value: EPUBMetadata;
+    case: "epub";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -191,6 +233,9 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 4, name: "rss", kind: "message", T: RSSMetadata, oneof: "value" },
     { no: 5, name: "audio", kind: "message", T: AudioMetadata, oneof: "value" },
     { no: 6, name: "podcast", kind: "message", T: PodcastMetadata, oneof: "value" },
+    { no: 7, name: "sitemap", kind: "message", T: SitemapMetadata, oneof: "value" },
+    { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
+    { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -402,26 +447,6 @@ export class PodcastMetadata extends Message<PodcastMetadata> {
    */
   listennotesId = "";
 
-  /**
-   * @generated from field: optional string image = 2;
-   */
-  image?: string;
-
-  /**
-   * @generated from field: optional string thumbnail = 3;
-   */
-  thumbnail?: string;
-
-  /**
-   * @generated from field: optional string title = 4;
-   */
-  title?: string;
-
-  /**
-   * @generated from field: optional string description = 5;
-   */
-  description?: string;
-
   constructor(data?: PartialMessage<PodcastMetadata>) {
     super();
     proto3.util.initPartial(data, this);
@@ -431,10 +456,6 @@ export class PodcastMetadata extends Message<PodcastMetadata> {
   static readonly typeName = "operand.v1.PodcastMetadata";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "listennotes_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "thumbnail", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 5, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PodcastMetadata {
@@ -451,6 +472,119 @@ export class PodcastMetadata extends Message<PodcastMetadata> {
 
   static equals(a: PodcastMetadata | PlainMessage<PodcastMetadata> | undefined, b: PodcastMetadata | PlainMessage<PodcastMetadata> | undefined): boolean {
     return proto3.util.equals(PodcastMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.SitemapMetadata
+ */
+export class SitemapMetadata extends Message<SitemapMetadata> {
+  /**
+   * The URL is stored in properties, not here.
+   *
+   * @generated from field: optional string url_regex = 1;
+   */
+  urlRegex?: string;
+
+  constructor(data?: PartialMessage<SitemapMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.SitemapMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "url_regex", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SitemapMetadata {
+    return new SitemapMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SitemapMetadata {
+    return new SitemapMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SitemapMetadata {
+    return new SitemapMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SitemapMetadata | PlainMessage<SitemapMetadata> | undefined, b: SitemapMetadata | PlainMessage<SitemapMetadata> | undefined): boolean {
+    return proto3.util.equals(SitemapMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.PDFMetadata
+ */
+export class PDFMetadata extends Message<PDFMetadata> {
+  /**
+   * @generated from field: optional bytes pdf = 1;
+   */
+  pdf?: Uint8Array;
+
+  constructor(data?: PartialMessage<PDFMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.PDFMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "pdf", kind: "scalar", T: 12 /* ScalarType.BYTES */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PDFMetadata {
+    return new PDFMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PDFMetadata {
+    return new PDFMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PDFMetadata {
+    return new PDFMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PDFMetadata | PlainMessage<PDFMetadata> | undefined, b: PDFMetadata | PlainMessage<PDFMetadata> | undefined): boolean {
+    return proto3.util.equals(PDFMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.EPUBMetadata
+ */
+export class EPUBMetadata extends Message<EPUBMetadata> {
+  /**
+   * @generated from field: optional bytes epub = 1;
+   */
+  epub?: Uint8Array;
+
+  constructor(data?: PartialMessage<EPUBMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.EPUBMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "epub", kind: "scalar", T: 12 /* ScalarType.BYTES */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EPUBMetadata {
+    return new EPUBMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EPUBMetadata {
+    return new EPUBMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EPUBMetadata {
+    return new EPUBMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EPUBMetadata | PlainMessage<EPUBMetadata> | undefined, b: EPUBMetadata | PlainMessage<EPUBMetadata> | undefined): boolean {
+    return proto3.util.equals(EPUBMetadata, a, b);
   }
 }
 
@@ -1548,198 +1682,6 @@ export class Range extends Message<Range> {
 }
 
 /**
- * @generated from message operand.v1.SearchRequest
- */
-export class SearchRequest extends Message<SearchRequest> {
-  /**
-   * @generated from field: string query = 1;
-   */
-  query = "";
-
-  /**
-   * @generated from field: optional int32 limit = 2;
-   */
-  limit?: number;
-
-  /**
-   * Can only be used over indexed properties.
-   *
-   * @generated from field: optional operand.v1.Filter filter = 3;
-   */
-  filter?: Filter;
-
-  /**
-   * @generated from field: optional operand.v1.ObjectOptions object_options = 4;
-   */
-  objectOptions?: ObjectOptions;
-
-  constructor(data?: PartialMessage<SearchRequest>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.SearchRequest";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
-    { no: 3, name: "filter", kind: "message", T: Filter, opt: true },
-    { no: 4, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchRequest {
-    return new SearchRequest().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchRequest {
-    return new SearchRequest().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchRequest {
-    return new SearchRequest().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: SearchRequest | PlainMessage<SearchRequest> | undefined, b: SearchRequest | PlainMessage<SearchRequest> | undefined): boolean {
-    return proto3.util.equals(SearchRequest, a, b);
-  }
-}
-
-/**
- * @generated from message operand.v1.Snippet
- */
-export class Snippet extends Message<Snippet> {
-  /**
-   * @generated from field: int64 id = 1;
-   */
-  id = protoInt64.zero;
-
-  /**
-   * @generated from field: string content = 2;
-   */
-  content = "";
-
-  /**
-   * @generated from field: optional operand.v1.Properties extra = 3;
-   */
-  extra?: Properties;
-
-  constructor(data?: PartialMessage<Snippet>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.Snippet";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "extra", kind: "message", T: Properties, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Snippet {
-    return new Snippet().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Snippet {
-    return new Snippet().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Snippet {
-    return new Snippet().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Snippet | PlainMessage<Snippet> | undefined, b: Snippet | PlainMessage<Snippet> | undefined): boolean {
-    return proto3.util.equals(Snippet, a, b);
-  }
-}
-
-/**
- * @generated from message operand.v1.SearchResponse
- */
-export class SearchResponse extends Message<SearchResponse> {
-  /**
-   * @generated from field: repeated operand.v1.SearchResponse.Result results = 1;
-   */
-  results: SearchResponse_Result[] = [];
-
-  constructor(data?: PartialMessage<SearchResponse>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.SearchResponse";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResponse {
-    return new SearchResponse().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchResponse {
-    return new SearchResponse().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchResponse {
-    return new SearchResponse().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: SearchResponse | PlainMessage<SearchResponse> | undefined, b: SearchResponse | PlainMessage<SearchResponse> | undefined): boolean {
-    return proto3.util.equals(SearchResponse, a, b);
-  }
-}
-
-/**
- * @generated from message operand.v1.SearchResponse.Result
- */
-export class SearchResponse_Result extends Message<SearchResponse_Result> {
-  /**
-   * @generated from field: operand.v1.Object object = 1;
-   */
-  object?: Object$;
-
-  /**
-   * @generated from field: float score = 2;
-   */
-  score = 0;
-
-  /**
-   * @generated from field: repeated operand.v1.Snippet snippets = 3;
-   */
-  snippets: Snippet[] = [];
-
-  constructor(data?: PartialMessage<SearchResponse_Result>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.SearchResponse.Result";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "object", kind: "message", T: Object$ },
-    { no: 2, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "snippets", kind: "message", T: Snippet, repeated: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: SearchResponse_Result | PlainMessage<SearchResponse_Result> | undefined, b: SearchResponse_Result | PlainMessage<SearchResponse_Result> | undefined): boolean {
-    return proto3.util.equals(SearchResponse_Result, a, b);
-  }
-}
-
-/**
  * @generated from message operand.v1.SearchWithinRequest
  */
 export class SearchWithinRequest extends Message<SearchWithinRequest> {
@@ -1897,6 +1839,141 @@ export class SearchWithinResponse_Match extends Message<SearchWithinResponse_Mat
 
   static equals(a: SearchWithinResponse_Match | PlainMessage<SearchWithinResponse_Match> | undefined, b: SearchWithinResponse_Match | PlainMessage<SearchWithinResponse_Match> | undefined): boolean {
     return proto3.util.equals(SearchWithinResponse_Match, a, b);
+  }
+}
+
+/**
+ * Answer is an attempt to answer a question.
+ *
+ * @generated from message operand.v1.Answer
+ */
+export class Answer extends Message<Answer> {
+  /**
+   * @generated from field: string answer = 1;
+   */
+  answer = "";
+
+  /**
+   * Confidence is a value between 0 and 1, where 1 is the highest confidence.
+   * It indicates how confident we are that the answer is factually correct, using
+   * the index content as the ground truth.
+   *
+   * @generated from field: float confidence = 2;
+   */
+  confidence = 0;
+
+  constructor(data?: PartialMessage<Answer>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.Answer";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Answer {
+    return new Answer().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Answer {
+    return new Answer().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Answer {
+    return new Answer().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Answer | PlainMessage<Answer> | undefined, b: Answer | PlainMessage<Answer> | undefined): boolean {
+    return proto3.util.equals(Answer, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.AnswerRequest
+ */
+export class AnswerRequest extends Message<AnswerRequest> {
+  /**
+   * @generated from field: string query = 1;
+   */
+  query = "";
+
+  /**
+   * @generated from field: optional operand.v1.Filter filter = 2;
+   */
+  filter?: Filter;
+
+  /**
+   * @generated from field: optional operand.v1.ObjectOptions object_options = 3;
+   */
+  objectOptions?: ObjectOptions;
+
+  constructor(data?: PartialMessage<AnswerRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.AnswerRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "filter", kind: "message", T: Filter, opt: true },
+    { no: 3, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AnswerRequest {
+    return new AnswerRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AnswerRequest | PlainMessage<AnswerRequest> | undefined, b: AnswerRequest | PlainMessage<AnswerRequest> | undefined): boolean {
+    return proto3.util.equals(AnswerRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.AnswerResponse
+ */
+export class AnswerResponse extends Message<AnswerResponse> {
+  /**
+   * @generated from field: optional operand.v1.Answer answer = 1;
+   */
+  answer?: Answer;
+
+  constructor(data?: PartialMessage<AnswerResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.AnswerResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "answer", kind: "message", T: Answer, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AnswerResponse {
+    return new AnswerResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AnswerResponse | PlainMessage<AnswerResponse> | undefined, b: AnswerResponse | PlainMessage<AnswerResponse> | undefined): boolean {
+    return proto3.util.equals(AnswerResponse, a, b);
   }
 }
 

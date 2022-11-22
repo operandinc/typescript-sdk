@@ -18,6 +18,9 @@ export const ObjectType = proto3.makeEnum(
     {no: 4, name: "OBJECT_TYPE_RSS", localName: "RSS"},
     {no: 5, name: "OBJECT_TYPE_AUDIO", localName: "AUDIO"},
     {no: 6, name: "OBJECT_TYPE_PODCAST", localName: "PODCAST"},
+    {no: 7, name: "OBJECT_TYPE_SITEMAP", localName: "SITEMAP"},
+    {no: 8, name: "OBJECT_TYPE_PDF", localName: "PDF"},
+    {no: 9, name: "OBJECT_TYPE_EPUB", localName: "EPUB"},
   ],
 );
 
@@ -32,6 +35,7 @@ export const AudioFileExt = proto3.makeEnum(
     {no: 2, name: "AUDIO_FILE_EXT_OGG", localName: "OGG"},
     {no: 3, name: "AUDIO_FILE_EXT_FLAC", localName: "FLAC"},
     {no: 4, name: "AUDIO_FILE_EXT_WAV", localName: "WAV"},
+    {no: 5, name: "AUDIO_FILE_EXT_MP4", localName: "MP4"},
   ],
 );
 
@@ -61,6 +65,9 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 4, name: "rss", kind: "message", T: RSSMetadata, oneof: "value" },
     { no: 5, name: "audio", kind: "message", T: AudioMetadata, oneof: "value" },
     { no: 6, name: "podcast", kind: "message", T: PodcastMetadata, oneof: "value" },
+    { no: 7, name: "sitemap", kind: "message", T: SitemapMetadata, oneof: "value" },
+    { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
+    { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
   ],
 );
 
@@ -122,10 +129,36 @@ export const PodcastMetadata = proto3.makeMessageType(
   "operand.v1.PodcastMetadata",
   () => [
     { no: 1, name: "listennotes_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "thumbnail", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 5, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.SitemapMetadata
+ */
+export const SitemapMetadata = proto3.makeMessageType(
+  "operand.v1.SitemapMetadata",
+  () => [
+    { no: 1, name: "url_regex", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.PDFMetadata
+ */
+export const PDFMetadata = proto3.makeMessageType(
+  "operand.v1.PDFMetadata",
+  () => [
+    { no: 1, name: "pdf", kind: "scalar", T: 12 /* ScalarType.BYTES */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.EPUBMetadata
+ */
+export const EPUBMetadata = proto3.makeMessageType(
+  "operand.v1.EPUBMetadata",
+  () => [
+    { no: 1, name: "epub", kind: "scalar", T: 12 /* ScalarType.BYTES */, opt: true },
   ],
 );
 
@@ -402,54 +435,6 @@ export const Range = proto3.makeMessageType(
 );
 
 /**
- * @generated from message operand.v1.SearchRequest
- */
-export const SearchRequest = proto3.makeMessageType(
-  "operand.v1.SearchRequest",
-  () => [
-    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
-    { no: 3, name: "filter", kind: "message", T: Filter, opt: true },
-    { no: 4, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
-  ],
-);
-
-/**
- * @generated from message operand.v1.Snippet
- */
-export const Snippet = proto3.makeMessageType(
-  "operand.v1.Snippet",
-  () => [
-    { no: 1, name: "id", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
-    { no: 2, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "extra", kind: "message", T: Properties, opt: true },
-  ],
-);
-
-/**
- * @generated from message operand.v1.SearchResponse
- */
-export const SearchResponse = proto3.makeMessageType(
-  "operand.v1.SearchResponse",
-  () => [
-    { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
-  ],
-);
-
-/**
- * @generated from message operand.v1.SearchResponse.Result
- */
-export const SearchResponse_Result = proto3.makeMessageType(
-  "operand.v1.SearchResponse.Result",
-  () => [
-    { no: 1, name: "object", kind: "message", T: Object$ },
-    { no: 2, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "snippets", kind: "message", T: Snippet, repeated: true },
-  ],
-  {localName: "SearchResponse_Result"},
-);
-
-/**
  * @generated from message operand.v1.SearchWithinRequest
  */
 export const SearchWithinRequest = proto3.makeMessageType(
@@ -486,5 +471,40 @@ export const SearchWithinResponse_Match = proto3.makeMessageType(
     { no: 5, name: "extra", kind: "message", T: Properties, opt: true },
   ],
   {localName: "SearchWithinResponse_Match"},
+);
+
+/**
+ * Answer is an attempt to answer a question.
+ *
+ * @generated from message operand.v1.Answer
+ */
+export const Answer = proto3.makeMessageType(
+  "operand.v1.Answer",
+  () => [
+    { no: 1, name: "answer", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "confidence", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.AnswerRequest
+ */
+export const AnswerRequest = proto3.makeMessageType(
+  "operand.v1.AnswerRequest",
+  () => [
+    { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "filter", kind: "message", T: Filter, opt: true },
+    { no: 3, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.AnswerResponse
+ */
+export const AnswerResponse = proto3.makeMessageType(
+  "operand.v1.AnswerResponse",
+  () => [
+    { no: 1, name: "answer", kind: "message", T: Answer, opt: true },
+  ],
 );
 

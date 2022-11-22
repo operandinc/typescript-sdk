@@ -122,8 +122,14 @@ function createNodeFetchTransport(
   };
 }
 
-export * from './index/v1/index_connectweb.js';
-export * from './index/v1/index_pb.js';
+export * as V3Connect from './index/v1/index_connectweb.js';
+export * as V3Types from './index/v1/index_pb.js';
 export * from './operand/v1/object_connectweb.js';
-export * as Object from './operand/v1/object_pb.js';
+export * from './operand/v1/object_pb.js';
+export * from './web/v1/index_connectweb.js';
+export * from './web/v1/index_pb.js';
+export * from './web/v1/key_connectweb.js';
+export * from './web/v1/key_pb.js';
+export * from './web/v1/user_connectweb.js';
+export * from './web/v1/user_pb.js';
 export type { PartialMessage } from '@bufbuild/protobuf'; // Re-export for convenience.
