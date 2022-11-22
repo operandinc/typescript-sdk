@@ -1949,6 +1949,11 @@ export class AnswerResponse extends Message<AnswerResponse> {
    */
   answer?: Answer;
 
+  /**
+   * @generated from field: repeated operand.v1.Object sources = 2;
+   */
+  sources: Object$[] = [];
+
   constructor(data?: PartialMessage<AnswerResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1958,6 +1963,7 @@ export class AnswerResponse extends Message<AnswerResponse> {
   static readonly typeName = "operand.v1.AnswerResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "answer", kind: "message", T: Answer, opt: true },
+    { no: 2, name: "sources", kind: "message", T: Object$, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AnswerResponse {

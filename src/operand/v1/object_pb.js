@@ -505,6 +505,7 @@ export const AnswerResponse = proto3.makeMessageType(
   "operand.v1.AnswerResponse",
   () => [
     { no: 1, name: "answer", kind: "message", T: Answer, opt: true },
+    { no: 2, name: "sources", kind: "message", T: Object$, repeated: true },
   ],
 );
 
