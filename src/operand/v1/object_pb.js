@@ -21,6 +21,7 @@ export const ObjectType = proto3.makeEnum(
     {no: 7, name: "OBJECT_TYPE_SITEMAP", localName: "SITEMAP"},
     {no: 8, name: "OBJECT_TYPE_PDF", localName: "PDF"},
     {no: 9, name: "OBJECT_TYPE_EPUB", localName: "EPUB"},
+    {no: 10, name: "OBJECT_TYPE_YOUTUBE", localName: "YOUTUBE"},
   ],
 );
 
@@ -68,6 +69,7 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 7, name: "sitemap", kind: "message", T: SitemapMetadata, oneof: "value" },
     { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
     { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
+    { no: 10, name: "youtube", kind: "message", T: YouTubeMetadata, oneof: "value" },
   ],
 );
 
@@ -163,6 +165,16 @@ export const EPUBMetadata = proto3.makeMessageType(
 );
 
 /**
+ * The URL is stored in properties, not here.
+ *
+ * @generated from message operand.v1.YouTubeMetadata
+ */
+export const YouTubeMetadata = proto3.makeMessageType(
+  "operand.v1.YouTubeMetadata",
+  [],
+);
+
+/**
  * @generated from message operand.v1.Properties
  */
 export const Properties = proto3.makeMessageType(
@@ -207,6 +219,19 @@ export const NumberArray = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message operand.v1.ObjectPreview
+ */
+export const ObjectPreview = proto3.makeMessageType(
+  "operand.v1.ObjectPreview",
+  () => [
+    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
  * @generated from message operand.v1.Object
  */
 export const Object$ = proto3.makeMessageType(
@@ -220,6 +245,7 @@ export const Object$ = proto3.makeMessageType(
     { no: 6, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 7, name: "properties", kind: "message", T: Properties },
     { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(ObjectStatus) },
+    { no: 9, name: "preview", kind: "message", T: ObjectPreview, opt: true },
   ],
   {localName: "Object$"},
 );
@@ -231,6 +257,7 @@ export const ObjectOptions = proto3.makeMessageType(
   "operand.v1.ObjectOptions",
   () => [
     { no: 1, name: "include_metadata", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 2, name: "include_preview", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ],
 );
 

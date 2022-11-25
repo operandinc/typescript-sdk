@@ -59,6 +59,11 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_EPUB = 9;
    */
   EPUB = 9,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_YOUTUBE = 10;
+   */
+  YOUTUBE = 10,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
@@ -72,6 +77,7 @@ proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
   { no: 7, name: "OBJECT_TYPE_SITEMAP" },
   { no: 8, name: "OBJECT_TYPE_PDF" },
   { no: 9, name: "OBJECT_TYPE_EPUB" },
+  { no: 10, name: "OBJECT_TYPE_YOUTUBE" },
 ]);
 
 /**
@@ -217,6 +223,12 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: EPUBMetadata;
     case: "epub";
+  } | {
+    /**
+     * @generated from field: operand.v1.YouTubeMetadata youtube = 10;
+     */
+    value: YouTubeMetadata;
+    case: "youtube";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -236,6 +248,7 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 7, name: "sitemap", kind: "message", T: SitemapMetadata, oneof: "value" },
     { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
     { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
+    { no: 10, name: "youtube", kind: "message", T: YouTubeMetadata, oneof: "value" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -589,6 +602,39 @@ export class EPUBMetadata extends Message<EPUBMetadata> {
 }
 
 /**
+ * The URL is stored in properties, not here.
+ *
+ * @generated from message operand.v1.YouTubeMetadata
+ */
+export class YouTubeMetadata extends Message<YouTubeMetadata> {
+  constructor(data?: PartialMessage<YouTubeMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.YouTubeMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): YouTubeMetadata {
+    return new YouTubeMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): YouTubeMetadata {
+    return new YouTubeMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): YouTubeMetadata {
+    return new YouTubeMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: YouTubeMetadata | PlainMessage<YouTubeMetadata> | undefined, b: YouTubeMetadata | PlainMessage<YouTubeMetadata> | undefined): boolean {
+    return proto3.util.equals(YouTubeMetadata, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Properties
  */
 export class Properties extends Message<Properties> {
@@ -770,6 +816,61 @@ export class NumberArray extends Message<NumberArray> {
 }
 
 /**
+ * @generated from message operand.v1.ObjectPreview
+ */
+export class ObjectPreview extends Message<ObjectPreview> {
+  /**
+   * @generated from field: optional string title = 1;
+   */
+  title?: string;
+
+  /**
+   * @generated from field: optional string description = 2;
+   */
+  description?: string;
+
+  /**
+   * @generated from field: optional string image = 3;
+   */
+  image?: string;
+
+  /**
+   * @generated from field: optional string url = 4;
+   */
+  url?: string;
+
+  constructor(data?: PartialMessage<ObjectPreview>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ObjectPreview";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "title", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectPreview {
+    return new ObjectPreview().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ObjectPreview {
+    return new ObjectPreview().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ObjectPreview {
+    return new ObjectPreview().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ObjectPreview | PlainMessage<ObjectPreview> | undefined, b: ObjectPreview | PlainMessage<ObjectPreview> | undefined): boolean {
+    return proto3.util.equals(ObjectPreview, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Object
  */
 export class Object$ extends Message<Object$> {
@@ -813,6 +914,11 @@ export class Object$ extends Message<Object$> {
    */
   status = ObjectStatus.UNSPECIFIED;
 
+  /**
+   * @generated from field: optional operand.v1.ObjectPreview preview = 9;
+   */
+  preview?: ObjectPreview;
+
   constructor(data?: PartialMessage<Object$>) {
     super();
     proto3.util.initPartial(data, this);
@@ -829,6 +935,7 @@ export class Object$ extends Message<Object$> {
     { no: 6, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 7, name: "properties", kind: "message", T: Properties },
     { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(ObjectStatus) },
+    { no: 9, name: "preview", kind: "message", T: ObjectPreview, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Object$ {
@@ -857,6 +964,11 @@ export class ObjectOptions extends Message<ObjectOptions> {
    */
   includeMetadata?: boolean;
 
+  /**
+   * @generated from field: optional bool include_preview = 2;
+   */
+  includePreview?: boolean;
+
   constructor(data?: PartialMessage<ObjectOptions>) {
     super();
     proto3.util.initPartial(data, this);
@@ -866,6 +978,7 @@ export class ObjectOptions extends Message<ObjectOptions> {
   static readonly typeName = "operand.v1.ObjectOptions";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "include_metadata", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 2, name: "include_preview", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectOptions {

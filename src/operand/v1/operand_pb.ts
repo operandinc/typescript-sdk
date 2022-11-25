@@ -5,7 +5,7 @@
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
-import {Answer, Object$, ObjectOptions} from "./object_pb.js";
+import {Answer, Object$, ObjectOptions, Properties} from "./object_pb.js";
 import {Index} from "../../web/v1/index_pb.js";
 import {UserProfile} from "../../web/v1/user_pb.js";
 
@@ -392,6 +392,11 @@ export class SearchResponse_Result extends Message<SearchResponse_Result> {
    */
   content = "";
 
+  /**
+   * @generated from field: optional operand.v1.Properties extra = 4;
+   */
+  extra?: Properties;
+
   constructor(data?: PartialMessage<SearchResponse_Result>) {
     super();
     proto3.util.initPartial(data, this);
@@ -403,6 +408,7 @@ export class SearchResponse_Result extends Message<SearchResponse_Result> {
     { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResponse_Result {

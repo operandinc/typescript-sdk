@@ -4,7 +4,7 @@
 /* @ts-nocheck */
 
 import {proto3, Timestamp} from "@bufbuild/protobuf";
-import {Answer, Object$, ObjectOptions} from "./object_pb.js";
+import {Answer, Object$, ObjectOptions, Properties} from "./object_pb.js";
 import {Index} from "../../web/v1/index_pb.js";
 import {UserProfile} from "../../web/v1/user_pb.js";
 
@@ -114,6 +114,7 @@ export const SearchResponse_Result = proto3.makeMessageType(
     { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
   ],
   {localName: "SearchResponse_Result"},
 );
