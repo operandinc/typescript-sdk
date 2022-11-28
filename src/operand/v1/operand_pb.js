@@ -5,8 +5,7 @@
 
 import {proto3, Timestamp} from "@bufbuild/protobuf";
 import {Answer, Object$, ObjectOptions, Properties} from "./object_pb.js";
-import {Index} from "../../web/v1/index_pb.js";
-import {UserProfile} from "../../web/v1/user_pb.js";
+import {Index, IndexOptions} from "./index_pb.js";
 
 /**
  * PaginationParams are the parameters used to paginate a feed.
@@ -33,19 +32,7 @@ export const FeedRequest = proto3.makeMessageType(
     { no: 1, name: "specific_index_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "pagination_params", kind: "message", T: PaginationParams, opt: true },
     { no: 3, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
-  ],
-);
-
-/**
- * AugmentedIndex returns an index, along with the user profile of its owner.
- *
- * @generated from message operand.v1.AugmentedIndex
- */
-export const AugmentedIndex = proto3.makeMessageType(
-  "operand.v1.AugmentedIndex",
-  () => [
-    { no: 1, name: "index", kind: "message", T: Index },
-    { no: 2, name: "user_profile", kind: "message", T: UserProfile, opt: true },
+    { no: 4, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ],
 );
 
@@ -58,7 +45,7 @@ export const FeedResponse = proto3.makeMessageType(
   "operand.v1.FeedResponse",
   () => [
     { no: 1, name: "feed_objects", kind: "message", T: FeedResponse_FeedObject, repeated: true },
-    { no: 2, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: AugmentedIndex} },
+    { no: 2, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
   ],
 );
 
@@ -87,6 +74,7 @@ export const SearchRequest = proto3.makeMessageType(
     { no: 3, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
     { no: 4, name: "attempt_answer", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
     { no: 5, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
+    { no: 6, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ],
 );
 
@@ -100,7 +88,7 @@ export const SearchResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
     { no: 2, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
-    { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: AugmentedIndex} },
+    { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
     { no: 4, name: "answer", kind: "message", T: Answer, opt: true },
   ],
 );
@@ -129,6 +117,7 @@ export const PublicIndexesRequest = proto3.makeMessageType(
   () => [
     { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 3, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ],
 );
 
@@ -140,7 +129,7 @@ export const PublicIndexesRequest = proto3.makeMessageType(
 export const PublicIndexesResponse = proto3.makeMessageType(
   "operand.v1.PublicIndexesResponse",
   () => [
-    { no: 1, name: "indexes", kind: "message", T: AugmentedIndex, repeated: true },
+    { no: 1, name: "indexes", kind: "message", T: Index, repeated: true },
   ],
 );
 

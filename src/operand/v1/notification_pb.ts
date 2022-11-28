@@ -358,9 +358,9 @@ export class AcknowledgeResponse extends Message<AcknowledgeResponse> {
  */
 export class NotificationSettings extends Message<NotificationSettings> {
   /**
-   * @generated from field: bool emails = 1;
+   * @generated from field: bool disable_emails = 1;
    */
-  emails = false;
+  disableEmails = false;
 
   constructor(data?: PartialMessage<NotificationSettings>) {
     super();
@@ -370,7 +370,7 @@ export class NotificationSettings extends Message<NotificationSettings> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.NotificationSettings";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "emails", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "disable_emails", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NotificationSettings {
@@ -507,6 +507,11 @@ export class UpdateSettingsRequest extends Message<UpdateSettingsRequest> {
  * @generated from message operand.v1.UpdateSettingsResponse
  */
 export class UpdateSettingsResponse extends Message<UpdateSettingsResponse> {
+  /**
+   * @generated from field: operand.v1.NotificationSettings settings = 1;
+   */
+  settings?: NotificationSettings;
+
   constructor(data?: PartialMessage<UpdateSettingsResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -515,6 +520,7 @@ export class UpdateSettingsResponse extends Message<UpdateSettingsResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.UpdateSettingsResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "settings", kind: "message", T: NotificationSettings },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateSettingsResponse {

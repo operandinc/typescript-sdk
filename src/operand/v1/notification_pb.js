@@ -110,7 +110,7 @@ export const AcknowledgeResponse = proto3.makeMessageType(
 export const NotificationSettings = proto3.makeMessageType(
   "operand.v1.NotificationSettings",
   () => [
-    { no: 1, name: "emails", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 1, name: "disable_emails", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ],
 );
 
@@ -155,6 +155,8 @@ export const UpdateSettingsRequest = proto3.makeMessageType(
  */
 export const UpdateSettingsResponse = proto3.makeMessageType(
   "operand.v1.UpdateSettingsResponse",
-  [],
+  () => [
+    { no: 1, name: "settings", kind: "message", T: NotificationSettings },
+  ],
 );
 

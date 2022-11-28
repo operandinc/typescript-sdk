@@ -38,19 +38,21 @@ export function operandClient<T extends ServiceType>(
   service: T,
   apiKey: string,
   endpoint?: string,
-  extraHeaders?: { [key: string]: string | null }
+  extraHeaders?: { [key: string]: string | null },
+  forceFetchTransport?: boolean
 ): PromiseClient<T> {
   const baseUrl = endpoint || 'https://engine.operand.ai';
   const headers = {
     ...extraHeaders,
     Authorization: apiKey,
   };
-  const transport = hasFetchApi()
-    ? createConnectTransport({
-        baseUrl: baseUrl,
-        interceptors: [createHeaderInterceptor(headers)],
-      })
-    : createNodeFetchTransport(baseUrl, headers);
+  const transport =
+    hasFetchApi() && !forceFetchTransport
+      ? createConnectTransport({
+          baseUrl: baseUrl,
+          interceptors: [createHeaderInterceptor(headers)],
+        })
+      : createNodeFetchTransport(baseUrl, headers);
   return createPromiseClient(service, transport);
 }
 
@@ -130,10 +132,6 @@ export * from './operand/v1/operand_connectweb.js';
 export * from './operand/v1/operand_pb.js';
 export * from './operand/v1/notification_connectweb.js';
 export * from './operand/v1/notification_pb.js';
-export * from './web/v1/index_connectweb.js';
-export * from './web/v1/index_pb.js';
-export * from './web/v1/key_connectweb.js';
-export * from './web/v1/key_pb.js';
-export * from './web/v1/user_connectweb.js';
-export * from './web/v1/user_pb.js';
+export * from './operand/v1/index_connectweb.js';
+export * from './operand/v1/index_pb.js';
 export type { PartialMessage } from '@bufbuild/protobuf'; // Re-export for convenience.

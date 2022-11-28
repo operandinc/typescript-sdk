@@ -6,8 +6,7 @@
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
 import {Answer, Object$, ObjectOptions, Properties} from "./object_pb.js";
-import {Index} from "../../web/v1/index_pb.js";
-import {UserProfile} from "../../web/v1/user_pb.js";
+import {Index, IndexOptions} from "./index_pb.js";
 
 /**
  * PaginationParams are the parameters used to paginate a feed.
@@ -90,6 +89,11 @@ export class FeedRequest extends Message<FeedRequest> {
    */
   objectOptions?: ObjectOptions;
 
+  /**
+   * @generated from field: optional operand.v1.IndexOptions index_options = 4;
+   */
+  indexOptions?: IndexOptions;
+
   constructor(data?: PartialMessage<FeedRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -101,6 +105,7 @@ export class FeedRequest extends Message<FeedRequest> {
     { no: 1, name: "specific_index_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "pagination_params", kind: "message", T: PaginationParams, opt: true },
     { no: 3, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
+    { no: 4, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeedRequest {
@@ -121,51 +126,6 @@ export class FeedRequest extends Message<FeedRequest> {
 }
 
 /**
- * AugmentedIndex returns an index, along with the user profile of its owner.
- *
- * @generated from message operand.v1.AugmentedIndex
- */
-export class AugmentedIndex extends Message<AugmentedIndex> {
-  /**
-   * @generated from field: web.v1.Index index = 1;
-   */
-  index?: Index;
-
-  /**
-   * @generated from field: optional web.v1.UserProfile user_profile = 2;
-   */
-  userProfile?: UserProfile;
-
-  constructor(data?: PartialMessage<AugmentedIndex>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.AugmentedIndex";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index", kind: "message", T: Index },
-    { no: 2, name: "user_profile", kind: "message", T: UserProfile, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AugmentedIndex {
-    return new AugmentedIndex().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AugmentedIndex {
-    return new AugmentedIndex().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AugmentedIndex {
-    return new AugmentedIndex().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: AugmentedIndex | PlainMessage<AugmentedIndex> | undefined, b: AugmentedIndex | PlainMessage<AugmentedIndex> | undefined): boolean {
-    return proto3.util.equals(AugmentedIndex, a, b);
-  }
-}
-
-/**
  * FeedResponse is the response object for the Feed RPC.
  *
  * @generated from message operand.v1.FeedResponse
@@ -177,9 +137,9 @@ export class FeedResponse extends Message<FeedResponse> {
   feedObjects: FeedResponse_FeedObject[] = [];
 
   /**
-   * @generated from field: map<string, operand.v1.AugmentedIndex> indexes = 2;
+   * @generated from field: map<string, operand.v1.Index> indexes = 2;
    */
-  indexes: { [key: string]: AugmentedIndex } = {};
+  indexes: { [key: string]: Index } = {};
 
   constructor(data?: PartialMessage<FeedResponse>) {
     super();
@@ -190,7 +150,7 @@ export class FeedResponse extends Message<FeedResponse> {
   static readonly typeName = "operand.v1.FeedResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "feed_objects", kind: "message", T: FeedResponse_FeedObject, repeated: true },
-    { no: 2, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: AugmentedIndex} },
+    { no: 2, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): FeedResponse {
@@ -284,6 +244,11 @@ export class SearchRequest extends Message<SearchRequest> {
    */
   objectOptions?: ObjectOptions;
 
+  /**
+   * @generated from field: optional operand.v1.IndexOptions index_options = 6;
+   */
+  indexOptions?: IndexOptions;
+
   constructor(data?: PartialMessage<SearchRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -297,6 +262,7 @@ export class SearchRequest extends Message<SearchRequest> {
     { no: 3, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
     { no: 4, name: "attempt_answer", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
     { no: 5, name: "object_options", kind: "message", T: ObjectOptions, opt: true },
+    { no: 6, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchRequest {
@@ -333,9 +299,9 @@ export class SearchResponse extends Message<SearchResponse> {
   objects: { [key: string]: Object$ } = {};
 
   /**
-   * @generated from field: map<string, operand.v1.AugmentedIndex> indexes = 3;
+   * @generated from field: map<string, operand.v1.Index> indexes = 3;
    */
-  indexes: { [key: string]: AugmentedIndex } = {};
+  indexes: { [key: string]: Index } = {};
 
   /**
    * @generated from field: optional operand.v1.Answer answer = 4;
@@ -352,7 +318,7 @@ export class SearchResponse extends Message<SearchResponse> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
     { no: 2, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
-    { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: AugmentedIndex} },
+    { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
     { no: 4, name: "answer", kind: "message", T: Answer, opt: true },
   ]);
 
@@ -444,6 +410,11 @@ export class PublicIndexesRequest extends Message<PublicIndexesRequest> {
    */
   limit?: number;
 
+  /**
+   * @generated from field: optional operand.v1.IndexOptions index_options = 3;
+   */
+  indexOptions?: IndexOptions;
+
   constructor(data?: PartialMessage<PublicIndexesRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -454,6 +425,7 @@ export class PublicIndexesRequest extends Message<PublicIndexesRequest> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 3, name: "index_options", kind: "message", T: IndexOptions, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PublicIndexesRequest {
@@ -480,9 +452,9 @@ export class PublicIndexesRequest extends Message<PublicIndexesRequest> {
  */
 export class PublicIndexesResponse extends Message<PublicIndexesResponse> {
   /**
-   * @generated from field: repeated operand.v1.AugmentedIndex indexes = 1;
+   * @generated from field: repeated operand.v1.Index indexes = 1;
    */
-  indexes: AugmentedIndex[] = [];
+  indexes: Index[] = [];
 
   constructor(data?: PartialMessage<PublicIndexesResponse>) {
     super();
@@ -492,7 +464,7 @@ export class PublicIndexesResponse extends Message<PublicIndexesResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.PublicIndexesResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "indexes", kind: "message", T: AugmentedIndex, repeated: true },
+    { no: 1, name: "indexes", kind: "message", T: Index, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PublicIndexesResponse {
