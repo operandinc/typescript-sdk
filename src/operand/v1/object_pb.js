@@ -272,6 +272,7 @@ export const UpsertRequest = proto3.makeMessageType(
     { no: 3, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType), opt: true },
     { no: 4, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 5, name: "properties", kind: "message", T: Properties, opt: true },
+    { no: 6, name: "unique_property", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -292,7 +293,7 @@ export const SuggestionsRequest = proto3.makeMessageType(
   "operand.v1.SuggestionsRequest",
   () => [
     { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType) },
+    { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType), opt: true },
   ],
 );
 
@@ -491,7 +492,7 @@ export const SearchWithinResponse = proto3.makeMessageType(
 export const SearchWithinResponse_Match = proto3.makeMessageType(
   "operand.v1.SearchWithinResponse.Match",
   () => [
-    { no: 1, name: "match_id", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: "match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },

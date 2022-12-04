@@ -18,6 +18,19 @@ export const TokenKind = proto3.makeEnum(
 );
 
 /**
+ * @generated from enum web.v1.BillingPlan
+ */
+export const BillingPlan = proto3.makeEnum(
+  "web.v1.BillingPlan",
+  [
+    {no: 0, name: "BILLING_PLAN_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "BILLING_PLAN_FREE", localName: "FREE"},
+    {no: 2, name: "BILLING_PLAN_PRO", localName: "PRO"},
+    {no: 3, name: "BILLING_PLAN_BUSINESS", localName: "BUSINESS"},
+  ],
+);
+
+/**
  * @generated from message web.v1.LoginRequest
  */
 export const LoginRequest = proto3.makeMessageType(
@@ -154,26 +167,15 @@ export const BillingStatusRequest = proto3.makeMessageType(
 );
 
 /**
- * @generated from message web.v1.UsageStatistics
- */
-export const UsageStatistics = proto3.makeMessageType(
-  "web.v1.UsageStatistics",
-  () => [
-    { no: 1, name: "active_pages", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "current_usage", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "estimated_bill", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-  ],
-);
-
-/**
  * @generated from message web.v1.BillingStatusResponse
  */
 export const BillingStatusResponse = proto3.makeMessageType(
   "web.v1.BillingStatusResponse",
   () => [
     { no: 1, name: "stripe_customer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "configured", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "usage", kind: "message", T: UsageStatistics, opt: true },
+    { no: 2, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
+    { no: 3, name: "active_pages", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "page_limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
   ],
 );
 
@@ -182,7 +184,9 @@ export const BillingStatusResponse = proto3.makeMessageType(
  */
 export const ConfigureBillingRequest = proto3.makeMessageType(
   "web.v1.ConfigureBillingRequest",
-  [],
+  () => [
+    { no: 1, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
+  ],
 );
 
 /**

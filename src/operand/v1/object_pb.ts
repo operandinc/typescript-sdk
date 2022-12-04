@@ -4,7 +4,7 @@
 /* @ts-nocheck */
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
-import {Message, proto3, protoInt64, Timestamp} from "@bufbuild/protobuf";
+import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
 
 /**
  * @generated from enum operand.v1.ObjectType
@@ -1027,6 +1027,15 @@ export class UpsertRequest extends Message<UpsertRequest> {
    */
   properties?: Properties;
 
+  /**
+   * If specified, we'll set `existing_id` to any existing object with the same `unique_property`.
+   * This is used to deduplicate objects, i.e. by their URL (or some other property which the application
+   * considers to be unique).
+   *
+   * @generated from field: optional string unique_property = 6;
+   */
+  uniqueProperty?: string;
+
   constructor(data?: PartialMessage<UpsertRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1040,6 +1049,7 @@ export class UpsertRequest extends Message<UpsertRequest> {
     { no: 3, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType), opt: true },
     { no: 4, name: "metadata", kind: "message", T: ObjectMetadata, opt: true },
     { no: 5, name: "properties", kind: "message", T: Properties, opt: true },
+    { no: 6, name: "unique_property", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpsertRequest {
@@ -1106,9 +1116,9 @@ export class SuggestionsRequest extends Message<SuggestionsRequest> {
   query = "";
 
   /**
-   * @generated from field: operand.v1.ObjectType type = 2;
+   * @generated from field: optional operand.v1.ObjectType type = 2;
    */
-  type = ObjectType.UNSPECIFIED;
+  type?: ObjectType;
 
   constructor(data?: PartialMessage<SuggestionsRequest>) {
     super();
@@ -1119,7 +1129,7 @@ export class SuggestionsRequest extends Message<SuggestionsRequest> {
   static readonly typeName = "operand.v1.SuggestionsRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "query", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType) },
+    { no: 2, name: "type", kind: "enum", T: proto3.getEnumType(ObjectType), opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SuggestionsRequest {
@@ -1899,9 +1909,9 @@ export class SearchWithinResponse extends Message<SearchWithinResponse> {
  */
 export class SearchWithinResponse_Match extends Message<SearchWithinResponse_Match> {
   /**
-   * @generated from field: int64 match_id = 1;
+   * @generated from field: string match_id = 1;
    */
-  matchId = protoInt64.zero;
+  matchId = "";
 
   /**
    * @generated from field: string object_id = 2;
@@ -1931,7 +1941,7 @@ export class SearchWithinResponse_Match extends Message<SearchWithinResponse_Mat
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.SearchWithinResponse.Match";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "match_id", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 1, name: "match_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },

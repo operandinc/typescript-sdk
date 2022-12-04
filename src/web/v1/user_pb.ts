@@ -33,6 +33,38 @@ proto3.util.setEnumType(TokenKind, "web.v1.TokenKind", [
 ]);
 
 /**
+ * @generated from enum web.v1.BillingPlan
+ */
+export enum BillingPlan {
+  /**
+   * @generated from enum value: BILLING_PLAN_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: BILLING_PLAN_FREE = 1;
+   */
+  FREE = 1,
+
+  /**
+   * @generated from enum value: BILLING_PLAN_PRO = 2;
+   */
+  PRO = 2,
+
+  /**
+   * @generated from enum value: BILLING_PLAN_BUSINESS = 3;
+   */
+  BUSINESS = 3,
+}
+// Retrieve enum metadata with: proto3.getEnumType(BillingPlan)
+proto3.util.setEnumType(BillingPlan, "web.v1.BillingPlan", [
+  { no: 0, name: "BILLING_PLAN_UNSPECIFIED" },
+  { no: 1, name: "BILLING_PLAN_FREE" },
+  { no: 2, name: "BILLING_PLAN_PRO" },
+  { no: 3, name: "BILLING_PLAN_BUSINESS" },
+]);
+
+/**
  * @generated from message web.v1.LoginRequest
  */
 export class LoginRequest extends Message<LoginRequest> {
@@ -581,55 +613,6 @@ export class BillingStatusRequest extends Message<BillingStatusRequest> {
 }
 
 /**
- * @generated from message web.v1.UsageStatistics
- */
-export class UsageStatistics extends Message<UsageStatistics> {
-  /**
-   * @generated from field: int32 active_pages = 1;
-   */
-  activePages = 0;
-
-  /**
-   * @generated from field: float current_usage = 2;
-   */
-  currentUsage = 0;
-
-  /**
-   * @generated from field: float estimated_bill = 3;
-   */
-  estimatedBill = 0;
-
-  constructor(data?: PartialMessage<UsageStatistics>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "web.v1.UsageStatistics";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "active_pages", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-    { no: 2, name: "current_usage", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-    { no: 3, name: "estimated_bill", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UsageStatistics {
-    return new UsageStatistics().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UsageStatistics {
-    return new UsageStatistics().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UsageStatistics {
-    return new UsageStatistics().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: UsageStatistics | PlainMessage<UsageStatistics> | undefined, b: UsageStatistics | PlainMessage<UsageStatistics> | undefined): boolean {
-    return proto3.util.equals(UsageStatistics, a, b);
-  }
-}
-
-/**
  * @generated from message web.v1.BillingStatusResponse
  */
 export class BillingStatusResponse extends Message<BillingStatusResponse> {
@@ -639,14 +622,19 @@ export class BillingStatusResponse extends Message<BillingStatusResponse> {
   stripeCustomerId = "";
 
   /**
-   * @generated from field: bool configured = 2;
+   * @generated from field: web.v1.BillingPlan plan = 2;
    */
-  configured = false;
+  plan = BillingPlan.UNSPECIFIED;
 
   /**
-   * @generated from field: optional web.v1.UsageStatistics usage = 3;
+   * @generated from field: int32 active_pages = 3;
    */
-  usage?: UsageStatistics;
+  activePages = 0;
+
+  /**
+   * @generated from field: optional int32 page_limit = 4;
+   */
+  pageLimit?: number;
 
   constructor(data?: PartialMessage<BillingStatusResponse>) {
     super();
@@ -657,8 +645,9 @@ export class BillingStatusResponse extends Message<BillingStatusResponse> {
   static readonly typeName = "web.v1.BillingStatusResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "stripe_customer_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "configured", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
-    { no: 3, name: "usage", kind: "message", T: UsageStatistics, opt: true },
+    { no: 2, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
+    { no: 3, name: "active_pages", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 4, name: "page_limit", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): BillingStatusResponse {
@@ -682,6 +671,13 @@ export class BillingStatusResponse extends Message<BillingStatusResponse> {
  * @generated from message web.v1.ConfigureBillingRequest
  */
 export class ConfigureBillingRequest extends Message<ConfigureBillingRequest> {
+  /**
+   * Currently, only Pro is supported here.
+   *
+   * @generated from field: web.v1.BillingPlan plan = 1;
+   */
+  plan = BillingPlan.UNSPECIFIED;
+
   constructor(data?: PartialMessage<ConfigureBillingRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -690,6 +686,7 @@ export class ConfigureBillingRequest extends Message<ConfigureBillingRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "web.v1.ConfigureBillingRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConfigureBillingRequest {
