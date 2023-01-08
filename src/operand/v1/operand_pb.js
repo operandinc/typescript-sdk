@@ -79,6 +79,23 @@ export const SearchRequest = proto3.makeMessageType(
 );
 
 /**
+ * ContentSnippet is a snippet of content taken directly from the content of an object. This is used
+ * within search results, as well as to show context for the result of a given operation.
+ *
+ * @generated from message operand.v1.ContentSnippet
+ */
+export const ContentSnippet = proto3.makeMessageType(
+  "operand.v1.ContentSnippet",
+  () => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
+    { no: 5, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ],
+);
+
+/**
  * SearchResponse is the response object for the Search RPC.
  *
  * @generated from message operand.v1.SearchResponse
@@ -86,25 +103,11 @@ export const SearchRequest = proto3.makeMessageType(
 export const SearchResponse = proto3.makeMessageType(
   "operand.v1.SearchResponse",
   () => [
-    { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
+    { no: 1, name: "results", kind: "message", T: ContentSnippet, repeated: true },
     { no: 2, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
     { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
     { no: 4, name: "answer", kind: "message", T: Answer, opt: true },
   ],
-);
-
-/**
- * @generated from message operand.v1.SearchResponse.Result
- */
-export const SearchResponse_Result = proto3.makeMessageType(
-  "operand.v1.SearchResponse.Result",
-  () => [
-    { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
-  ],
-  {localName: "SearchResponse_Result"},
 );
 
 /**

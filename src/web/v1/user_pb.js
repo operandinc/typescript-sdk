@@ -4,6 +4,7 @@
 /* @ts-nocheck */
 
 import {proto3, Timestamp} from "@bufbuild/protobuf";
+import {UserProfile} from "../../operand/v1/index_pb.js";
 
 /**
  * @generated from enum web.v1.TokenKind
@@ -26,7 +27,19 @@ export const BillingPlan = proto3.makeEnum(
     {no: 0, name: "BILLING_PLAN_UNSPECIFIED", localName: "UNSPECIFIED"},
     {no: 1, name: "BILLING_PLAN_FREE", localName: "FREE"},
     {no: 2, name: "BILLING_PLAN_PRO", localName: "PRO"},
-    {no: 3, name: "BILLING_PLAN_BUSINESS", localName: "BUSINESS"},
+    {no: 3, name: "BILLING_PLAN_TEAMS", localName: "TEAMS"},
+    {no: 4, name: "BILLING_PLAN_ENTERPRISE", localName: "ENTERPRISE"},
+  ],
+);
+
+/**
+ * @generated from enum web.v1.OAuthProvider
+ */
+export const OAuthProvider = proto3.makeEnum(
+  "web.v1.OAuthProvider",
+  [
+    {no: 0, name: "O_AUTH_PROVIDER_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "O_AUTH_PROVIDER_GITHUB", localName: "GITHUB"},
   ],
 );
 
@@ -82,22 +95,6 @@ export const FinalizeLoginResponse = proto3.makeMessageType(
   "web.v1.FinalizeLoginResponse",
   () => [
     { no: 1, name: "session", kind: "message", T: Token },
-  ],
-);
-
-/**
- * @generated from message web.v1.UserProfile
- */
-export const UserProfile = proto3.makeMessageType(
-  "web.v1.UserProfile",
-  () => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "created_at", kind: "message", T: Timestamp },
-    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -186,6 +183,8 @@ export const ConfigureBillingRequest = proto3.makeMessageType(
   "web.v1.ConfigureBillingRequest",
   () => [
     { no: 1, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
+    { no: 2, name: "success_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "cancel_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -214,6 +213,41 @@ export const ManageBillingResponse = proto3.makeMessageType(
   "web.v1.ManageBillingResponse",
   () => [
     { no: 1, name: "billing_link", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message web.v1.OAuthLinkRequest
+ */
+export const OAuthLinkRequest = proto3.makeMessageType(
+  "web.v1.OAuthLinkRequest",
+  () => [
+    { no: 1, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 2, name: "redirect_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message web.v1.OAuthLink
+ */
+export const OAuthLink = proto3.makeMessageType(
+  "web.v1.OAuthLink",
+  () => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message web.v1.OAuthLinkResponse
+ */
+export const OAuthLinkResponse = proto3.makeMessageType(
+  "web.v1.OAuthLinkResponse",
+  () => [
+    { no: 1, name: "setup_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "resp" },
+    { no: 2, name: "existing", kind: "message", T: OAuthLink, oneof: "resp" },
   ],
 );
 

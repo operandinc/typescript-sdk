@@ -5,7 +5,65 @@
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
-import {UserProfile} from "../../web/v1/user_pb.js";
+import {Filter, Object$} from "./object_pb.js";
+
+/**
+ * @generated from enum operand.v1.ExplorationKind
+ */
+export enum ExplorationKind {
+  /**
+   * @generated from enum value: EXPLORATION_KIND_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXPLORATION_KIND_CONCEPTS = 1;
+   */
+  CONCEPTS = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExplorationKind)
+proto3.util.setEnumType(ExplorationKind, "operand.v1.ExplorationKind", [
+  { no: 0, name: "EXPLORATION_KIND_UNSPECIFIED" },
+  { no: 1, name: "EXPLORATION_KIND_CONCEPTS" },
+]);
+
+/**
+ * @generated from enum operand.v1.ExplorationStatus
+ */
+export enum ExplorationStatus {
+  /**
+   * @generated from enum value: EXPLORATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: EXPLORATION_STATUS_PENDING = 1;
+   */
+  PENDING = 1,
+
+  /**
+   * @generated from enum value: EXPLORATION_STATUS_RUNNING = 2;
+   */
+  RUNNING = 2,
+
+  /**
+   * @generated from enum value: EXPLORATION_STATUS_COMPLETED = 3;
+   */
+  COMPLETED = 3,
+
+  /**
+   * @generated from enum value: EXPLORATION_STATUS_FAILED = 4;
+   */
+  FAILED = 4,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ExplorationStatus)
+proto3.util.setEnumType(ExplorationStatus, "operand.v1.ExplorationStatus", [
+  { no: 0, name: "EXPLORATION_STATUS_UNSPECIFIED" },
+  { no: 1, name: "EXPLORATION_STATUS_PENDING" },
+  { no: 2, name: "EXPLORATION_STATUS_RUNNING" },
+  { no: 3, name: "EXPLORATION_STATUS_COMPLETED" },
+  { no: 4, name: "EXPLORATION_STATUS_FAILED" },
+]);
 
 /**
  * @generated from message operand.v1.IndexOptions
@@ -80,6 +138,11 @@ export class CreateIndexRequest extends Message<CreateIndexRequest> {
    */
   options?: IndexOptions;
 
+  /**
+   * @generated from field: optional string image_url = 5;
+   */
+  imageUrl?: string;
+
   constructor(data?: PartialMessage<CreateIndexRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -92,6 +155,7 @@ export class CreateIndexRequest extends Message<CreateIndexRequest> {
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "public", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
     { no: 4, name: "options", kind: "message", T: IndexOptions, opt: true },
+    { no: 5, name: "image_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateIndexRequest {
@@ -192,6 +256,81 @@ export class IndexStats extends Message<IndexStats> {
 }
 
 /**
+ * @generated from message operand.v1.UserProfile
+ */
+export class UserProfile extends Message<UserProfile> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * Only present if the user is the current user, i.e. authenticated.
+   *
+   * @generated from field: optional string email = 2;
+   */
+  email?: string;
+
+  /**
+   * @generated from field: optional string handle = 3;
+   */
+  handle?: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: optional string name = 5;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: optional string bio = 6;
+   */
+  bio?: string;
+
+  /**
+   * @generated from field: optional string avatar_url = 7;
+   */
+  avatarUrl?: string;
+
+  constructor(data?: PartialMessage<UserProfile>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.UserProfile";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserProfile {
+    return new UserProfile().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserProfile {
+    return new UserProfile().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserProfile {
+    return new UserProfile().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserProfile | PlainMessage<UserProfile> | undefined, b: UserProfile | PlainMessage<UserProfile> | undefined): boolean {
+    return proto3.util.equals(UserProfile, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Index
  */
 export class Index extends Message<Index> {
@@ -201,7 +340,7 @@ export class Index extends Message<Index> {
   publicId = "";
 
   /**
-   * @generated from field: optional web.v1.UserProfile owner = 2;
+   * @generated from field: optional operand.v1.UserProfile owner = 2;
    */
   owner?: UserProfile;
 
@@ -235,6 +374,11 @@ export class Index extends Message<Index> {
    */
   stats?: IndexStats;
 
+  /**
+   * @generated from field: optional string image_url = 9;
+   */
+  imageUrl?: string;
+
   constructor(data?: PartialMessage<Index>) {
     super();
     proto3.util.initPartial(data, this);
@@ -251,6 +395,7 @@ export class Index extends Message<Index> {
     { no: 6, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 7, name: "subscription", kind: "message", T: Subscription, opt: true },
     { no: 8, name: "stats", kind: "message", T: IndexStats, opt: true },
+    { no: 9, name: "image_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Index {
@@ -392,14 +537,22 @@ export class ListIndexesResponse extends Message<ListIndexesResponse> {
  */
 export class GetIndexRequest extends Message<GetIndexRequest> {
   /**
-   * @generated from field: string public_id = 1;
+   * @generated from field: optional string public_id = 1;
    */
-  publicId = "";
+  publicId?: string;
 
   /**
    * @generated from field: optional operand.v1.IndexOptions options = 2;
    */
   options?: IndexOptions;
+
+  /**
+   * If correct, will return the index even if it's private.
+   * If passed, the public_id field isn't required.
+   *
+   * @generated from field: optional string invite_code = 3;
+   */
+  inviteCode?: string;
 
   constructor(data?: PartialMessage<GetIndexRequest>) {
     super();
@@ -409,8 +562,9 @@ export class GetIndexRequest extends Message<GetIndexRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.GetIndexRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "options", kind: "message", T: IndexOptions, opt: true },
+    { no: 3, name: "invite_code", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetIndexRequest {
@@ -496,6 +650,11 @@ export class UpdateIndexRequest extends Message<UpdateIndexRequest> {
    */
   options?: IndexOptions;
 
+  /**
+   * @generated from field: optional string image_url = 6;
+   */
+  imageUrl?: string;
+
   constructor(data?: PartialMessage<UpdateIndexRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -509,6 +668,7 @@ export class UpdateIndexRequest extends Message<UpdateIndexRequest> {
     { no: 3, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "public", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
     { no: 5, name: "options", kind: "message", T: IndexOptions, opt: true },
+    { no: 6, name: "image_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateIndexRequest {
@@ -718,14 +878,21 @@ export class SubscriptionsResponse extends Message<SubscriptionsResponse> {
  */
 export class SubscribeRequest extends Message<SubscribeRequest> {
   /**
-   * @generated from field: string public_id = 1;
+   * @generated from field: optional string public_id = 1;
    */
-  publicId = "";
+  publicId?: string;
 
   /**
    * @generated from field: optional bool notifications = 2;
    */
   notifications?: boolean;
+
+  /**
+   * If specified, no public_id required.
+   *
+   * @generated from field: optional string invite_token = 3;
+   */
+  inviteToken?: string;
 
   constructor(data?: PartialMessage<SubscribeRequest>) {
     super();
@@ -735,8 +902,9 @@ export class SubscribeRequest extends Message<SubscribeRequest> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.SubscribeRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 2, name: "notifications", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "invite_token", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SubscribeRequest {
@@ -802,6 +970,14 @@ export class UnsubscribeRequest extends Message<UnsubscribeRequest> {
    */
   publicId = "";
 
+  /**
+   * If specified, will kick the user with the given ID from the index.
+   * This is only allowed if the authenticated user is the owner of the index.
+   *
+   * @generated from field: optional string target_user_id = 2;
+   */
+  targetUserId?: string;
+
   constructor(data?: PartialMessage<UnsubscribeRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -811,6 +987,7 @@ export class UnsubscribeRequest extends Message<UnsubscribeRequest> {
   static readonly typeName = "operand.v1.UnsubscribeRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "target_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UnsubscribeRequest {
@@ -862,6 +1039,93 @@ export class UnsubscribeResponse extends Message<UnsubscribeResponse> {
 }
 
 /**
+ * @generated from message operand.v1.InviteRequest
+ */
+export class InviteRequest extends Message<InviteRequest> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * @generated from oneof operand.v1.InviteRequest.target
+   */
+  target: {
+    /**
+     * @generated from field: string user_public_id = 2;
+     */
+    value: string;
+    case: "userPublicId";
+  } | {
+    /**
+     * @generated from field: string email_address = 3;
+     */
+    value: string;
+    case: "emailAddress";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<InviteRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.InviteRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "user_public_id", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "target" },
+    { no: 3, name: "email_address", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "target" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InviteRequest {
+    return new InviteRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InviteRequest {
+    return new InviteRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InviteRequest {
+    return new InviteRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: InviteRequest | PlainMessage<InviteRequest> | undefined, b: InviteRequest | PlainMessage<InviteRequest> | undefined): boolean {
+    return proto3.util.equals(InviteRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.InviteResponse
+ */
+export class InviteResponse extends Message<InviteResponse> {
+  constructor(data?: PartialMessage<InviteResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.InviteResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): InviteResponse {
+    return new InviteResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): InviteResponse {
+    return new InviteResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): InviteResponse {
+    return new InviteResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: InviteResponse | PlainMessage<InviteResponse> | undefined, b: InviteResponse | PlainMessage<InviteResponse> | undefined): boolean {
+    return proto3.util.equals(InviteResponse, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.SubscribersOfRequest
  */
 export class SubscribersOfRequest extends Message<SubscribersOfRequest> {
@@ -903,7 +1167,7 @@ export class SubscribersOfRequest extends Message<SubscribersOfRequest> {
  */
 export class SubscribersOfResponse extends Message<SubscribersOfResponse> {
   /**
-   * @generated from field: repeated web.v1.UserProfile subscribers = 1;
+   * @generated from field: repeated operand.v1.UserProfile subscribers = 1;
    */
   subscribers: UserProfile[] = [];
 
@@ -932,6 +1196,868 @@ export class SubscribersOfResponse extends Message<SubscribersOfResponse> {
 
   static equals(a: SubscribersOfResponse | PlainMessage<SubscribersOfResponse> | undefined, b: SubscribersOfResponse | PlainMessage<SubscribersOfResponse> | undefined): boolean {
     return proto3.util.equals(SubscribersOfResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.AvailableExplorationsRequest
+ */
+export class AvailableExplorationsRequest extends Message<AvailableExplorationsRequest> {
+  /**
+   * @generated from field: string index_id = 1;
+   */
+  indexId = "";
+
+  constructor(data?: PartialMessage<AvailableExplorationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.AvailableExplorationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AvailableExplorationsRequest {
+    return new AvailableExplorationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AvailableExplorationsRequest {
+    return new AvailableExplorationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AvailableExplorationsRequest {
+    return new AvailableExplorationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AvailableExplorationsRequest | PlainMessage<AvailableExplorationsRequest> | undefined, b: AvailableExplorationsRequest | PlainMessage<AvailableExplorationsRequest> | undefined): boolean {
+    return proto3.util.equals(AvailableExplorationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.AvailableExplorationsResponse
+ */
+export class AvailableExplorationsResponse extends Message<AvailableExplorationsResponse> {
+  /**
+   * @generated from field: repeated operand.v1.ExplorationKind kinds = 1;
+   */
+  kinds: ExplorationKind[] = [];
+
+  constructor(data?: PartialMessage<AvailableExplorationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.AvailableExplorationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "kinds", kind: "enum", T: proto3.getEnumType(ExplorationKind), repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): AvailableExplorationsResponse {
+    return new AvailableExplorationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): AvailableExplorationsResponse {
+    return new AvailableExplorationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): AvailableExplorationsResponse {
+    return new AvailableExplorationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: AvailableExplorationsResponse | PlainMessage<AvailableExplorationsResponse> | undefined, b: AvailableExplorationsResponse | PlainMessage<AvailableExplorationsResponse> | undefined): boolean {
+    return proto3.util.equals(AvailableExplorationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ExplorationParameters
+ */
+export class ExplorationParameters extends Message<ExplorationParameters> {
+  /**
+   * @generated from oneof operand.v1.ExplorationParameters.kind
+   */
+  kind: {
+    /**
+     * @generated from field: operand.v1.ConceptsExplorationParameters concepts = 1;
+     */
+    value: ConceptsExplorationParameters;
+    case: "concepts";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ExplorationParameters>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ExplorationParameters";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "concepts", kind: "message", T: ConceptsExplorationParameters, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExplorationParameters {
+    return new ExplorationParameters().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExplorationParameters {
+    return new ExplorationParameters().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExplorationParameters {
+    return new ExplorationParameters().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExplorationParameters | PlainMessage<ExplorationParameters> | undefined, b: ExplorationParameters | PlainMessage<ExplorationParameters> | undefined): boolean {
+    return proto3.util.equals(ExplorationParameters, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ConceptsExplorationParameters
+ */
+export class ConceptsExplorationParameters extends Message<ConceptsExplorationParameters> {
+  /**
+   * @generated from field: int32 target_size = 1;
+   */
+  targetSize = 0;
+
+  /**
+   * @generated from field: repeated operand.v1.ConceptsExplorationParameters.SummaryKind summary_kinds = 2;
+   */
+  summaryKinds: ConceptsExplorationParameters_SummaryKind[] = [];
+
+  /**
+   * @generated from field: optional operand.v1.Filter filter = 3;
+   */
+  filter?: Filter;
+
+  constructor(data?: PartialMessage<ConceptsExplorationParameters>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ConceptsExplorationParameters";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "target_size", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "summary_kinds", kind: "enum", T: proto3.getEnumType(ConceptsExplorationParameters_SummaryKind), repeated: true },
+    { no: 3, name: "filter", kind: "message", T: Filter, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConceptsExplorationParameters {
+    return new ConceptsExplorationParameters().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConceptsExplorationParameters {
+    return new ConceptsExplorationParameters().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConceptsExplorationParameters {
+    return new ConceptsExplorationParameters().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConceptsExplorationParameters | PlainMessage<ConceptsExplorationParameters> | undefined, b: ConceptsExplorationParameters | PlainMessage<ConceptsExplorationParameters> | undefined): boolean {
+    return proto3.util.equals(ConceptsExplorationParameters, a, b);
+  }
+}
+
+/**
+ * @generated from enum operand.v1.ConceptsExplorationParameters.SummaryKind
+ */
+export enum ConceptsExplorationParameters_SummaryKind {
+  /**
+   * @generated from enum value: SUMMARY_KIND_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: SUMMARY_KIND_TOPIC_STRING = 1;
+   */
+  TOPIC_STRING = 1,
+
+  /**
+   * @generated from enum value: SUMMARY_KIND_MARKDOWN = 2;
+   */
+  MARKDOWN = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ConceptsExplorationParameters_SummaryKind)
+proto3.util.setEnumType(ConceptsExplorationParameters_SummaryKind, "operand.v1.ConceptsExplorationParameters.SummaryKind", [
+  { no: 0, name: "SUMMARY_KIND_UNSPECIFIED" },
+  { no: 1, name: "SUMMARY_KIND_TOPIC_STRING" },
+  { no: 2, name: "SUMMARY_KIND_MARKDOWN" },
+]);
+
+/**
+ * @generated from message operand.v1.ExplorationData
+ */
+export class ExplorationData extends Message<ExplorationData> {
+  /**
+   * @generated from oneof operand.v1.ExplorationData.kind
+   */
+  kind: {
+    /**
+     * @generated from field: operand.v1.ConceptsExplorationData concepts = 1;
+     */
+    value: ConceptsExplorationData;
+    case: "concepts";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ExplorationData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ExplorationData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "concepts", kind: "message", T: ConceptsExplorationData, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExplorationData {
+    return new ExplorationData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExplorationData {
+    return new ExplorationData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExplorationData {
+    return new ExplorationData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExplorationData | PlainMessage<ExplorationData> | undefined, b: ExplorationData | PlainMessage<ExplorationData> | undefined): boolean {
+    return proto3.util.equals(ExplorationData, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ConceptsExplorationData
+ */
+export class ConceptsExplorationData extends Message<ConceptsExplorationData> {
+  /**
+   * @generated from field: repeated operand.v1.ConceptsExplorationData.Concept concepts = 1;
+   */
+  concepts: ConceptsExplorationData_Concept[] = [];
+
+  constructor(data?: PartialMessage<ConceptsExplorationData>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ConceptsExplorationData";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "concepts", kind: "message", T: ConceptsExplorationData_Concept, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConceptsExplorationData {
+    return new ConceptsExplorationData().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConceptsExplorationData {
+    return new ConceptsExplorationData().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConceptsExplorationData {
+    return new ConceptsExplorationData().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConceptsExplorationData | PlainMessage<ConceptsExplorationData> | undefined, b: ConceptsExplorationData | PlainMessage<ConceptsExplorationData> | undefined): boolean {
+    return proto3.util.equals(ConceptsExplorationData, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ConceptsExplorationData.Snippet
+ */
+export class ConceptsExplorationData_Snippet extends Message<ConceptsExplorationData_Snippet> {
+  /**
+   * @generated from field: string text = 1;
+   */
+  text = "";
+
+  /**
+   * @generated from field: string object_id = 2;
+   */
+  objectId = "";
+
+  constructor(data?: PartialMessage<ConceptsExplorationData_Snippet>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ConceptsExplorationData.Snippet";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "text", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConceptsExplorationData_Snippet {
+    return new ConceptsExplorationData_Snippet().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Snippet {
+    return new ConceptsExplorationData_Snippet().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Snippet {
+    return new ConceptsExplorationData_Snippet().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConceptsExplorationData_Snippet | PlainMessage<ConceptsExplorationData_Snippet> | undefined, b: ConceptsExplorationData_Snippet | PlainMessage<ConceptsExplorationData_Snippet> | undefined): boolean {
+    return proto3.util.equals(ConceptsExplorationData_Snippet, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ConceptsExplorationData.Summary
+ */
+export class ConceptsExplorationData_Summary extends Message<ConceptsExplorationData_Summary> {
+  /**
+   * @generated from oneof operand.v1.ConceptsExplorationData.Summary.kind
+   */
+  kind: {
+    /**
+     * @generated from field: string topic_string = 1;
+     */
+    value: string;
+    case: "topicString";
+  } | {
+    /**
+     * @generated from field: string markdown = 2;
+     */
+    value: string;
+    case: "markdown";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<ConceptsExplorationData_Summary>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ConceptsExplorationData.Summary";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "topic_string", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "kind" },
+    { no: 2, name: "markdown", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "kind" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConceptsExplorationData_Summary {
+    return new ConceptsExplorationData_Summary().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Summary {
+    return new ConceptsExplorationData_Summary().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Summary {
+    return new ConceptsExplorationData_Summary().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConceptsExplorationData_Summary | PlainMessage<ConceptsExplorationData_Summary> | undefined, b: ConceptsExplorationData_Summary | PlainMessage<ConceptsExplorationData_Summary> | undefined): boolean {
+    return proto3.util.equals(ConceptsExplorationData_Summary, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ConceptsExplorationData.Concept
+ */
+export class ConceptsExplorationData_Concept extends Message<ConceptsExplorationData_Concept> {
+  /**
+   * @generated from field: repeated operand.v1.ConceptsExplorationData.Snippet snippets = 1;
+   */
+  snippets: ConceptsExplorationData_Snippet[] = [];
+
+  /**
+   * @generated from field: map<string, operand.v1.Object> objects = 2;
+   */
+  objects: { [key: string]: Object$ } = {};
+
+  /**
+   * @generated from field: repeated operand.v1.ConceptsExplorationData.Summary summaries = 3;
+   */
+  summaries: ConceptsExplorationData_Summary[] = [];
+
+  constructor(data?: PartialMessage<ConceptsExplorationData_Concept>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ConceptsExplorationData.Concept";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "snippets", kind: "message", T: ConceptsExplorationData_Snippet, repeated: true },
+    { no: 2, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
+    { no: 3, name: "summaries", kind: "message", T: ConceptsExplorationData_Summary, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConceptsExplorationData_Concept {
+    return new ConceptsExplorationData_Concept().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Concept {
+    return new ConceptsExplorationData_Concept().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConceptsExplorationData_Concept {
+    return new ConceptsExplorationData_Concept().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ConceptsExplorationData_Concept | PlainMessage<ConceptsExplorationData_Concept> | undefined, b: ConceptsExplorationData_Concept | PlainMessage<ConceptsExplorationData_Concept> | undefined): boolean {
+    return proto3.util.equals(ConceptsExplorationData_Concept, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.Exploration
+ */
+export class Exploration extends Message<Exploration> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 2;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: optional google.protobuf.Timestamp updated_at = 3;
+   */
+  updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: operand.v1.ExplorationKind kind = 4;
+   */
+  kind = ExplorationKind.UNSPECIFIED;
+
+  /**
+   * @generated from field: operand.v1.ExplorationParameters parameters = 5;
+   */
+  parameters?: ExplorationParameters;
+
+  /**
+   * @generated from field: operand.v1.ExplorationStatus status = 6;
+   */
+  status = ExplorationStatus.UNSPECIFIED;
+
+  /**
+   * @generated from field: optional operand.v1.ExplorationData data = 7;
+   */
+  data?: ExplorationData;
+
+  /**
+   * @generated from field: optional string error_message = 8;
+   */
+  errorMessage?: string;
+
+  constructor(data?: PartialMessage<Exploration>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.Exploration";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "updated_at", kind: "message", T: Timestamp, opt: true },
+    { no: 4, name: "kind", kind: "enum", T: proto3.getEnumType(ExplorationKind) },
+    { no: 5, name: "parameters", kind: "message", T: ExplorationParameters },
+    { no: 6, name: "status", kind: "enum", T: proto3.getEnumType(ExplorationStatus) },
+    { no: 7, name: "data", kind: "message", T: ExplorationData, opt: true },
+    { no: 8, name: "error_message", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Exploration {
+    return new Exploration().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Exploration {
+    return new Exploration().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Exploration {
+    return new Exploration().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Exploration | PlainMessage<Exploration> | undefined, b: Exploration | PlainMessage<Exploration> | undefined): boolean {
+    return proto3.util.equals(Exploration, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ExplorationOptions
+ */
+export class ExplorationOptions extends Message<ExplorationOptions> {
+  /**
+   * @generated from field: optional bool include_data = 1;
+   */
+  includeData?: boolean;
+
+  constructor(data?: PartialMessage<ExplorationOptions>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ExplorationOptions";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "include_data", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ExplorationOptions {
+    return new ExplorationOptions().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ExplorationOptions {
+    return new ExplorationOptions().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ExplorationOptions {
+    return new ExplorationOptions().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ExplorationOptions | PlainMessage<ExplorationOptions> | undefined, b: ExplorationOptions | PlainMessage<ExplorationOptions> | undefined): boolean {
+    return proto3.util.equals(ExplorationOptions, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.CreateExplorationRequest
+ */
+export class CreateExplorationRequest extends Message<CreateExplorationRequest> {
+  /**
+   * @generated from field: string index_id = 1;
+   */
+  indexId = "";
+
+  /**
+   * @generated from field: operand.v1.ExplorationKind kind = 2;
+   */
+  kind = ExplorationKind.UNSPECIFIED;
+
+  /**
+   * @generated from field: operand.v1.ExplorationParameters parameters = 3;
+   */
+  parameters?: ExplorationParameters;
+
+  /**
+   * @generated from field: optional operand.v1.ExplorationOptions options = 4;
+   */
+  options?: ExplorationOptions;
+
+  constructor(data?: PartialMessage<CreateExplorationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.CreateExplorationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "kind", kind: "enum", T: proto3.getEnumType(ExplorationKind) },
+    { no: 3, name: "parameters", kind: "message", T: ExplorationParameters },
+    { no: 4, name: "options", kind: "message", T: ExplorationOptions, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateExplorationRequest {
+    return new CreateExplorationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateExplorationRequest {
+    return new CreateExplorationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateExplorationRequest {
+    return new CreateExplorationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateExplorationRequest | PlainMessage<CreateExplorationRequest> | undefined, b: CreateExplorationRequest | PlainMessage<CreateExplorationRequest> | undefined): boolean {
+    return proto3.util.equals(CreateExplorationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.CreateExplorationResponse
+ */
+export class CreateExplorationResponse extends Message<CreateExplorationResponse> {
+  /**
+   * @generated from field: operand.v1.Exploration exploration = 1;
+   */
+  exploration?: Exploration;
+
+  constructor(data?: PartialMessage<CreateExplorationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.CreateExplorationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "exploration", kind: "message", T: Exploration },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateExplorationResponse {
+    return new CreateExplorationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): CreateExplorationResponse {
+    return new CreateExplorationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): CreateExplorationResponse {
+    return new CreateExplorationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: CreateExplorationResponse | PlainMessage<CreateExplorationResponse> | undefined, b: CreateExplorationResponse | PlainMessage<CreateExplorationResponse> | undefined): boolean {
+    return proto3.util.equals(CreateExplorationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.DeleteExplorationRequest
+ */
+export class DeleteExplorationRequest extends Message<DeleteExplorationRequest> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  constructor(data?: PartialMessage<DeleteExplorationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.DeleteExplorationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteExplorationRequest {
+    return new DeleteExplorationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteExplorationRequest {
+    return new DeleteExplorationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteExplorationRequest {
+    return new DeleteExplorationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteExplorationRequest | PlainMessage<DeleteExplorationRequest> | undefined, b: DeleteExplorationRequest | PlainMessage<DeleteExplorationRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteExplorationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.DeleteExplorationResponse
+ */
+export class DeleteExplorationResponse extends Message<DeleteExplorationResponse> {
+  constructor(data?: PartialMessage<DeleteExplorationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.DeleteExplorationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteExplorationResponse {
+    return new DeleteExplorationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteExplorationResponse {
+    return new DeleteExplorationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteExplorationResponse {
+    return new DeleteExplorationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteExplorationResponse | PlainMessage<DeleteExplorationResponse> | undefined, b: DeleteExplorationResponse | PlainMessage<DeleteExplorationResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteExplorationResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ListExplorationsRequest
+ */
+export class ListExplorationsRequest extends Message<ListExplorationsRequest> {
+  /**
+   * @generated from field: string index_id = 1;
+   */
+  indexId = "";
+
+  /**
+   * @generated from field: int32 limit = 2;
+   */
+  limit = 0;
+
+  /**
+   * @generated from field: optional int32 offset = 3;
+   */
+  offset?: number;
+
+  /**
+   * @generated from field: optional operand.v1.ExplorationOptions options = 4;
+   */
+  options?: ExplorationOptions;
+
+  constructor(data?: PartialMessage<ListExplorationsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ListExplorationsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "limit", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 3, name: "offset", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 4, name: "options", kind: "message", T: ExplorationOptions, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListExplorationsRequest {
+    return new ListExplorationsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListExplorationsRequest {
+    return new ListExplorationsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListExplorationsRequest {
+    return new ListExplorationsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListExplorationsRequest | PlainMessage<ListExplorationsRequest> | undefined, b: ListExplorationsRequest | PlainMessage<ListExplorationsRequest> | undefined): boolean {
+    return proto3.util.equals(ListExplorationsRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.ListExplorationsResponse
+ */
+export class ListExplorationsResponse extends Message<ListExplorationsResponse> {
+  /**
+   * @generated from field: repeated operand.v1.Exploration explorations = 1;
+   */
+  explorations: Exploration[] = [];
+
+  constructor(data?: PartialMessage<ListExplorationsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ListExplorationsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "explorations", kind: "message", T: Exploration, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListExplorationsResponse {
+    return new ListExplorationsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ListExplorationsResponse {
+    return new ListExplorationsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ListExplorationsResponse {
+    return new ListExplorationsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ListExplorationsResponse | PlainMessage<ListExplorationsResponse> | undefined, b: ListExplorationsResponse | PlainMessage<ListExplorationsResponse> | undefined): boolean {
+    return proto3.util.equals(ListExplorationsResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.GetExplorationRequest
+ */
+export class GetExplorationRequest extends Message<GetExplorationRequest> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * @generated from field: optional operand.v1.ExplorationOptions options = 2;
+   */
+  options?: ExplorationOptions;
+
+  constructor(data?: PartialMessage<GetExplorationRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.GetExplorationRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "options", kind: "message", T: ExplorationOptions, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetExplorationRequest {
+    return new GetExplorationRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetExplorationRequest {
+    return new GetExplorationRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetExplorationRequest {
+    return new GetExplorationRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetExplorationRequest | PlainMessage<GetExplorationRequest> | undefined, b: GetExplorationRequest | PlainMessage<GetExplorationRequest> | undefined): boolean {
+    return proto3.util.equals(GetExplorationRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.GetExplorationResponse
+ */
+export class GetExplorationResponse extends Message<GetExplorationResponse> {
+  /**
+   * @generated from field: operand.v1.Exploration exploration = 1;
+   */
+  exploration?: Exploration;
+
+  constructor(data?: PartialMessage<GetExplorationResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.GetExplorationResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "exploration", kind: "message", T: Exploration },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GetExplorationResponse {
+    return new GetExplorationResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GetExplorationResponse {
+    return new GetExplorationResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetExplorationResponse {
+    return new GetExplorationResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GetExplorationResponse | PlainMessage<GetExplorationResponse> | undefined, b: GetExplorationResponse | PlainMessage<GetExplorationResponse> | undefined): boolean {
+    return proto3.util.equals(GetExplorationResponse, a, b);
   }
 }
 

@@ -64,6 +64,41 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_YOUTUBE = 10;
    */
   YOUTUBE = 10,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_MARKDOWN = 11;
+   */
+  MARKDOWN = 11,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_SLACK = 12;
+   */
+  SLACK = 12,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_GITHUB_REPOSITORY = 13;
+   */
+  GITHUB_REPOSITORY = 13,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_SOURCE_CODE = 14;
+   */
+  SOURCE_CODE = 14,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_NOTION = 15;
+   */
+  NOTION = 15,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_DISCORD = 16;
+   */
+  DISCORD = 16,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_LINEAR = 17;
+   */
+  LINEAR = 17,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
@@ -78,6 +113,13 @@ proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
   { no: 8, name: "OBJECT_TYPE_PDF" },
   { no: 9, name: "OBJECT_TYPE_EPUB" },
   { no: 10, name: "OBJECT_TYPE_YOUTUBE" },
+  { no: 11, name: "OBJECT_TYPE_MARKDOWN" },
+  { no: 12, name: "OBJECT_TYPE_SLACK" },
+  { no: 13, name: "OBJECT_TYPE_GITHUB_REPOSITORY" },
+  { no: 14, name: "OBJECT_TYPE_SOURCE_CODE" },
+  { no: 15, name: "OBJECT_TYPE_NOTION" },
+  { no: 16, name: "OBJECT_TYPE_DISCORD" },
+  { no: 17, name: "OBJECT_TYPE_LINEAR" },
 ]);
 
 /**
@@ -122,6 +164,32 @@ proto3.util.setEnumType(AudioFileExt, "operand.v1.AudioFileExt", [
   { no: 3, name: "AUDIO_FILE_EXT_FLAC" },
   { no: 4, name: "AUDIO_FILE_EXT_WAV" },
   { no: 5, name: "AUDIO_FILE_EXT_MP4" },
+]);
+
+/**
+ * @generated from enum operand.v1.ProgrammingLanguage
+ */
+export enum ProgrammingLanguage {
+  /**
+   * @generated from enum value: PROGRAMMING_LANGUAGE_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: PROGRAMMING_LANGUAGE_GO = 1;
+   */
+  GO = 1,
+
+  /**
+   * @generated from enum value: PROGRAMMING_LANGUAGE_PYTHON = 2;
+   */
+  PYTHON = 2,
+}
+// Retrieve enum metadata with: proto3.getEnumType(ProgrammingLanguage)
+proto3.util.setEnumType(ProgrammingLanguage, "operand.v1.ProgrammingLanguage", [
+  { no: 0, name: "PROGRAMMING_LANGUAGE_UNSPECIFIED" },
+  { no: 1, name: "PROGRAMMING_LANGUAGE_GO" },
+  { no: 2, name: "PROGRAMMING_LANGUAGE_PYTHON" },
 ]);
 
 /**
@@ -229,6 +297,48 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: YouTubeMetadata;
     case: "youtube";
+  } | {
+    /**
+     * @generated from field: operand.v1.MarkdownMetadata markdown = 11;
+     */
+    value: MarkdownMetadata;
+    case: "markdown";
+  } | {
+    /**
+     * @generated from field: operand.v1.SlackMetadata slack = 12;
+     */
+    value: SlackMetadata;
+    case: "slack";
+  } | {
+    /**
+     * @generated from field: operand.v1.GithubRepositoryMetadata github = 13;
+     */
+    value: GithubRepositoryMetadata;
+    case: "github";
+  } | {
+    /**
+     * @generated from field: operand.v1.SourceCodeMetadata source_code = 14;
+     */
+    value: SourceCodeMetadata;
+    case: "sourceCode";
+  } | {
+    /**
+     * @generated from field: operand.v1.NotionMetadata notion = 15;
+     */
+    value: NotionMetadata;
+    case: "notion";
+  } | {
+    /**
+     * @generated from field: operand.v1.DiscordMetadata discord = 16;
+     */
+    value: DiscordMetadata;
+    case: "discord";
+  } | {
+    /**
+     * @generated from field: operand.v1.LinearMetadata linear = 17;
+     */
+    value: LinearMetadata;
+    case: "linear";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -249,6 +359,13 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
     { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
     { no: 10, name: "youtube", kind: "message", T: YouTubeMetadata, oneof: "value" },
+    { no: 11, name: "markdown", kind: "message", T: MarkdownMetadata, oneof: "value" },
+    { no: 12, name: "slack", kind: "message", T: SlackMetadata, oneof: "value" },
+    { no: 13, name: "github", kind: "message", T: GithubRepositoryMetadata, oneof: "value" },
+    { no: 14, name: "source_code", kind: "message", T: SourceCodeMetadata, oneof: "value" },
+    { no: 15, name: "notion", kind: "message", T: NotionMetadata, oneof: "value" },
+    { no: 16, name: "discord", kind: "message", T: DiscordMetadata, oneof: "value" },
+    { no: 17, name: "linear", kind: "message", T: LinearMetadata, oneof: "value" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -370,6 +487,43 @@ export class HTMLMetadata extends Message<HTMLMetadata> {
 
   static equals(a: HTMLMetadata | PlainMessage<HTMLMetadata> | undefined, b: HTMLMetadata | PlainMessage<HTMLMetadata> | undefined): boolean {
     return proto3.util.equals(HTMLMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.MarkdownMetadata
+ */
+export class MarkdownMetadata extends Message<MarkdownMetadata> {
+  /**
+   * @generated from field: optional string markdown = 1;
+   */
+  markdown?: string;
+
+  constructor(data?: PartialMessage<MarkdownMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.MarkdownMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "markdown", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MarkdownMetadata {
+    return new MarkdownMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MarkdownMetadata {
+    return new MarkdownMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MarkdownMetadata {
+    return new MarkdownMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MarkdownMetadata | PlainMessage<MarkdownMetadata> | undefined, b: MarkdownMetadata | PlainMessage<MarkdownMetadata> | undefined): boolean {
+    return proto3.util.equals(MarkdownMetadata, a, b);
   }
 }
 
@@ -635,6 +789,260 @@ export class YouTubeMetadata extends Message<YouTubeMetadata> {
 }
 
 /**
+ * @generated from message operand.v1.SlackMetadata
+ */
+export class SlackMetadata extends Message<SlackMetadata> {
+  /**
+   * @generated from field: string bot_token = 1;
+   */
+  botToken = "";
+
+  /**
+   * Will be set automatically.
+   *
+   * @generated from field: optional string bot_user_id = 2;
+   */
+  botUserId?: string;
+
+  constructor(data?: PartialMessage<SlackMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.SlackMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "bot_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlackMetadata {
+    return new SlackMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SlackMetadata {
+    return new SlackMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SlackMetadata {
+    return new SlackMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SlackMetadata | PlainMessage<SlackMetadata> | undefined, b: SlackMetadata | PlainMessage<SlackMetadata> | undefined): boolean {
+    return proto3.util.equals(SlackMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.GithubRepositoryMetadata
+ */
+export class GithubRepositoryMetadata extends Message<GithubRepositoryMetadata> {
+  /**
+   * @generated from field: string access_token = 1;
+   */
+  accessToken = "";
+
+  /**
+   * @generated from field: string owner = 2;
+   */
+  owner = "";
+
+  /**
+   * @generated from field: string name = 3;
+   */
+  name = "";
+
+  /**
+   * @generated from field: optional string ref = 4;
+   */
+  ref?: string;
+
+  constructor(data?: PartialMessage<GithubRepositoryMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.GithubRepositoryMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "ref", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GithubRepositoryMetadata {
+    return new GithubRepositoryMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GithubRepositoryMetadata {
+    return new GithubRepositoryMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GithubRepositoryMetadata {
+    return new GithubRepositoryMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: GithubRepositoryMetadata | PlainMessage<GithubRepositoryMetadata> | undefined, b: GithubRepositoryMetadata | PlainMessage<GithubRepositoryMetadata> | undefined): boolean {
+    return proto3.util.equals(GithubRepositoryMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.SourceCodeMetadata
+ */
+export class SourceCodeMetadata extends Message<SourceCodeMetadata> {
+  /**
+   * @generated from field: operand.v1.ProgrammingLanguage language = 1;
+   */
+  language = ProgrammingLanguage.UNSPECIFIED;
+
+  /**
+   * @generated from field: string source_code = 2;
+   */
+  sourceCode = "";
+
+  constructor(data?: PartialMessage<SourceCodeMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.SourceCodeMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "language", kind: "enum", T: proto3.getEnumType(ProgrammingLanguage) },
+    { no: 2, name: "source_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SourceCodeMetadata {
+    return new SourceCodeMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SourceCodeMetadata {
+    return new SourceCodeMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SourceCodeMetadata {
+    return new SourceCodeMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SourceCodeMetadata | PlainMessage<SourceCodeMetadata> | undefined, b: SourceCodeMetadata | PlainMessage<SourceCodeMetadata> | undefined): boolean {
+    return proto3.util.equals(SourceCodeMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.NotionMetadata
+ */
+export class NotionMetadata extends Message<NotionMetadata> {
+  /**
+   * @generated from field: string token = 1;
+   */
+  token = "";
+
+  constructor(data?: PartialMessage<NotionMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.NotionMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): NotionMetadata {
+    return new NotionMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): NotionMetadata {
+    return new NotionMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): NotionMetadata {
+    return new NotionMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: NotionMetadata | PlainMessage<NotionMetadata> | undefined, b: NotionMetadata | PlainMessage<NotionMetadata> | undefined): boolean {
+    return proto3.util.equals(NotionMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.DiscordMetadata
+ */
+export class DiscordMetadata extends Message<DiscordMetadata> {
+  /**
+   * @generated from field: string guild_id = 1;
+   */
+  guildId = "";
+
+  constructor(data?: PartialMessage<DiscordMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.DiscordMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "guild_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DiscordMetadata {
+    return new DiscordMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DiscordMetadata {
+    return new DiscordMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DiscordMetadata {
+    return new DiscordMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DiscordMetadata | PlainMessage<DiscordMetadata> | undefined, b: DiscordMetadata | PlainMessage<DiscordMetadata> | undefined): boolean {
+    return proto3.util.equals(DiscordMetadata, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.LinearMetadata
+ */
+export class LinearMetadata extends Message<LinearMetadata> {
+  /**
+   * @generated from field: string access_token = 1;
+   */
+  accessToken = "";
+
+  constructor(data?: PartialMessage<LinearMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.LinearMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LinearMetadata {
+    return new LinearMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): LinearMetadata {
+    return new LinearMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): LinearMetadata {
+    return new LinearMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: LinearMetadata | PlainMessage<LinearMetadata> | undefined, b: LinearMetadata | PlainMessage<LinearMetadata> | undefined): boolean {
+    return proto3.util.equals(LinearMetadata, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Properties
  */
 export class Properties extends Message<Properties> {
@@ -871,6 +1279,51 @@ export class ObjectPreview extends Message<ObjectPreview> {
 }
 
 /**
+ * @generated from message operand.v1.IndexingProgress
+ */
+export class IndexingProgress extends Message<IndexingProgress> {
+  /**
+   * 0.0 - 1.0
+   *
+   * @generated from field: float percent_ready = 1;
+   */
+  percentReady = 0;
+
+  /**
+   * @generated from field: map<string, int32> status_counts = 2;
+   */
+  statusCounts: { [key: string]: number } = {};
+
+  constructor(data?: PartialMessage<IndexingProgress>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.IndexingProgress";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "percent_ready", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "status_counts", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 5 /* ScalarType.INT32 */} },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IndexingProgress {
+    return new IndexingProgress().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IndexingProgress {
+    return new IndexingProgress().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IndexingProgress {
+    return new IndexingProgress().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: IndexingProgress | PlainMessage<IndexingProgress> | undefined, b: IndexingProgress | PlainMessage<IndexingProgress> | undefined): boolean {
+    return proto3.util.equals(IndexingProgress, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Object
  */
 export class Object$ extends Message<Object$> {
@@ -919,6 +1372,16 @@ export class Object$ extends Message<Object$> {
    */
   preview?: ObjectPreview;
 
+  /**
+   * @generated from field: optional operand.v1.IndexingProgress indexing_progress = 10;
+   */
+  indexingProgress?: IndexingProgress;
+
+  /**
+   * @generated from field: optional string error = 11;
+   */
+  error?: string;
+
   constructor(data?: PartialMessage<Object$>) {
     super();
     proto3.util.initPartial(data, this);
@@ -936,6 +1399,8 @@ export class Object$ extends Message<Object$> {
     { no: 7, name: "properties", kind: "message", T: Properties },
     { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(ObjectStatus) },
     { no: 9, name: "preview", kind: "message", T: ObjectPreview, opt: true },
+    { no: 10, name: "indexing_progress", kind: "message", T: IndexingProgress, opt: true },
+    { no: 11, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Object$ {
@@ -969,6 +1434,11 @@ export class ObjectOptions extends Message<ObjectOptions> {
    */
   includePreview?: boolean;
 
+  /**
+   * @generated from field: optional bool include_indexing_progress = 3;
+   */
+  includeIndexingProgress?: boolean;
+
   constructor(data?: PartialMessage<ObjectOptions>) {
     super();
     proto3.util.initPartial(data, this);
@@ -979,6 +1449,7 @@ export class ObjectOptions extends Message<ObjectOptions> {
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "include_metadata", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
     { no: 2, name: "include_preview", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "include_indexing_progress", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectOptions {

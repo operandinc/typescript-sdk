@@ -5,6 +5,7 @@
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
+import {UserProfile} from "../../operand/v1/index_pb.js";
 
 /**
  * @generated from enum web.v1.TokenKind
@@ -52,16 +53,42 @@ export enum BillingPlan {
   PRO = 2,
 
   /**
-   * @generated from enum value: BILLING_PLAN_BUSINESS = 3;
+   * @generated from enum value: BILLING_PLAN_TEAMS = 3;
    */
-  BUSINESS = 3,
+  TEAMS = 3,
+
+  /**
+   * @generated from enum value: BILLING_PLAN_ENTERPRISE = 4;
+   */
+  ENTERPRISE = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(BillingPlan)
 proto3.util.setEnumType(BillingPlan, "web.v1.BillingPlan", [
   { no: 0, name: "BILLING_PLAN_UNSPECIFIED" },
   { no: 1, name: "BILLING_PLAN_FREE" },
   { no: 2, name: "BILLING_PLAN_PRO" },
-  { no: 3, name: "BILLING_PLAN_BUSINESS" },
+  { no: 3, name: "BILLING_PLAN_TEAMS" },
+  { no: 4, name: "BILLING_PLAN_ENTERPRISE" },
+]);
+
+/**
+ * @generated from enum web.v1.OAuthProvider
+ */
+export enum OAuthProvider {
+  /**
+   * @generated from enum value: O_AUTH_PROVIDER_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: O_AUTH_PROVIDER_GITHUB = 1;
+   */
+  GITHUB = 1,
+}
+// Retrieve enum metadata with: proto3.getEnumType(OAuthProvider)
+proto3.util.setEnumType(OAuthProvider, "web.v1.OAuthProvider", [
+  { no: 0, name: "O_AUTH_PROVIDER_UNSPECIFIED" },
+  { no: 1, name: "O_AUTH_PROVIDER_GITHUB" },
 ]);
 
 /**
@@ -280,81 +307,6 @@ export class FinalizeLoginResponse extends Message<FinalizeLoginResponse> {
 }
 
 /**
- * @generated from message web.v1.UserProfile
- */
-export class UserProfile extends Message<UserProfile> {
-  /**
-   * @generated from field: string public_id = 1;
-   */
-  publicId = "";
-
-  /**
-   * Only present if the user is the current user, i.e. authenticated.
-   *
-   * @generated from field: optional string email = 2;
-   */
-  email?: string;
-
-  /**
-   * @generated from field: optional string handle = 3;
-   */
-  handle?: string;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp created_at = 4;
-   */
-  createdAt?: Timestamp;
-
-  /**
-   * @generated from field: optional string name = 5;
-   */
-  name?: string;
-
-  /**
-   * @generated from field: optional string bio = 6;
-   */
-  bio?: string;
-
-  /**
-   * @generated from field: optional string avatar_url = 7;
-   */
-  avatarUrl?: string;
-
-  constructor(data?: PartialMessage<UserProfile>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "web.v1.UserProfile";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "created_at", kind: "message", T: Timestamp },
-    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserProfile {
-    return new UserProfile().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserProfile {
-    return new UserProfile().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserProfile {
-    return new UserProfile().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: UserProfile | PlainMessage<UserProfile> | undefined, b: UserProfile | PlainMessage<UserProfile> | undefined): boolean {
-    return proto3.util.equals(UserProfile, a, b);
-  }
-}
-
-/**
  * @generated from message web.v1.GetProfileRequest
  */
 export class GetProfileRequest extends Message<GetProfileRequest> {
@@ -445,7 +397,7 @@ export class SocialStats extends Message<SocialStats> {
  */
 export class GetProfileResponse extends Message<GetProfileResponse> {
   /**
-   * @generated from field: web.v1.UserProfile profile = 1;
+   * @generated from field: operand.v1.UserProfile profile = 1;
    */
   profile?: UserProfile;
 
@@ -549,7 +501,7 @@ export class UpdateProfileRequest extends Message<UpdateProfileRequest> {
  */
 export class UpdateProfileResponse extends Message<UpdateProfileResponse> {
   /**
-   * @generated from field: web.v1.UserProfile profile = 1;
+   * @generated from field: operand.v1.UserProfile profile = 1;
    */
   profile?: UserProfile;
 
@@ -672,11 +624,19 @@ export class BillingStatusResponse extends Message<BillingStatusResponse> {
  */
 export class ConfigureBillingRequest extends Message<ConfigureBillingRequest> {
   /**
-   * Currently, only Pro is supported here.
-   *
    * @generated from field: web.v1.BillingPlan plan = 1;
    */
   plan = BillingPlan.UNSPECIFIED;
+
+  /**
+   * @generated from field: optional string success_url = 2;
+   */
+  successUrl?: string;
+
+  /**
+   * @generated from field: optional string cancel_url = 3;
+   */
+  cancelUrl?: string;
 
   constructor(data?: PartialMessage<ConfigureBillingRequest>) {
     super();
@@ -687,6 +647,8 @@ export class ConfigureBillingRequest extends Message<ConfigureBillingRequest> {
   static readonly typeName = "web.v1.ConfigureBillingRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "plan", kind: "enum", T: proto3.getEnumType(BillingPlan) },
+    { no: 2, name: "success_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "cancel_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConfigureBillingRequest {
@@ -808,6 +770,156 @@ export class ManageBillingResponse extends Message<ManageBillingResponse> {
 
   static equals(a: ManageBillingResponse | PlainMessage<ManageBillingResponse> | undefined, b: ManageBillingResponse | PlainMessage<ManageBillingResponse> | undefined): boolean {
     return proto3.util.equals(ManageBillingResponse, a, b);
+  }
+}
+
+/**
+ * @generated from message web.v1.OAuthLinkRequest
+ */
+export class OAuthLinkRequest extends Message<OAuthLinkRequest> {
+  /**
+   * @generated from field: web.v1.OAuthProvider provider = 1;
+   */
+  provider = OAuthProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: string redirect_url = 2;
+   */
+  redirectUrl = "";
+
+  constructor(data?: PartialMessage<OAuthLinkRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "web.v1.OAuthLinkRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 2, name: "redirect_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OAuthLinkRequest {
+    return new OAuthLinkRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OAuthLinkRequest {
+    return new OAuthLinkRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OAuthLinkRequest {
+    return new OAuthLinkRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OAuthLinkRequest | PlainMessage<OAuthLinkRequest> | undefined, b: OAuthLinkRequest | PlainMessage<OAuthLinkRequest> | undefined): boolean {
+    return proto3.util.equals(OAuthLinkRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message web.v1.OAuthLink
+ */
+export class OAuthLink extends Message<OAuthLink> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * @generated from field: web.v1.OAuthProvider provider = 2;
+   */
+  provider = OAuthProvider.UNSPECIFIED;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 3;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * Note: We don't return refresh_token or expires_at here, since it's purely an internal thing.
+   *
+   * @generated from field: string access_token = 4;
+   */
+  accessToken = "";
+
+  constructor(data?: PartialMessage<OAuthLink>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "web.v1.OAuthLink";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 3, name: "created_at", kind: "message", T: Timestamp },
+    { no: 4, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OAuthLink {
+    return new OAuthLink().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OAuthLink {
+    return new OAuthLink().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OAuthLink {
+    return new OAuthLink().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OAuthLink | PlainMessage<OAuthLink> | undefined, b: OAuthLink | PlainMessage<OAuthLink> | undefined): boolean {
+    return proto3.util.equals(OAuthLink, a, b);
+  }
+}
+
+/**
+ * @generated from message web.v1.OAuthLinkResponse
+ */
+export class OAuthLinkResponse extends Message<OAuthLinkResponse> {
+  /**
+   * @generated from oneof web.v1.OAuthLinkResponse.resp
+   */
+  resp: {
+    /**
+     * @generated from field: string setup_url = 1;
+     */
+    value: string;
+    case: "setupUrl";
+  } | {
+    /**
+     * @generated from field: web.v1.OAuthLink existing = 2;
+     */
+    value: OAuthLink;
+    case: "existing";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<OAuthLinkResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "web.v1.OAuthLinkResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "setup_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "resp" },
+    { no: 2, name: "existing", kind: "message", T: OAuthLink, oneof: "resp" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OAuthLinkResponse {
+    return new OAuthLinkResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OAuthLinkResponse {
+    return new OAuthLinkResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OAuthLinkResponse {
+    return new OAuthLinkResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OAuthLinkResponse | PlainMessage<OAuthLinkResponse> | undefined, b: OAuthLinkResponse | PlainMessage<OAuthLinkResponse> | undefined): boolean {
+    return proto3.util.equals(OAuthLinkResponse, a, b);
   }
 }
 

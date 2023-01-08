@@ -283,15 +283,79 @@ export class SearchRequest extends Message<SearchRequest> {
 }
 
 /**
+ * ContentSnippet is a snippet of content taken directly from the content of an object. This is used
+ * within search results, as well as to show context for the result of a given operation.
+ *
+ * @generated from message operand.v1.ContentSnippet
+ */
+export class ContentSnippet extends Message<ContentSnippet> {
+  /**
+   * @generated from field: string content = 1;
+   */
+  content = "";
+
+  /**
+   * @generated from field: string object_id = 2;
+   */
+  objectId = "";
+
+  /**
+   * @generated from field: string index_id = 3;
+   */
+  indexId = "";
+
+  /**
+   * @generated from field: optional operand.v1.Properties extra = 4;
+   */
+  extra?: Properties;
+
+  /**
+   * @generated from field: float score = 5;
+   */
+  score = 0;
+
+  constructor(data?: PartialMessage<ContentSnippet>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.ContentSnippet";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
+    { no: 5, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContentSnippet {
+    return new ContentSnippet().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ContentSnippet {
+    return new ContentSnippet().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ContentSnippet {
+    return new ContentSnippet().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ContentSnippet | PlainMessage<ContentSnippet> | undefined, b: ContentSnippet | PlainMessage<ContentSnippet> | undefined): boolean {
+    return proto3.util.equals(ContentSnippet, a, b);
+  }
+}
+
+/**
  * SearchResponse is the response object for the Search RPC.
  *
  * @generated from message operand.v1.SearchResponse
  */
 export class SearchResponse extends Message<SearchResponse> {
   /**
-   * @generated from field: repeated operand.v1.SearchResponse.Result results = 1;
+   * @generated from field: repeated operand.v1.ContentSnippet results = 1;
    */
-  results: SearchResponse_Result[] = [];
+  results: ContentSnippet[] = [];
 
   /**
    * @generated from field: map<string, operand.v1.Object> objects = 2;
@@ -316,7 +380,7 @@ export class SearchResponse extends Message<SearchResponse> {
   static readonly runtime = proto3;
   static readonly typeName = "operand.v1.SearchResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "results", kind: "message", T: SearchResponse_Result, repeated: true },
+    { no: 1, name: "results", kind: "message", T: ContentSnippet, repeated: true },
     { no: 2, name: "objects", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Object$} },
     { no: 3, name: "indexes", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "message", T: Index} },
     { no: 4, name: "answer", kind: "message", T: Answer, opt: true },
@@ -336,61 +400,6 @@ export class SearchResponse extends Message<SearchResponse> {
 
   static equals(a: SearchResponse | PlainMessage<SearchResponse> | undefined, b: SearchResponse | PlainMessage<SearchResponse> | undefined): boolean {
     return proto3.util.equals(SearchResponse, a, b);
-  }
-}
-
-/**
- * @generated from message operand.v1.SearchResponse.Result
- */
-export class SearchResponse_Result extends Message<SearchResponse_Result> {
-  /**
-   * @generated from field: string index_id = 1;
-   */
-  indexId = "";
-
-  /**
-   * @generated from field: string object_id = 2;
-   */
-  objectId = "";
-
-  /**
-   * @generated from field: string content = 3;
-   */
-  content = "";
-
-  /**
-   * @generated from field: optional operand.v1.Properties extra = 4;
-   */
-  extra?: Properties;
-
-  constructor(data?: PartialMessage<SearchResponse_Result>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.SearchResponse.Result";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "index_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "object_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 3, name: "content", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 4, name: "extra", kind: "message", T: Properties, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SearchResponse_Result {
-    return new SearchResponse_Result().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: SearchResponse_Result | PlainMessage<SearchResponse_Result> | undefined, b: SearchResponse_Result | PlainMessage<SearchResponse_Result> | undefined): boolean {
-    return proto3.util.equals(SearchResponse_Result, a, b);
   }
 }
 

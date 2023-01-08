@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {BillingStatusRequest, BillingStatusResponse, ConfigureBillingRequest, ConfigureBillingResponse, FinalizeLoginRequest, FinalizeLoginResponse, GetProfileRequest, GetProfileResponse, LoginRequest, LoginResponse, ManageBillingRequest, ManageBillingResponse, UpdateProfileRequest, UpdateProfileResponse} from "./user_pb.js";
+import {BillingStatusRequest, BillingStatusResponse, ConfigureBillingRequest, ConfigureBillingResponse, FinalizeLoginRequest, FinalizeLoginResponse, GetProfileRequest, GetProfileResponse, LoginRequest, LoginResponse, ManageBillingRequest, ManageBillingResponse, OAuthLinkRequest, OAuthLinkResponse, UpdateProfileRequest, UpdateProfileResponse} from "./user_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -100,6 +100,18 @@ export const UserService = {
       name: "ManageBilling",
       I: ManageBillingRequest,
       O: ManageBillingResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * OAuthLink returns a link to a page where the user can link their account to an OAuth provider.
+     * This is used to allow us to do various things on behalf of the user
+     *
+     * @generated from rpc web.v1.UserService.OAuthLink
+     */
+    oAuthLink: {
+      name: "OAuthLink",
+      I: OAuthLinkRequest,
+      O: OAuthLinkResponse,
       kind: MethodKind.Unary,
     },
   }

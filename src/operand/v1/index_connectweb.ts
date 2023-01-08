@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* @ts-nocheck */
 
-import {CreateIndexRequest, CreateIndexResponse, DeleteIndexRequest, DeleteIndexResponse, GetIndexRequest, GetIndexResponse, ListIndexesRequest, ListIndexesResponse, SubscribeRequest, SubscribeResponse, SubscribersOfRequest, SubscribersOfResponse, SubscriptionsRequest, SubscriptionsResponse, UnsubscribeRequest, UnsubscribeResponse, UpdateIndexRequest, UpdateIndexResponse} from "./index_pb.js";
+import {AvailableExplorationsRequest, AvailableExplorationsResponse, CreateExplorationRequest, CreateExplorationResponse, CreateIndexRequest, CreateIndexResponse, DeleteExplorationRequest, DeleteExplorationResponse, DeleteIndexRequest, DeleteIndexResponse, GetExplorationRequest, GetExplorationResponse, GetIndexRequest, GetIndexResponse, InviteRequest, InviteResponse, ListExplorationsRequest, ListExplorationsResponse, ListIndexesRequest, ListIndexesResponse, SubscribeRequest, SubscribeResponse, SubscribersOfRequest, SubscribersOfResponse, SubscriptionsRequest, SubscriptionsResponse, UnsubscribeRequest, UnsubscribeResponse, UpdateIndexRequest, UpdateIndexResponse} from "./index_pb.js";
 import {MethodKind} from "@bufbuild/protobuf";
 
 /**
@@ -102,6 +102,8 @@ export const IndexService = {
     },
     /**
      * Unsubscribe allows the user to unsubscribe from a public index.
+     * This endpoint also allows the owner of an index to manually unsubscribe a subscriber,
+     * essentially, a "kick" operation. This is important for private indexes (i.e. teams).
      *
      * @generated from rpc operand.v1.IndexService.Unsubscribe
      */
@@ -109,6 +111,23 @@ export const IndexService = {
       name: "Unsubscribe",
       I: UnsubscribeRequest,
       O: UnsubscribeResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Invite allows a user to invite another user to subscribe to an index.
+     * A few notes:
+     * - The user must be the owner of the index.
+     * - The index need not be public, it's possible to invite users to private indexes.
+     * - The user must not already be subscribed to the index (an error will be returned).
+     * - The target user need not exist, an invitation will be sent to them, and they will
+     *   be given the option to create an account before accepting the invitation.
+     *
+     * @generated from rpc operand.v1.IndexService.Invite
+     */
+    invite: {
+      name: "Invite",
+      I: InviteRequest,
+      O: InviteResponse,
       kind: MethodKind.Unary,
     },
     /**
@@ -120,6 +139,61 @@ export const IndexService = {
       name: "SubscribersOf",
       I: SubscribersOfRequest,
       O: SubscribersOfResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * AvailableExplorations returns the list of explorations that are available for an index.
+     *
+     * @generated from rpc operand.v1.IndexService.AvailableExplorations
+     */
+    availableExplorations: {
+      name: "AvailableExplorations",
+      I: AvailableExplorationsRequest,
+      O: AvailableExplorationsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * CreateExploration allows the user to create a new exploration for an index.
+     *
+     * @generated from rpc operand.v1.IndexService.CreateExploration
+     */
+    createExploration: {
+      name: "CreateExploration",
+      I: CreateExplorationRequest,
+      O: CreateExplorationResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * DeleteExploration allows the user to delete an exploration from an index.
+     *
+     * @generated from rpc operand.v1.IndexService.DeleteExploration
+     */
+    deleteExploration: {
+      name: "DeleteExploration",
+      I: DeleteExplorationRequest,
+      O: DeleteExplorationResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * ListExplorations returns the list of explorations that have been created for an index.
+     *
+     * @generated from rpc operand.v1.IndexService.ListExplorations
+     */
+    listExplorations: {
+      name: "ListExplorations",
+      I: ListExplorationsRequest,
+      O: ListExplorationsResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * GetExploration returns the details of a single exploration that was created for an index.
+     *
+     * @generated from rpc operand.v1.IndexService.GetExploration
+     */
+    getExploration: {
+      name: "GetExploration",
+      I: GetExplorationRequest,
+      O: GetExplorationResponse,
       kind: MethodKind.Unary,
     },
   }

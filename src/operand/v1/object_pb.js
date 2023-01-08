@@ -22,6 +22,13 @@ export const ObjectType = proto3.makeEnum(
     {no: 8, name: "OBJECT_TYPE_PDF", localName: "PDF"},
     {no: 9, name: "OBJECT_TYPE_EPUB", localName: "EPUB"},
     {no: 10, name: "OBJECT_TYPE_YOUTUBE", localName: "YOUTUBE"},
+    {no: 11, name: "OBJECT_TYPE_MARKDOWN", localName: "MARKDOWN"},
+    {no: 12, name: "OBJECT_TYPE_SLACK", localName: "SLACK"},
+    {no: 13, name: "OBJECT_TYPE_GITHUB_REPOSITORY", localName: "GITHUB_REPOSITORY"},
+    {no: 14, name: "OBJECT_TYPE_SOURCE_CODE", localName: "SOURCE_CODE"},
+    {no: 15, name: "OBJECT_TYPE_NOTION", localName: "NOTION"},
+    {no: 16, name: "OBJECT_TYPE_DISCORD", localName: "DISCORD"},
+    {no: 17, name: "OBJECT_TYPE_LINEAR", localName: "LINEAR"},
   ],
 );
 
@@ -37,6 +44,18 @@ export const AudioFileExt = proto3.makeEnum(
     {no: 3, name: "AUDIO_FILE_EXT_FLAC", localName: "FLAC"},
     {no: 4, name: "AUDIO_FILE_EXT_WAV", localName: "WAV"},
     {no: 5, name: "AUDIO_FILE_EXT_MP4", localName: "MP4"},
+  ],
+);
+
+/**
+ * @generated from enum operand.v1.ProgrammingLanguage
+ */
+export const ProgrammingLanguage = proto3.makeEnum(
+  "operand.v1.ProgrammingLanguage",
+  [
+    {no: 0, name: "PROGRAMMING_LANGUAGE_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "PROGRAMMING_LANGUAGE_GO", localName: "GO"},
+    {no: 2, name: "PROGRAMMING_LANGUAGE_PYTHON", localName: "PYTHON"},
   ],
 );
 
@@ -70,6 +89,13 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 8, name: "pdf", kind: "message", T: PDFMetadata, oneof: "value" },
     { no: 9, name: "epub", kind: "message", T: EPUBMetadata, oneof: "value" },
     { no: 10, name: "youtube", kind: "message", T: YouTubeMetadata, oneof: "value" },
+    { no: 11, name: "markdown", kind: "message", T: MarkdownMetadata, oneof: "value" },
+    { no: 12, name: "slack", kind: "message", T: SlackMetadata, oneof: "value" },
+    { no: 13, name: "github", kind: "message", T: GithubRepositoryMetadata, oneof: "value" },
+    { no: 14, name: "source_code", kind: "message", T: SourceCodeMetadata, oneof: "value" },
+    { no: 15, name: "notion", kind: "message", T: NotionMetadata, oneof: "value" },
+    { no: 16, name: "discord", kind: "message", T: DiscordMetadata, oneof: "value" },
+    { no: 17, name: "linear", kind: "message", T: LinearMetadata, oneof: "value" },
   ],
 );
 
@@ -98,6 +124,16 @@ export const HTMLMetadata = proto3.makeMessageType(
   "operand.v1.HTMLMetadata",
   () => [
     { no: 1, name: "html", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.MarkdownMetadata
+ */
+export const MarkdownMetadata = proto3.makeMessageType(
+  "operand.v1.MarkdownMetadata",
+  () => [
+    { no: 1, name: "markdown", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -175,6 +211,71 @@ export const YouTubeMetadata = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message operand.v1.SlackMetadata
+ */
+export const SlackMetadata = proto3.makeMessageType(
+  "operand.v1.SlackMetadata",
+  () => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "bot_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.GithubRepositoryMetadata
+ */
+export const GithubRepositoryMetadata = proto3.makeMessageType(
+  "operand.v1.GithubRepositoryMetadata",
+  () => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "ref", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.SourceCodeMetadata
+ */
+export const SourceCodeMetadata = proto3.makeMessageType(
+  "operand.v1.SourceCodeMetadata",
+  () => [
+    { no: 1, name: "language", kind: "enum", T: proto3.getEnumType(ProgrammingLanguage) },
+    { no: 2, name: "source_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.NotionMetadata
+ */
+export const NotionMetadata = proto3.makeMessageType(
+  "operand.v1.NotionMetadata",
+  () => [
+    { no: 1, name: "token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.DiscordMetadata
+ */
+export const DiscordMetadata = proto3.makeMessageType(
+  "operand.v1.DiscordMetadata",
+  () => [
+    { no: 1, name: "guild_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.LinearMetadata
+ */
+export const LinearMetadata = proto3.makeMessageType(
+  "operand.v1.LinearMetadata",
+  () => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
  * @generated from message operand.v1.Properties
  */
 export const Properties = proto3.makeMessageType(
@@ -232,6 +333,17 @@ export const ObjectPreview = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message operand.v1.IndexingProgress
+ */
+export const IndexingProgress = proto3.makeMessageType(
+  "operand.v1.IndexingProgress",
+  () => [
+    { no: 1, name: "percent_ready", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 2, name: "status_counts", kind: "map", K: 9 /* ScalarType.STRING */, V: {kind: "scalar", T: 5 /* ScalarType.INT32 */} },
+  ],
+);
+
+/**
  * @generated from message operand.v1.Object
  */
 export const Object$ = proto3.makeMessageType(
@@ -246,6 +358,8 @@ export const Object$ = proto3.makeMessageType(
     { no: 7, name: "properties", kind: "message", T: Properties },
     { no: 8, name: "status", kind: "enum", T: proto3.getEnumType(ObjectStatus) },
     { no: 9, name: "preview", kind: "message", T: ObjectPreview, opt: true },
+    { no: 10, name: "indexing_progress", kind: "message", T: IndexingProgress, opt: true },
+    { no: 11, name: "error", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
   {localName: "Object$"},
 );
@@ -258,6 +372,7 @@ export const ObjectOptions = proto3.makeMessageType(
   () => [
     { no: 1, name: "include_metadata", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
     { no: 2, name: "include_preview", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "include_indexing_progress", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ],
 );
 
