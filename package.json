@@ -1,7 +1,7 @@
 {
   "name": "@operandinc/sdk",
   "author": "Operand, Inc.",
-  "version": "4.1.16",
+  "version": "4.1.17",
   "license": "MIT",
   "main": "./dist/cjs/index.js",
   "type": "module",
@@ -12,7 +12,7 @@
     "types": "./dist/types/index.d.ts"
   },
   "files": [
-    "dist/**/"
+    "dist/**/*"
   ],
   "sideEffects": false,
   "engines": {
