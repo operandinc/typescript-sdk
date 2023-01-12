@@ -51,6 +51,9 @@ export function operandClient<T extends ServiceType>(
       ? createConnectTransport({
           baseUrl: baseUrl,
           interceptors: [createHeaderInterceptor(headers)],
+          jsonOptions: {
+            ignoreUnknownFields: true,
+          }
         })
       : createNodeFetchTransport(baseUrl, headers);
   return createPromiseClient(service, transport);
