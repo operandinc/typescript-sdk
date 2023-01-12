@@ -99,6 +99,11 @@ export enum ObjectType {
    * @generated from enum value: OBJECT_TYPE_LINEAR = 17;
    */
   LINEAR = 17,
+
+  /**
+   * @generated from enum value: OBJECT_TYPE_MEETING_BOT = 18;
+   */
+  MEETING_BOT = 18,
 }
 // Retrieve enum metadata with: proto3.getEnumType(ObjectType)
 proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
@@ -120,6 +125,7 @@ proto3.util.setEnumType(ObjectType, "operand.v1.ObjectType", [
   { no: 15, name: "OBJECT_TYPE_NOTION" },
   { no: 16, name: "OBJECT_TYPE_DISCORD" },
   { no: 17, name: "OBJECT_TYPE_LINEAR" },
+  { no: 18, name: "OBJECT_TYPE_MEETING_BOT" },
 ]);
 
 /**
@@ -339,6 +345,12 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
      */
     value: LinearMetadata;
     case: "linear";
+  } | {
+    /**
+     * @generated from field: operand.v1.MeetingBotMetadata meeting_bot = 18;
+     */
+    value: MeetingBotMetadata;
+    case: "meetingBot";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<ObjectMetadata>) {
@@ -366,6 +378,7 @@ export class ObjectMetadata extends Message<ObjectMetadata> {
     { no: 15, name: "notion", kind: "message", T: NotionMetadata, oneof: "value" },
     { no: 16, name: "discord", kind: "message", T: DiscordMetadata, oneof: "value" },
     { no: 17, name: "linear", kind: "message", T: LinearMetadata, oneof: "value" },
+    { no: 18, name: "meeting_bot", kind: "message", T: MeetingBotMetadata, oneof: "value" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectMetadata {
@@ -1043,6 +1056,37 @@ export class LinearMetadata extends Message<LinearMetadata> {
 }
 
 /**
+ * @generated from message operand.v1.MeetingBotMetadata
+ */
+export class MeetingBotMetadata extends Message<MeetingBotMetadata> {
+  constructor(data?: PartialMessage<MeetingBotMetadata>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.MeetingBotMetadata";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): MeetingBotMetadata {
+    return new MeetingBotMetadata().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): MeetingBotMetadata {
+    return new MeetingBotMetadata().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): MeetingBotMetadata {
+    return new MeetingBotMetadata().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: MeetingBotMetadata | PlainMessage<MeetingBotMetadata> | undefined, b: MeetingBotMetadata | PlainMessage<MeetingBotMetadata> | undefined): boolean {
+    return proto3.util.equals(MeetingBotMetadata, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.Properties
  */
 export class Properties extends Message<Properties> {
@@ -1224,6 +1268,131 @@ export class NumberArray extends Message<NumberArray> {
 }
 
 /**
+ * @generated from message operand.v1.UserProfile
+ */
+export class UserProfile extends Message<UserProfile> {
+  /**
+   * @generated from field: string public_id = 1;
+   */
+  publicId = "";
+
+  /**
+   * Only present if the user is the current user, i.e. authenticated.
+   *
+   * @generated from field: optional string email = 2;
+   */
+  email?: string;
+
+  /**
+   * @generated from field: optional string handle = 3;
+   */
+  handle?: string;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 4;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: optional string name = 5;
+   */
+  name?: string;
+
+  /**
+   * @generated from field: optional string bio = 6;
+   */
+  bio?: string;
+
+  /**
+   * @generated from field: optional string avatar_url = 7;
+   */
+  avatarUrl?: string;
+
+  constructor(data?: PartialMessage<UserProfile>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.UserProfile";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserProfile {
+    return new UserProfile().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserProfile {
+    return new UserProfile().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserProfile {
+    return new UserProfile().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: UserProfile | PlainMessage<UserProfile> | undefined, b: UserProfile | PlainMessage<UserProfile> | undefined): boolean {
+    return proto3.util.equals(UserProfile, a, b);
+  }
+}
+
+/**
+ * @generated from message operand.v1.Author
+ */
+export class Author extends Message<Author> {
+  /**
+   * @generated from oneof operand.v1.Author.author
+   */
+  author: {
+    /**
+     * @generated from field: operand.v1.UserProfile profile = 1;
+     */
+    value: UserProfile;
+    case: "profile";
+  } | {
+    /**
+     * @generated from field: string email = 2;
+     */
+    value: string;
+    case: "email";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<Author>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.Author";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "profile", kind: "message", T: UserProfile, oneof: "author" },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "author" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Author {
+    return new Author().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Author {
+    return new Author().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Author {
+    return new Author().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: Author | PlainMessage<Author> | undefined, b: Author | PlainMessage<Author> | undefined): boolean {
+    return proto3.util.equals(Author, a, b);
+  }
+}
+
+/**
  * @generated from message operand.v1.ObjectPreview
  */
 export class ObjectPreview extends Message<ObjectPreview> {
@@ -1247,6 +1416,11 @@ export class ObjectPreview extends Message<ObjectPreview> {
    */
   url?: string;
 
+  /**
+   * @generated from field: repeated operand.v1.Author authors = 5;
+   */
+  authors: Author[] = [];
+
   constructor(data?: PartialMessage<ObjectPreview>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1259,6 +1433,7 @@ export class ObjectPreview extends Message<ObjectPreview> {
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "authors", kind: "message", T: Author, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ObjectPreview {

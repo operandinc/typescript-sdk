@@ -4,7 +4,7 @@
 /* @ts-nocheck */
 
 import {proto3, Timestamp} from "@bufbuild/protobuf";
-import {UserProfile} from "../../operand/v1/index_pb.js";
+import {UserProfile} from "../../operand/v1/object_pb.js";
 
 /**
  * @generated from enum web.v1.TokenKind

@@ -5,7 +5,7 @@
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
-import {UserProfile} from "../../operand/v1/index_pb.js";
+import {UserProfile} from "../../operand/v1/object_pb.js";
 
 /**
  * @generated from enum web.v1.TokenKind

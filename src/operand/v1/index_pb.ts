@@ -5,7 +5,7 @@
 
 import type {BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage} from "@bufbuild/protobuf";
 import {Message, proto3, Timestamp} from "@bufbuild/protobuf";
-import {Filter, Object$} from "./object_pb.js";
+import {Filter, Object$, UserProfile} from "./object_pb.js";
 
 /**
  * @generated from enum operand.v1.ExplorationKind
@@ -252,81 +252,6 @@ export class IndexStats extends Message<IndexStats> {
 
   static equals(a: IndexStats | PlainMessage<IndexStats> | undefined, b: IndexStats | PlainMessage<IndexStats> | undefined): boolean {
     return proto3.util.equals(IndexStats, a, b);
-  }
-}
-
-/**
- * @generated from message operand.v1.UserProfile
- */
-export class UserProfile extends Message<UserProfile> {
-  /**
-   * @generated from field: string public_id = 1;
-   */
-  publicId = "";
-
-  /**
-   * Only present if the user is the current user, i.e. authenticated.
-   *
-   * @generated from field: optional string email = 2;
-   */
-  email?: string;
-
-  /**
-   * @generated from field: optional string handle = 3;
-   */
-  handle?: string;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp created_at = 4;
-   */
-  createdAt?: Timestamp;
-
-  /**
-   * @generated from field: optional string name = 5;
-   */
-  name?: string;
-
-  /**
-   * @generated from field: optional string bio = 6;
-   */
-  bio?: string;
-
-  /**
-   * @generated from field: optional string avatar_url = 7;
-   */
-  avatarUrl?: string;
-
-  constructor(data?: PartialMessage<UserProfile>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "operand.v1.UserProfile";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "created_at", kind: "message", T: Timestamp },
-    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UserProfile {
-    return new UserProfile().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): UserProfile {
-    return new UserProfile().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): UserProfile {
-    return new UserProfile().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: UserProfile | PlainMessage<UserProfile> | undefined, b: UserProfile | PlainMessage<UserProfile> | undefined): boolean {
-    return proto3.util.equals(UserProfile, a, b);
   }
 }
 

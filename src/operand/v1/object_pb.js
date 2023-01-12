@@ -29,6 +29,7 @@ export const ObjectType = proto3.makeEnum(
     {no: 15, name: "OBJECT_TYPE_NOTION", localName: "NOTION"},
     {no: 16, name: "OBJECT_TYPE_DISCORD", localName: "DISCORD"},
     {no: 17, name: "OBJECT_TYPE_LINEAR", localName: "LINEAR"},
+    {no: 18, name: "OBJECT_TYPE_MEETING_BOT", localName: "MEETING_BOT"},
   ],
 );
 
@@ -96,6 +97,7 @@ export const ObjectMetadata = proto3.makeMessageType(
     { no: 15, name: "notion", kind: "message", T: NotionMetadata, oneof: "value" },
     { no: 16, name: "discord", kind: "message", T: DiscordMetadata, oneof: "value" },
     { no: 17, name: "linear", kind: "message", T: LinearMetadata, oneof: "value" },
+    { no: 18, name: "meeting_bot", kind: "message", T: MeetingBotMetadata, oneof: "value" },
   ],
 );
 
@@ -276,6 +278,14 @@ export const LinearMetadata = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message operand.v1.MeetingBotMetadata
+ */
+export const MeetingBotMetadata = proto3.makeMessageType(
+  "operand.v1.MeetingBotMetadata",
+  [],
+);
+
+/**
  * @generated from message operand.v1.Properties
  */
 export const Properties = proto3.makeMessageType(
@@ -320,6 +330,33 @@ export const NumberArray = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message operand.v1.UserProfile
+ */
+export const UserProfile = proto3.makeMessageType(
+  "operand.v1.UserProfile",
+  () => [
+    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 4, name: "created_at", kind: "message", T: Timestamp },
+    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * @generated from message operand.v1.Author
+ */
+export const Author = proto3.makeMessageType(
+  "operand.v1.Author",
+  () => [
+    { no: 1, name: "profile", kind: "message", T: UserProfile, oneof: "author" },
+    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "author" },
+  ],
+);
+
+/**
  * @generated from message operand.v1.ObjectPreview
  */
 export const ObjectPreview = proto3.makeMessageType(
@@ -329,6 +366,7 @@ export const ObjectPreview = proto3.makeMessageType(
     { no: 2, name: "description", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "image", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "authors", kind: "message", T: Author, repeated: true },
   ],
 );
 

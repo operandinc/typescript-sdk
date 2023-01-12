@@ -4,7 +4,7 @@
 /* @ts-nocheck */
 
 import {proto3, Timestamp} from "@bufbuild/protobuf";
-import {Filter, Object$} from "./object_pb.js";
+import {Filter, Object$, UserProfile} from "./object_pb.js";
 
 /**
  * @generated from enum operand.v1.ExplorationKind
@@ -75,22 +75,6 @@ export const IndexStats = proto3.makeMessageType(
   "operand.v1.IndexStats",
   () => [
     { no: 1, name: "subscribers", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
-  ],
-);
-
-/**
- * @generated from message operand.v1.UserProfile
- */
-export const UserProfile = proto3.makeMessageType(
-  "operand.v1.UserProfile",
-  () => [
-    { no: 1, name: "public_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "email", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 3, name: "handle", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 4, name: "created_at", kind: "message", T: Timestamp },
-    { no: 5, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 6, name: "bio", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
-    { no: 7, name: "avatar_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
