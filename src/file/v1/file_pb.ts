@@ -1199,11 +1199,16 @@ export class RSSParams extends Message<RSSParams> {
 /**
  * SlackParams contains parameters for a Slack sync.
  *
- * todo
- *
  * @generated from message file.v1.SlackParams
  */
 export class SlackParams extends Message<SlackParams> {
+  /**
+   * Obtained via OAuth flow.
+   *
+   * @generated from field: string bot_token = 1;
+   */
+  botToken = "";
+
   constructor(data?: PartialMessage<SlackParams>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1212,6 +1217,7 @@ export class SlackParams extends Message<SlackParams> {
   static readonly runtime = proto3;
   static readonly typeName = "file.v1.SlackParams";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SlackParams {
@@ -1234,11 +1240,36 @@ export class SlackParams extends Message<SlackParams> {
 /**
  * GithubRepositoryParams contains parameters for a Github repository sync.
  *
- * todo
- *
  * @generated from message file.v1.GithubRepositoryParams
  */
 export class GithubRepositoryParams extends Message<GithubRepositoryParams> {
+  /**
+   * @generated from field: string owner = 1;
+   */
+  owner = "";
+
+  /**
+   * @generated from field: string repo = 2;
+   */
+  repo = "";
+
+  /**
+   * @generated from oneof file.v1.GithubRepositoryParams.auth
+   */
+  auth: {
+    /**
+     * @generated from field: string access_token = 3;
+     */
+    value: string;
+    case: "accessToken";
+  } | {
+    /**
+     * @generated from field: string source_user_id = 4;
+     */
+    value: string;
+    case: "sourceUserId";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
   constructor(data?: PartialMessage<GithubRepositoryParams>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1247,6 +1278,10 @@ export class GithubRepositoryParams extends Message<GithubRepositoryParams> {
   static readonly runtime = proto3;
   static readonly typeName = "file.v1.GithubRepositoryParams";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "repo", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
+    { no: 4, name: "source_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GithubRepositoryParams {
@@ -1310,11 +1345,14 @@ export class NotionParams extends Message<NotionParams> {
 /**
  * DiscordParams contains parameters for a Discord sync.
  *
- * todo
- *
  * @generated from message file.v1.DiscordParams
  */
 export class DiscordParams extends Message<DiscordParams> {
+  /**
+   * @generated from field: string guild_id = 1;
+   */
+  guildId = "";
+
   constructor(data?: PartialMessage<DiscordParams>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1323,6 +1361,7 @@ export class DiscordParams extends Message<DiscordParams> {
   static readonly runtime = proto3;
   static readonly typeName = "file.v1.DiscordParams";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "guild_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DiscordParams {
@@ -1345,11 +1384,16 @@ export class DiscordParams extends Message<DiscordParams> {
 /**
  * LinearParams contains parameters for a Linear sync.
  *
- * todo
- *
  * @generated from message file.v1.LinearParams
  */
 export class LinearParams extends Message<LinearParams> {
+  /**
+   * Obtained via OAuth flow.
+   *
+   * @generated from field: string access_token = 1;
+   */
+  accessToken = "";
+
   constructor(data?: PartialMessage<LinearParams>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1358,6 +1402,7 @@ export class LinearParams extends Message<LinearParams> {
   static readonly runtime = proto3;
   static readonly typeName = "file.v1.LinearParams";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): LinearParams {

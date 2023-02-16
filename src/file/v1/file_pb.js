@@ -359,25 +359,28 @@ export const RSSParams = proto3.makeMessageType(
 /**
  * SlackParams contains parameters for a Slack sync.
  *
- * todo
- *
  * @generated from message file.v1.SlackParams
  */
 export const SlackParams = proto3.makeMessageType(
   "file.v1.SlackParams",
-  [],
+  () => [
+    { no: 1, name: "bot_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
 );
 
 /**
  * GithubRepositoryParams contains parameters for a Github repository sync.
  *
- * todo
- *
  * @generated from message file.v1.GithubRepositoryParams
  */
 export const GithubRepositoryParams = proto3.makeMessageType(
   "file.v1.GithubRepositoryParams",
-  [],
+  () => [
+    { no: 1, name: "owner", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "repo", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 3, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
+    { no: 4, name: "source_user_id", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "auth" },
+  ],
 );
 
 /**
@@ -395,25 +398,25 @@ export const NotionParams = proto3.makeMessageType(
 /**
  * DiscordParams contains parameters for a Discord sync.
  *
- * todo
- *
  * @generated from message file.v1.DiscordParams
  */
 export const DiscordParams = proto3.makeMessageType(
   "file.v1.DiscordParams",
-  [],
+  () => [
+    { no: 1, name: "guild_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
 );
 
 /**
  * LinearParams contains parameters for a Linear sync.
  *
- * todo
- *
  * @generated from message file.v1.LinearParams
  */
 export const LinearParams = proto3.makeMessageType(
   "file.v1.LinearParams",
-  [],
+  () => [
+    { no: 1, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
 );
 
 /**

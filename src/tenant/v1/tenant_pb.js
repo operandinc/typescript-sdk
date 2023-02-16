@@ -6,6 +6,46 @@
 import { proto3, Timestamp } from "@bufbuild/protobuf";
 
 /**
+ * SubscriptionPlan is an enumeration over the various subscription plans.
+ *
+ * @generated from enum tenant.v1.SubscriptionPlan
+ */
+export const SubscriptionPlan = proto3.makeEnum(
+  "tenant.v1.SubscriptionPlan",
+  [
+    {no: 0, name: "SUBSCRIPTION_PLAN_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "SUBSCRIPTION_PLAN_FREE", localName: "FREE"},
+    {no: 2, name: "SUBSCRIPTION_PLAN_PRO", localName: "PRO"},
+  ],
+);
+
+/**
+ * @generated from enum tenant.v1.OAuthProvider
+ */
+export const OAuthProvider = proto3.makeEnum(
+  "tenant.v1.OAuthProvider",
+  [
+    {no: 0, name: "O_AUTH_PROVIDER_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "O_AUTH_PROVIDER_GITHUB", localName: "GITHUB"},
+  ],
+);
+
+/**
+ * UsageRecordKind is an enumeration over various queryable usage records.
+ *
+ * @generated from enum tenant.v1.UsageRecordKind
+ */
+export const UsageRecordKind = proto3.makeEnum(
+  "tenant.v1.UsageRecordKind",
+  [
+    {no: 0, name: "USAGE_RECORD_KIND_UNSPECIFIED", localName: "UNSPECIFIED"},
+    {no: 1, name: "USAGE_RECORD_KIND_RAW_STORAGE_BYTES", localName: "RAW_STORAGE_BYTES"},
+    {no: 2, name: "USAGE_RECORD_KIND_INDEX_STORAGE_BYTES", localName: "INDEX_STORAGE_BYTES"},
+    {no: 3, name: "USAGE_RECORD_KIND_SEARCH_QUERIES", localName: "SEARCH_QUERIES"},
+  ],
+);
+
+/**
  * AuthorizedUserRequest takes no parameters, as the authorization information
  * is passed in the request context (i.e. cookies or headers).
  *
@@ -53,6 +93,9 @@ export const User = proto3.makeMessageType(
   () => [
     { no: 1, name: "profile", kind: "message", T: UserProfile },
     { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "developer", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 4, name: "subscription_plan", kind: "enum", T: proto3.getEnumType(SubscriptionPlan) },
+    { no: 5, name: "usage_addon", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
   ],
 );
 
@@ -141,6 +184,32 @@ export const DeleteAPIKeyResponse = proto3.makeMessageType(
 );
 
 /**
+ * UpdateUserRequest updates the user's profile.
+ *
+ * @generated from message tenant.v1.UpdateUserRequest
+ */
+export const UpdateUserRequest = proto3.makeMessageType(
+  "tenant.v1.UpdateUserRequest",
+  () => [
+    { no: 1, name: "first_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 2, name: "last_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "developer", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+  ],
+);
+
+/**
+ * UpdateUserResponse returns the updated user.
+ *
+ * @generated from message tenant.v1.UpdateUserResponse
+ */
+export const UpdateUserResponse = proto3.makeMessageType(
+  "tenant.v1.UpdateUserResponse",
+  () => [
+    { no: 1, name: "user", kind: "message", T: User },
+  ],
+);
+
+/**
  * GroupProfile is the groups public profile.
  *
  * @generated from message tenant.v1.GroupProfile
@@ -164,5 +233,123 @@ export const Group = proto3.makeMessageType(
     { no: 1, name: "profile", kind: "message", T: GroupProfile },
     { no: 2, name: "created_at", kind: "message", T: Timestamp },
   ],
+);
+
+/**
+ * OAuthLinkRequest allows users to make a number of links to external services.
+ *
+ * @generated from message tenant.v1.OAuthLinkRequest
+ */
+export const OAuthLinkRequest = proto3.makeMessageType(
+  "tenant.v1.OAuthLinkRequest",
+  () => [
+    { no: 1, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 2, name: "redirect_url", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * OAuthLink is a link to an external service.
+ *
+ * @generated from message tenant.v1.OAuthLink
+ */
+export const OAuthLink = proto3.makeMessageType(
+  "tenant.v1.OAuthLink",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "provider", kind: "enum", T: proto3.getEnumType(OAuthProvider) },
+    { no: 4, name: "access_token", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * OAuthLinkResponse returns the current state of the link, or a setup URL.
+ *
+ * @generated from message tenant.v1.OAuthLinkResponse
+ */
+export const OAuthLinkResponse = proto3.makeMessageType(
+  "tenant.v1.OAuthLinkResponse",
+  () => [
+    { no: 1, name: "setup_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "response" },
+    { no: 2, name: "state", kind: "message", T: OAuthLink, oneof: "response" },
+  ],
+);
+
+/**
+ * UsageRequest queries the users usage statistics for the current period.
+ *
+ * @generated from message tenant.v1.UsageRequest
+ */
+export const UsageRequest = proto3.makeMessageType(
+  "tenant.v1.UsageRequest",
+  [],
+);
+
+/**
+ * UsageResponse returns the users usage statistics for the current period.
+ *
+ * @generated from message tenant.v1.UsageResponse
+ */
+export const UsageResponse = proto3.makeMessageType(
+  "tenant.v1.UsageResponse",
+  () => [
+    { no: 1, name: "records", kind: "message", T: UsageResponse_Record, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message tenant.v1.UsageResponse.Record
+ */
+export const UsageResponse_Record = proto3.makeMessageType(
+  "tenant.v1.UsageResponse.Record",
+  () => [
+    { no: 1, name: "kind", kind: "enum", T: proto3.getEnumType(UsageRecordKind) },
+    { no: 2, name: "current_value", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+    { no: 3, name: "accumulated_cents", kind: "scalar", T: 3 /* ScalarType.INT64 */ },
+  ],
+  {localName: "UsageResponse_Record"},
+);
+
+/**
+ * UpdateSubscriptionRequest updates the user's subscription.
+ * This request allows the caller to pass in the desired end-state of the users
+ * subscription. The server will compute the necessary changes and return the required
+ * actions in the response.
+ *
+ * @generated from message tenant.v1.UpdateSubscriptionRequest
+ */
+export const UpdateSubscriptionRequest = proto3.makeMessageType(
+  "tenant.v1.UpdateSubscriptionRequest",
+  () => [
+    { no: 1, name: "plan", kind: "enum", T: proto3.getEnumType(SubscriptionPlan) },
+    { no: 2, name: "usage_addon", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+    { no: 3, name: "force_billing_portal", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 4, name: "redirect_url", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * UpdateSubscriptionResponse returns the actions required to update the users
+ * subscription to the desired end-state passed in the request.
+ *
+ * @generated from message tenant.v1.UpdateSubscriptionResponse
+ */
+export const UpdateSubscriptionResponse = proto3.makeMessageType(
+  "tenant.v1.UpdateSubscriptionResponse",
+  () => [
+    { no: 1, name: "none", kind: "message", T: UpdateSubscriptionResponse_None, oneof: "action" },
+    { no: 2, name: "checkout_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "action" },
+    { no: 3, name: "billing_portal_url", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "action" },
+  ],
+);
+
+/**
+ * @generated from message tenant.v1.UpdateSubscriptionResponse.None
+ */
+export const UpdateSubscriptionResponse_None = proto3.makeMessageType(
+  "tenant.v1.UpdateSubscriptionResponse.None",
+  [],
+  {localName: "UpdateSubscriptionResponse_None"},
 );
 

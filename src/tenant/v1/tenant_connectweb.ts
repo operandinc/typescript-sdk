@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, ListAPIKeysRequest, ListAPIKeysResponse } from "./tenant_pb.js";
+import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, ListAPIKeysRequest, ListAPIKeysResponse, OAuthLinkRequest, OAuthLinkResponse, UpdateSubscriptionRequest, UpdateSubscriptionResponse, UpdateUserRequest, UpdateUserResponse, UsageRequest, UsageResponse } from "./tenant_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -57,6 +57,53 @@ export const TenantService = {
       name: "DeleteAPIKey",
       I: DeleteAPIKeyRequest,
       O: DeleteAPIKeyResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * OAuthLink allows users to make a number of links to external services.
+     * For any given provider, this endpoint may return a setup URL that the
+     * user can visit to authorize the service, or an object describing the
+     * current state of the link.
+     *
+     * @generated from rpc tenant.v1.TenantService.OAuthLink
+     */
+    oAuthLink: {
+      name: "OAuthLink",
+      I: OAuthLinkRequest,
+      O: OAuthLinkResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * UpdateUser updates the user's profile.
+     *
+     * @generated from rpc tenant.v1.TenantService.UpdateUser
+     */
+    updateUser: {
+      name: "UpdateUser",
+      I: UpdateUserRequest,
+      O: UpdateUserResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * Usage queries the users usage statistics for the current period.
+     *
+     * @generated from rpc tenant.v1.TenantService.Usage
+     */
+    usage: {
+      name: "Usage",
+      I: UsageRequest,
+      O: UsageResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * UpdateSubscription updates the user's subscription.
+     *
+     * @generated from rpc tenant.v1.TenantService.UpdateSubscription
+     */
+    updateSubscription: {
+      name: "UpdateSubscription",
+      I: UpdateSubscriptionRequest,
+      O: UpdateSubscriptionResponse,
       kind: MethodKind.Unary,
     },
   }
