@@ -8,14 +8,16 @@ import type { ServiceType } from '@bufbuild/protobuf';
 import type { CreateFileResponse } from './file/v1/file_pb';
 
 export async function uploadFile(
-  file: File,
   parentId: string,
   name: string,
-  apiKey: string
+  apiKey: string,
+  file?: File
 ) {
   const url = 'https://mcp.operand.ai/upload';
   const formData = new FormData();
-  formData.append('file', file);
+  if (file) {
+    formData.append('file', file);
+  }
   formData.append('parent_id', parentId);
   formData.append('name', name);
   // Multipart form data
