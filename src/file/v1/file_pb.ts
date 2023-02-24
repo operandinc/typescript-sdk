@@ -791,6 +791,16 @@ export class ImportFromURLRequest extends Message<ImportFromURLRequest> {
    */
   returnOptions?: ReturnedFileOptions;
 
+  /**
+   * If true, we'll try and be clever when importing the file.
+   * For example, if we can find a sitemap on the page, we'll create
+   * a smart folder which will sync data with the sitemap periodically.
+   * By default, we just fetch the underlying file that the URL points to.
+   *
+   * @generated from field: optional bool smart = 5;
+   */
+  smart?: boolean;
+
   constructor(data?: PartialMessage<ImportFromURLRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -803,6 +813,7 @@ export class ImportFromURLRequest extends Message<ImportFromURLRequest> {
     { no: 2, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "return_options", kind: "message", T: ReturnedFileOptions, opt: true },
+    { no: 5, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImportFromURLRequest {

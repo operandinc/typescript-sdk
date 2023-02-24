@@ -244,6 +244,7 @@ export const ImportFromURLRequest = proto3.makeMessageType(
     { no: 2, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "return_options", kind: "message", T: ReturnedFileOptions, opt: true },
+    { no: 5, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ],
 );
 

@@ -20,6 +20,7 @@ export const SearchRequest = proto3.makeMessageType(
     { no: 4, name: "filter", kind: "message", T: Filter, opt: true },
     { no: 5, name: "file_return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 6, name: "check_conversational", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 7, name: "adjacent_snippets", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
   ],
 );
 
@@ -35,6 +36,8 @@ export const ContentMatch = proto3.makeMessageType(
     { no: 2, name: "file_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 5, name: "before_snippets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 6, name: "after_snippets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ],
 );
 

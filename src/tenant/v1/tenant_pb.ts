@@ -79,6 +79,11 @@ export enum UsageRecordKind {
    * @generated from enum value: USAGE_RECORD_KIND_SEARCH_QUERIES = 3;
    */
   SEARCH_QUERIES = 3,
+
+  /**
+   * @generated from enum value: USAGE_RECORD_KIND_CONVERSE = 4;
+   */
+  CONVERSE = 4,
 }
 // Retrieve enum metadata with: proto3.getEnumType(UsageRecordKind)
 proto3.util.setEnumType(UsageRecordKind, "tenant.v1.UsageRecordKind", [
@@ -86,6 +91,7 @@ proto3.util.setEnumType(UsageRecordKind, "tenant.v1.UsageRecordKind", [
   { no: 1, name: "USAGE_RECORD_KIND_RAW_STORAGE_BYTES" },
   { no: 2, name: "USAGE_RECORD_KIND_INDEX_STORAGE_BYTES" },
   { no: 3, name: "USAGE_RECORD_KIND_SEARCH_QUERIES" },
+  { no: 4, name: "USAGE_RECORD_KIND_CONVERSE" },
 ]);
 
 /**

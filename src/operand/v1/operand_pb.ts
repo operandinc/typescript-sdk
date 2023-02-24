@@ -58,6 +58,13 @@ export class SearchRequest extends Message<SearchRequest> {
    */
   checkConversational?: boolean;
 
+  /**
+   * Optionally include N adjacent snippets (if available) for each match.
+   *
+   * @generated from field: optional int32 adjacent_snippets = 7;
+   */
+  adjacentSnippets?: number;
+
   constructor(data?: PartialMessage<SearchRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -72,6 +79,7 @@ export class SearchRequest extends Message<SearchRequest> {
     { no: 4, name: "filter", kind: "message", T: Filter, opt: true },
     { no: 5, name: "file_return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 6, name: "check_conversational", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 7, name: "adjacent_snippets", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SearchRequest {
@@ -117,6 +125,18 @@ export class ContentMatch extends Message<ContentMatch> {
    */
   score = 0;
 
+  /**
+   * The N adjacent snippets (if available) for this match.
+   *
+   * @generated from field: repeated string before_snippets = 5;
+   */
+  beforeSnippets: string[] = [];
+
+  /**
+   * @generated from field: repeated string after_snippets = 6;
+   */
+  afterSnippets: string[] = [];
+
   constructor(data?: PartialMessage<ContentMatch>) {
     super();
     proto3.util.initPartial(data, this);
@@ -129,6 +149,8 @@ export class ContentMatch extends Message<ContentMatch> {
     { no: 2, name: "file_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "snippet", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 4, name: "score", kind: "scalar", T: 2 /* ScalarType.FLOAT */ },
+    { no: 5, name: "before_snippets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 6, name: "after_snippets", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ContentMatch {
@@ -599,6 +621,7 @@ export class ConverseRequest extends Message<ConverseRequest> {
 export class ConverseResponse extends Message<ConverseResponse> {
   /**
    * The conversation ID, which should be passed in to the next request.
+   * Will be included in all responses for a given conversation.
    *
    * @generated from field: string conversation_id = 1;
    */

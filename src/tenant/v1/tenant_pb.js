@@ -42,6 +42,7 @@ export const UsageRecordKind = proto3.makeEnum(
     {no: 1, name: "USAGE_RECORD_KIND_RAW_STORAGE_BYTES", localName: "RAW_STORAGE_BYTES"},
     {no: 2, name: "USAGE_RECORD_KIND_INDEX_STORAGE_BYTES", localName: "INDEX_STORAGE_BYTES"},
     {no: 3, name: "USAGE_RECORD_KIND_SEARCH_QUERIES", localName: "SEARCH_QUERIES"},
+    {no: 4, name: "USAGE_RECORD_KIND_CONVERSE", localName: "CONVERSE"},
   ],
 );
 
