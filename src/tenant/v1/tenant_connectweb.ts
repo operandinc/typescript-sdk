@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, ListAPIKeysRequest, ListAPIKeysResponse, OAuthLinkRequest, OAuthLinkResponse, UpdateSubscriptionRequest, UpdateSubscriptionResponse, UpdateUserRequest, UpdateUserResponse, UsageRequest, UsageResponse } from "./tenant_pb.js";
+import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, DeletePhoneNumberRequest, DeletePhoneNumberResponse, ListAPIKeysRequest, ListAPIKeysResponse, OAuthLinkRequest, OAuthLinkResponse, PhoneNumbersRequest, PhoneNumbersResponse, UpdateSubscriptionRequest, UpdateSubscriptionResponse, UpdateUserRequest, UpdateUserResponse, UsageRequest, UsageResponse, VerifyPhoneNumberRequest, VerifyPhoneNumberResponse } from "./tenant_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -104,6 +104,44 @@ export const TenantService = {
       name: "UpdateSubscription",
       I: UpdateSubscriptionRequest,
       O: UpdateSubscriptionResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * PhoneNumbers lists the phone numbers for the user, and their verification status.
+     * Note: We support both traditional phone numbers and iMessage addresses.
+     *
+     * @generated from rpc tenant.v1.TenantService.PhoneNumbers
+     */
+    phoneNumbers: {
+      name: "PhoneNumbers",
+      I: PhoneNumbersRequest,
+      O: PhoneNumbersResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * VerifyPhoneNumber verifies a phone number for the user. This endpoint
+     * returns a code which should be shown to the user on the dashboard, which
+     * should prompt them to reply to a text message with the code. This endpoint
+     * can be called multiple times, subsequent calls will invalidate the previous
+     * code and re-send a new one.
+     *
+     * @generated from rpc tenant.v1.TenantService.VerifyPhoneNumber
+     */
+    verifyPhoneNumber: {
+      name: "VerifyPhoneNumber",
+      I: VerifyPhoneNumberRequest,
+      O: VerifyPhoneNumberResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * DeletePhoneNumber deletes a phone number for the user.
+     *
+     * @generated from rpc tenant.v1.TenantService.DeletePhoneNumber
+     */
+    deletePhoneNumber: {
+      name: "DeletePhoneNumber",
+      I: DeletePhoneNumberRequest,
+      O: DeletePhoneNumberResponse,
       kind: MethodKind.Unary,
     },
   }

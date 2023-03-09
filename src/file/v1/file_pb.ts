@@ -639,6 +639,16 @@ export class CreateFileMeta extends Message<CreateFileMeta> {
    */
   properties?: Properties;
 
+  /**
+   * If true, this creation will be treated as an upsert, i.e.
+   * if a file with the same name (in the same directory) already
+   * exists, it will be updated instead of returning an already exists
+   * error (the default behavior).
+   *
+   * @generated from field: optional bool upsert = 4;
+   */
+  upsert?: boolean;
+
   constructor(data?: PartialMessage<CreateFileMeta>) {
     super();
     proto3.util.initPartial(data, this);
@@ -650,6 +660,7 @@ export class CreateFileMeta extends Message<CreateFileMeta> {
     { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "properties", kind: "message", T: Properties, opt: true },
+    { no: 4, name: "upsert", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): CreateFileMeta {

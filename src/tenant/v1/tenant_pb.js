@@ -354,3 +354,87 @@ export const UpdateSubscriptionResponse_None = proto3.makeMessageType(
   {localName: "UpdateSubscriptionResponse_None"},
 );
 
+/**
+ * PhoneNumber is a phone number for a user.
+ *
+ * @generated from message tenant.v1.PhoneNumber
+ */
+export const PhoneNumber = proto3.makeMessageType(
+  "tenant.v1.PhoneNumber",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "verified", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * PhoneNumbersRequest lists the phone numbers for the authorized user.
+ *
+ * @generated from message tenant.v1.PhoneNumbersRequest
+ */
+export const PhoneNumbersRequest = proto3.makeMessageType(
+  "tenant.v1.PhoneNumbersRequest",
+  [],
+);
+
+/**
+ * PhoneNumbersResponse returns the phone numbers for the authorized user.
+ *
+ * @generated from message tenant.v1.PhoneNumbersResponse
+ */
+export const PhoneNumbersResponse = proto3.makeMessageType(
+  "tenant.v1.PhoneNumbersResponse",
+  () => [
+    { no: 1, name: "phone_numbers", kind: "message", T: PhoneNumber, repeated: true },
+  ],
+);
+
+/**
+ * VerifyPhoneNumberRequest verifies a phone number for the user.
+ *
+ * @generated from message tenant.v1.VerifyPhoneNumberRequest
+ */
+export const VerifyPhoneNumberRequest = proto3.makeMessageType(
+  "tenant.v1.VerifyPhoneNumberRequest",
+  () => [
+    { no: 1, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * VerifyPhoneNumberResponse returns the verification code that was sent to the user.
+ *
+ * @generated from message tenant.v1.VerifyPhoneNumberResponse
+ */
+export const VerifyPhoneNumberResponse = proto3.makeMessageType(
+  "tenant.v1.VerifyPhoneNumberResponse",
+  () => [
+    { no: 1, name: "phone_number", kind: "message", T: PhoneNumber },
+    { no: 2, name: "verification_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * DeletePhoneNumberRequest deletes a phone number for the authorized user.
+ *
+ * @generated from message tenant.v1.DeletePhoneNumberRequest
+ */
+export const DeletePhoneNumberRequest = proto3.makeMessageType(
+  "tenant.v1.DeletePhoneNumberRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * DeletePhoneNumberResponse acknowledges the deletion of a phone number.
+ *
+ * @generated from message tenant.v1.DeletePhoneNumberResponse
+ */
+export const DeletePhoneNumberResponse = proto3.makeMessageType(
+  "tenant.v1.DeletePhoneNumberResponse",
+  [],
+);
+

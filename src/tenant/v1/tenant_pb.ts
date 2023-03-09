@@ -1192,3 +1192,288 @@ export class UpdateSubscriptionResponse_None extends Message<UpdateSubscriptionR
   }
 }
 
+/**
+ * PhoneNumber is a phone number for a user.
+ *
+ * @generated from message tenant.v1.PhoneNumber
+ */
+export class PhoneNumber extends Message<PhoneNumber> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 2;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: string phone_number = 3;
+   */
+  phoneNumber = "";
+
+  /**
+   * @generated from field: bool verified = 4;
+   */
+  verified = false;
+
+  constructor(data?: PartialMessage<PhoneNumber>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.PhoneNumber";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "verified", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PhoneNumber {
+    return new PhoneNumber().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PhoneNumber {
+    return new PhoneNumber().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PhoneNumber {
+    return new PhoneNumber().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PhoneNumber | PlainMessage<PhoneNumber> | undefined, b: PhoneNumber | PlainMessage<PhoneNumber> | undefined): boolean {
+    return proto3.util.equals(PhoneNumber, a, b);
+  }
+}
+
+/**
+ * PhoneNumbersRequest lists the phone numbers for the authorized user.
+ *
+ * @generated from message tenant.v1.PhoneNumbersRequest
+ */
+export class PhoneNumbersRequest extends Message<PhoneNumbersRequest> {
+  constructor(data?: PartialMessage<PhoneNumbersRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.PhoneNumbersRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PhoneNumbersRequest {
+    return new PhoneNumbersRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PhoneNumbersRequest {
+    return new PhoneNumbersRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PhoneNumbersRequest {
+    return new PhoneNumbersRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PhoneNumbersRequest | PlainMessage<PhoneNumbersRequest> | undefined, b: PhoneNumbersRequest | PlainMessage<PhoneNumbersRequest> | undefined): boolean {
+    return proto3.util.equals(PhoneNumbersRequest, a, b);
+  }
+}
+
+/**
+ * PhoneNumbersResponse returns the phone numbers for the authorized user.
+ *
+ * @generated from message tenant.v1.PhoneNumbersResponse
+ */
+export class PhoneNumbersResponse extends Message<PhoneNumbersResponse> {
+  /**
+   * @generated from field: repeated tenant.v1.PhoneNumber phone_numbers = 1;
+   */
+  phoneNumbers: PhoneNumber[] = [];
+
+  constructor(data?: PartialMessage<PhoneNumbersResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.PhoneNumbersResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "phone_numbers", kind: "message", T: PhoneNumber, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PhoneNumbersResponse {
+    return new PhoneNumbersResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PhoneNumbersResponse {
+    return new PhoneNumbersResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PhoneNumbersResponse {
+    return new PhoneNumbersResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PhoneNumbersResponse | PlainMessage<PhoneNumbersResponse> | undefined, b: PhoneNumbersResponse | PlainMessage<PhoneNumbersResponse> | undefined): boolean {
+    return proto3.util.equals(PhoneNumbersResponse, a, b);
+  }
+}
+
+/**
+ * VerifyPhoneNumberRequest verifies a phone number for the user.
+ *
+ * @generated from message tenant.v1.VerifyPhoneNumberRequest
+ */
+export class VerifyPhoneNumberRequest extends Message<VerifyPhoneNumberRequest> {
+  /**
+   * @generated from field: string phone_number = 1;
+   */
+  phoneNumber = "";
+
+  constructor(data?: PartialMessage<VerifyPhoneNumberRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.VerifyPhoneNumberRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "phone_number", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyPhoneNumberRequest {
+    return new VerifyPhoneNumberRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyPhoneNumberRequest {
+    return new VerifyPhoneNumberRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyPhoneNumberRequest {
+    return new VerifyPhoneNumberRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyPhoneNumberRequest | PlainMessage<VerifyPhoneNumberRequest> | undefined, b: VerifyPhoneNumberRequest | PlainMessage<VerifyPhoneNumberRequest> | undefined): boolean {
+    return proto3.util.equals(VerifyPhoneNumberRequest, a, b);
+  }
+}
+
+/**
+ * VerifyPhoneNumberResponse returns the verification code that was sent to the user.
+ *
+ * @generated from message tenant.v1.VerifyPhoneNumberResponse
+ */
+export class VerifyPhoneNumberResponse extends Message<VerifyPhoneNumberResponse> {
+  /**
+   * @generated from field: tenant.v1.PhoneNumber phone_number = 1;
+   */
+  phoneNumber?: PhoneNumber;
+
+  /**
+   * @generated from field: string verification_code = 2;
+   */
+  verificationCode = "";
+
+  constructor(data?: PartialMessage<VerifyPhoneNumberResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.VerifyPhoneNumberResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "phone_number", kind: "message", T: PhoneNumber },
+    { no: 2, name: "verification_code", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyPhoneNumberResponse {
+    return new VerifyPhoneNumberResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyPhoneNumberResponse {
+    return new VerifyPhoneNumberResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyPhoneNumberResponse {
+    return new VerifyPhoneNumberResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyPhoneNumberResponse | PlainMessage<VerifyPhoneNumberResponse> | undefined, b: VerifyPhoneNumberResponse | PlainMessage<VerifyPhoneNumberResponse> | undefined): boolean {
+    return proto3.util.equals(VerifyPhoneNumberResponse, a, b);
+  }
+}
+
+/**
+ * DeletePhoneNumberRequest deletes a phone number for the authorized user.
+ *
+ * @generated from message tenant.v1.DeletePhoneNumberRequest
+ */
+export class DeletePhoneNumberRequest extends Message<DeletePhoneNumberRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<DeletePhoneNumberRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.DeletePhoneNumberRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeletePhoneNumberRequest {
+    return new DeletePhoneNumberRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeletePhoneNumberRequest {
+    return new DeletePhoneNumberRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeletePhoneNumberRequest {
+    return new DeletePhoneNumberRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeletePhoneNumberRequest | PlainMessage<DeletePhoneNumberRequest> | undefined, b: DeletePhoneNumberRequest | PlainMessage<DeletePhoneNumberRequest> | undefined): boolean {
+    return proto3.util.equals(DeletePhoneNumberRequest, a, b);
+  }
+}
+
+/**
+ * DeletePhoneNumberResponse acknowledges the deletion of a phone number.
+ *
+ * @generated from message tenant.v1.DeletePhoneNumberResponse
+ */
+export class DeletePhoneNumberResponse extends Message<DeletePhoneNumberResponse> {
+  constructor(data?: PartialMessage<DeletePhoneNumberResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.DeletePhoneNumberResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeletePhoneNumberResponse {
+    return new DeletePhoneNumberResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeletePhoneNumberResponse {
+    return new DeletePhoneNumberResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeletePhoneNumberResponse {
+    return new DeletePhoneNumberResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeletePhoneNumberResponse | PlainMessage<DeletePhoneNumberResponse> | undefined, b: DeletePhoneNumberResponse | PlainMessage<DeletePhoneNumberResponse> | undefined): boolean {
+    return proto3.util.equals(DeletePhoneNumberResponse, a, b);
+  }
+}
+

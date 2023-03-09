@@ -136,6 +136,7 @@ export const ConversationOptions = proto3.makeMessageType(
     { no: 2, name: "filter", kind: "message", T: Filter, opt: true },
     { no: 3, name: "file_return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 4, name: "viewing_file_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "end_user_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ],
 );
 
@@ -164,6 +165,7 @@ export const ConverseResponse = proto3.makeMessageType(
     { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "message_part", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "relevant_files", kind: "message", T: File, repeated: true },
+    { no: 4, name: "confidence_score", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, opt: true },
   ],
 );
 

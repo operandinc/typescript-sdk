@@ -520,6 +520,15 @@ export class ConversationOptions extends Message<ConversationOptions> {
    */
   viewingFileId?: string;
 
+  /**
+   * The name of the user, if known. If not specified, will default
+   * to the name of the authenticated user, falling back to "User"
+   * if no name is associated with the user.
+   *
+   * @generated from field: optional string end_user_name = 5;
+   */
+  endUserName?: string;
+
   constructor(data?: PartialMessage<ConversationOptions>) {
     super();
     proto3.util.initPartial(data, this);
@@ -532,6 +541,7 @@ export class ConversationOptions extends Message<ConversationOptions> {
     { no: 2, name: "filter", kind: "message", T: Filter, opt: true },
     { no: 3, name: "file_return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 4, name: "viewing_file_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 5, name: "end_user_name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConversationOptions {
@@ -644,6 +654,19 @@ export class ConverseResponse extends Message<ConverseResponse> {
    */
   relevantFiles: File[] = [];
 
+  /**
+   * The confidence score of the response, i.e. how confident the chatbot
+   * is that the response is factually correct given the files that it has
+   * access to. A few notes:
+   * - Will only be sent after all message parts have been sent. If not sent, assume confidence score of 0.
+   * - Will range from 0 -> 1, where 0 is least confident and 1 is most confident.
+   * - Certain conversation options (i.e. filter and parent_id) can affect which
+   *   files the chatbot has access to, and therefore the confidence score.
+   *
+   * @generated from field: optional double confidence_score = 4;
+   */
+  confidenceScore?: number;
+
   constructor(data?: PartialMessage<ConverseResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -655,6 +678,7 @@ export class ConverseResponse extends Message<ConverseResponse> {
     { no: 1, name: "conversation_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "message_part", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "relevant_files", kind: "message", T: File, repeated: true },
+    { no: 4, name: "confidence_score", kind: "scalar", T: 1 /* ScalarType.DOUBLE */, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConverseResponse {

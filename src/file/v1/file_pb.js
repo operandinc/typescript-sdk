@@ -201,6 +201,7 @@ export const CreateFileMeta = proto3.makeMessageType(
     { no: 1, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 3, name: "properties", kind: "message", T: Properties, opt: true },
+    { no: 4, name: "upsert", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
   ],
 );
 
