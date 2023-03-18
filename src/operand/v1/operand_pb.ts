@@ -698,3 +698,114 @@ export class ConverseResponse extends Message<ConverseResponse> {
   }
 }
 
+/**
+ * SuggestionsRequest is the request for the Suggestions method.
+ *
+ * @generated from message operand.v1.SuggestionsRequest
+ */
+export class SuggestionsRequest extends Message<SuggestionsRequest> {
+  /**
+   * The maximum number of suggestions to return.
+   *
+   * @generated from field: int32 max_results = 1;
+   */
+  maxResults = 0;
+
+  /**
+   * The parent directory to search in.
+   * If unspecified, will search all files. If empty, will search root. Otherwise, will search within a directory.
+   *
+   * @generated from field: optional string parent_id = 2;
+   */
+  parentId?: string;
+
+  /**
+   * The filter to apply to the content. Suggestions will only be based
+   * on the content that matches the filter.
+   *
+   * @generated from field: optional operand.v1.Filter filter = 3;
+   */
+  filter?: Filter;
+
+  /**
+   * If true, won't take into account any per-user relevance information
+   * when computing the suggestions. This is recommended for any API users,
+   * as you wouldn't want to be using your personal relevance information
+   * for your end-users.
+   *
+   * @generated from field: optional bool disable_personalization = 4;
+   */
+  disablePersonalization?: boolean;
+
+  constructor(data?: PartialMessage<SuggestionsRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.SuggestionsRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "max_results", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "filter", kind: "message", T: Filter, opt: true },
+    { no: 4, name: "disable_personalization", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SuggestionsRequest {
+    return new SuggestionsRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SuggestionsRequest {
+    return new SuggestionsRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SuggestionsRequest {
+    return new SuggestionsRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SuggestionsRequest | PlainMessage<SuggestionsRequest> | undefined, b: SuggestionsRequest | PlainMessage<SuggestionsRequest> | undefined): boolean {
+    return proto3.util.equals(SuggestionsRequest, a, b);
+  }
+}
+
+/**
+ * SuggestionsResponse is the response for the Suggestions method.
+ *
+ * @generated from message operand.v1.SuggestionsResponse
+ */
+export class SuggestionsResponse extends Message<SuggestionsResponse> {
+  /**
+   * The list of suggestions.
+   *
+   * @generated from field: repeated string suggestions = 1;
+   */
+  suggestions: string[] = [];
+
+  constructor(data?: PartialMessage<SuggestionsResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "operand.v1.SuggestionsResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "suggestions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SuggestionsResponse {
+    return new SuggestionsResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SuggestionsResponse {
+    return new SuggestionsResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SuggestionsResponse {
+    return new SuggestionsResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SuggestionsResponse | PlainMessage<SuggestionsResponse> | undefined, b: SuggestionsResponse | PlainMessage<SuggestionsResponse> | undefined): boolean {
+    return proto3.util.equals(SuggestionsResponse, a, b);
+  }
+}
+

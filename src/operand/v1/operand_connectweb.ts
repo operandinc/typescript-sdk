@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConverseRequest, ConverseResponse, SearchRequest, SearchResponse } from "./operand_pb.js";
+import { ConverseRequest, ConverseResponse, SearchRequest, SearchResponse, SuggestionsRequest, SuggestionsResponse } from "./operand_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -38,6 +38,19 @@ export const OperandService = {
       I: ConverseRequest,
       O: ConverseResponse,
       kind: MethodKind.ServerStreaming,
+    },
+    /**
+     * Suggestions returns a list of suggested questions based on the content
+     * of a given file or folder. For now, this is restricted to session tokens
+     * only, i.e. not available in the API.
+     *
+     * @generated from rpc operand.v1.OperandService.Suggestions
+     */
+    suggestions: {
+      name: "Suggestions",
+      I: SuggestionsRequest,
+      O: SuggestionsResponse,
+      kind: MethodKind.Unary,
     },
   }
 } as const;

@@ -169,3 +169,30 @@ export const ConverseResponse = proto3.makeMessageType(
   ],
 );
 
+/**
+ * SuggestionsRequest is the request for the Suggestions method.
+ *
+ * @generated from message operand.v1.SuggestionsRequest
+ */
+export const SuggestionsRequest = proto3.makeMessageType(
+  "operand.v1.SuggestionsRequest",
+  () => [
+    { no: 1, name: "max_results", kind: "scalar", T: 5 /* ScalarType.INT32 */ },
+    { no: 2, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+    { no: 3, name: "filter", kind: "message", T: Filter, opt: true },
+    { no: 4, name: "disable_personalization", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+  ],
+);
+
+/**
+ * SuggestionsResponse is the response for the Suggestions method.
+ *
+ * @generated from message operand.v1.SuggestionsResponse
+ */
+export const SuggestionsResponse = proto3.makeMessageType(
+  "operand.v1.SuggestionsResponse",
+  () => [
+    { no: 1, name: "suggestions", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+  ],
+);
+
