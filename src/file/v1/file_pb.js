@@ -232,6 +232,21 @@ export const CreateFileResponse = proto3.makeMessageType(
 );
 
 /**
+ * ImportFromURLOptions contains options for importing a file from a URL.
+ *
+ * @generated from message file.v1.ImportFromURLOptions
+ */
+export const ImportFromURLOptions = proto3.makeMessageType(
+  "file.v1.ImportFromURLOptions",
+  () => [
+    { no: 1, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 2, name: "update_on_duplicate", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "update_on_duplicate_seconds", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 4, name: "quality_filter", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+  ],
+);
+
+/**
  * ImportFromURLRequest imports a file from a URL. The caller is required
  * to pass the URL itself, and an optional parent ID (i.e. where the file
  * will be stored).
@@ -246,6 +261,7 @@ export const ImportFromURLRequest = proto3.makeMessageType(
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 5, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 6, name: "import_options", kind: "message", T: ImportFromURLOptions, opt: true },
   ],
 );
 
@@ -299,6 +315,7 @@ export const UpdateFileRequest = proto3.makeMessageType(
     { no: 3, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 5, name: "favorite", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 6, name: "properties", kind: "message", T: Properties, opt: true },
   ],
 );
 

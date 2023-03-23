@@ -771,6 +771,83 @@ export class CreateFileResponse extends Message<CreateFileResponse> {
 }
 
 /**
+ * ImportFromURLOptions contains options for importing a file from a URL.
+ *
+ * @generated from message file.v1.ImportFromURLOptions
+ */
+export class ImportFromURLOptions extends Message<ImportFromURLOptions> {
+  /**
+   * If true, we'll try and derive a sitemap or RSS feed from the URL.
+   * If we find one, rather than storing the HTML webpage itself, we'll
+   * create a smart folder which will sync data with the sitemap periodically.
+   * By default, we just fetch the underlying file that the URL points to.
+   *
+   * @generated from field: optional bool smart = 1;
+   */
+  smart?: boolean;
+
+  /**
+   * If true, we'll try to be clever about de-duplicating the file, i.e. updating
+   * the file if it already exists and hasn't been updated recently. By default,
+   * if a duplicate file already exists, we'll return an error.
+   *
+   * @generated from field: optional bool update_on_duplicate = 2;
+   */
+  updateOnDuplicate?: boolean;
+
+  /**
+   * If update_on_duplicate is true, we'll only fetch new contents and update the file
+   * content if the file hasn't been updated in the last N seconds. By tuning this
+   * value, you can control how often we'll update the file. By default, we'll
+   * update the file if it hasn't been updated in the last 24 hours, i.e. 86400 seconds.
+   *
+   * @generated from field: optional int32 update_on_duplicate_seconds = 3;
+   */
+  updateOnDuplicateSeconds?: number;
+
+  /**
+   * The quality filter is an optional minimum number of useful chunks of information
+   * that we'll require from the URL before we'll consider it a valid file. If the file
+   * doesn't contain at least this many chunks of information, this operation will be
+   * a no-op and no error will be returned. By default, we'll create all files, even if
+   * they don't contain any useful information.
+   *
+   * @generated from field: optional int32 quality_filter = 4;
+   */
+  qualityFilter?: number;
+
+  constructor(data?: PartialMessage<ImportFromURLOptions>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "file.v1.ImportFromURLOptions";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 2, name: "update_on_duplicate", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 3, name: "update_on_duplicate_seconds", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+    { no: 4, name: "quality_filter", kind: "scalar", T: 5 /* ScalarType.INT32 */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImportFromURLOptions {
+    return new ImportFromURLOptions().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ImportFromURLOptions {
+    return new ImportFromURLOptions().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ImportFromURLOptions {
+    return new ImportFromURLOptions().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: ImportFromURLOptions | PlainMessage<ImportFromURLOptions> | undefined, b: ImportFromURLOptions | PlainMessage<ImportFromURLOptions> | undefined): boolean {
+    return proto3.util.equals(ImportFromURLOptions, a, b);
+  }
+}
+
+/**
  * ImportFromURLRequest imports a file from a URL. The caller is required
  * to pass the URL itself, and an optional parent ID (i.e. where the file
  * will be stored).
@@ -803,14 +880,17 @@ export class ImportFromURLRequest extends Message<ImportFromURLRequest> {
   returnOptions?: ReturnedFileOptions;
 
   /**
-   * If true, we'll try and be clever when importing the file.
-   * For example, if we can find a sitemap on the page, we'll create
-   * a smart folder which will sync data with the sitemap periodically.
-   * By default, we just fetch the underlying file that the URL points to.
+   * Use ImportFromURLOptions.smart instead.
    *
-   * @generated from field: optional bool smart = 5;
+   * @generated from field: optional bool smart = 5 [deprecated = true];
+   * @deprecated
    */
   smart?: boolean;
+
+  /**
+   * @generated from field: optional file.v1.ImportFromURLOptions import_options = 6;
+   */
+  importOptions?: ImportFromURLOptions;
 
   constructor(data?: PartialMessage<ImportFromURLRequest>) {
     super();
@@ -825,6 +905,7 @@ export class ImportFromURLRequest extends Message<ImportFromURLRequest> {
     { no: 3, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "return_options", kind: "message", T: ReturnedFileOptions, opt: true },
     { no: 5, name: "smart", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 6, name: "import_options", kind: "message", T: ImportFromURLOptions, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ImportFromURLRequest {
@@ -989,6 +1070,14 @@ export class UpdateFileRequest extends Message<UpdateFileRequest> {
    */
   favorite?: boolean;
 
+  /**
+   * At the moment, updating the properties of a folder will fail.
+   * Only files are supported. This will be fixed in a future release.
+   *
+   * @generated from field: optional file.v1.Properties properties = 6;
+   */
+  properties?: Properties;
+
   constructor(data?: PartialMessage<UpdateFileRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -1002,6 +1091,7 @@ export class UpdateFileRequest extends Message<UpdateFileRequest> {
     { no: 3, name: "parent_id", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 4, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
     { no: 5, name: "favorite", kind: "scalar", T: 8 /* ScalarType.BOOL */, opt: true },
+    { no: 6, name: "properties", kind: "message", T: Properties, opt: true },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): UpdateFileRequest {
