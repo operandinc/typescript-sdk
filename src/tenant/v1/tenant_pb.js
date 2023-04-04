@@ -211,32 +211,6 @@ export const UpdateUserResponse = proto3.makeMessageType(
 );
 
 /**
- * GroupProfile is the groups public profile.
- *
- * @generated from message tenant.v1.GroupProfile
- */
-export const GroupProfile = proto3.makeMessageType(
-  "tenant.v1.GroupProfile",
-  () => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * Group is a group within the system.
- *
- * @generated from message tenant.v1.Group
- */
-export const Group = proto3.makeMessageType(
-  "tenant.v1.Group",
-  () => [
-    { no: 1, name: "profile", kind: "message", T: GroupProfile },
-    { no: 2, name: "created_at", kind: "message", T: Timestamp },
-  ],
-);
-
-/**
  * OAuthLinkRequest allows users to make a number of links to external services.
  *
  * @generated from message tenant.v1.OAuthLinkRequest
@@ -435,6 +409,90 @@ export const DeletePhoneNumberRequest = proto3.makeMessageType(
  */
 export const DeletePhoneNumberResponse = proto3.makeMessageType(
   "tenant.v1.DeletePhoneNumberResponse",
+  [],
+);
+
+/**
+ * EmailAliasesRequest lists the email aliases for the authorized user.
+ *
+ * @generated from message tenant.v1.EmailAliasesRequest
+ */
+export const EmailAliasesRequest = proto3.makeMessageType(
+  "tenant.v1.EmailAliasesRequest",
+  [],
+);
+
+/**
+ * EmailAlias is an email alias for a user.
+ *
+ * @generated from message tenant.v1.EmailAlias
+ */
+export const EmailAlias = proto3.makeMessageType(
+  "tenant.v1.EmailAlias",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "email_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "verified", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ],
+);
+
+/**
+ * EmailAliasesResponse returns the email aliases for the authorized user.
+ *
+ * @generated from message tenant.v1.EmailAliasesResponse
+ */
+export const EmailAliasesResponse = proto3.makeMessageType(
+  "tenant.v1.EmailAliasesResponse",
+  () => [
+    { no: 1, name: "email_aliases", kind: "message", T: EmailAlias, repeated: true },
+  ],
+);
+
+/**
+ * VerifyEmailAliasRequest verifies an email alias for the user.
+ *
+ * @generated from message tenant.v1.VerifyEmailAliasRequest
+ */
+export const VerifyEmailAliasRequest = proto3.makeMessageType(
+  "tenant.v1.VerifyEmailAliasRequest",
+  () => [
+    { no: 1, name: "email_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "verification_code", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ],
+);
+
+/**
+ * VerifyEmailAliasResponse returns the created email alias object.
+ *
+ * @generated from message tenant.v1.VerifyEmailAliasResponse
+ */
+export const VerifyEmailAliasResponse = proto3.makeMessageType(
+  "tenant.v1.VerifyEmailAliasResponse",
+  () => [
+    { no: 1, name: "email_alias", kind: "message", T: EmailAlias },
+  ],
+);
+
+/**
+ * DeleteEmailAliasRequest deletes an email alias for the authorized user.
+ *
+ * @generated from message tenant.v1.DeleteEmailAliasRequest
+ */
+export const DeleteEmailAliasRequest = proto3.makeMessageType(
+  "tenant.v1.DeleteEmailAliasRequest",
+  () => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ],
+);
+
+/**
+ * DeleteEmailAliasResponse acknowledges the deletion of an email alias.
+ *
+ * @generated from message tenant.v1.DeleteEmailAliasResponse
+ */
+export const DeleteEmailAliasResponse = proto3.makeMessageType(
+  "tenant.v1.DeleteEmailAliasResponse",
   [],
 );
 

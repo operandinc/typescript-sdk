@@ -3,11 +3,11 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, DeletePhoneNumberRequest, DeletePhoneNumberResponse, ListAPIKeysRequest, ListAPIKeysResponse, OAuthLinkRequest, OAuthLinkResponse, PhoneNumbersRequest, PhoneNumbersResponse, UpdateSubscriptionRequest, UpdateSubscriptionResponse, UpdateUserRequest, UpdateUserResponse, UsageRequest, UsageResponse, VerifyPhoneNumberRequest, VerifyPhoneNumberResponse } from "./tenant_pb.js";
+import { AuthorizedUserRequest, AuthorizedUserResponse, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteAPIKeyRequest, DeleteAPIKeyResponse, DeleteEmailAliasRequest, DeleteEmailAliasResponse, DeletePhoneNumberRequest, DeletePhoneNumberResponse, EmailAliasesRequest, EmailAliasesResponse, ListAPIKeysRequest, ListAPIKeysResponse, OAuthLinkRequest, OAuthLinkResponse, PhoneNumbersRequest, PhoneNumbersResponse, UpdateSubscriptionRequest, UpdateSubscriptionResponse, UpdateUserRequest, UpdateUserResponse, UsageRequest, UsageResponse, VerifyEmailAliasRequest, VerifyEmailAliasResponse, VerifyPhoneNumberRequest, VerifyPhoneNumberResponse } from "./tenant_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
- * TenantService manages the tenants of the system, i.e. users and groups.
+ * TenantService manages the tenants of the system.
  *
  * @generated from service tenant.v1.TenantService
  */
@@ -142,6 +142,40 @@ export const TenantService = {
       name: "DeletePhoneNumber",
       I: DeletePhoneNumberRequest,
       O: DeletePhoneNumberResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * EmailAliases lists the email aliases for the user, and their verification status.
+     *
+     * @generated from rpc tenant.v1.TenantService.EmailAliases
+     */
+    emailAliases: {
+      name: "EmailAliases",
+      I: EmailAliasesRequest,
+      O: EmailAliasesResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * VerifyEmailAlias verifies an email alias for the user. This endpoint
+     * allows the user to submit a code that was sent to the email address.
+     *
+     * @generated from rpc tenant.v1.TenantService.VerifyEmailAlias
+     */
+    verifyEmailAlias: {
+      name: "VerifyEmailAlias",
+      I: VerifyEmailAliasRequest,
+      O: VerifyEmailAliasResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * DeleteEmailAlias deletes an email alias for the user.
+     *
+     * @generated from rpc tenant.v1.TenantService.DeleteEmailAlias
+     */
+    deleteEmailAlias: {
+      name: "DeleteEmailAlias",
+      I: DeleteEmailAliasRequest,
+      O: DeleteEmailAliasResponse,
       kind: MethodKind.Unary,
     },
   }

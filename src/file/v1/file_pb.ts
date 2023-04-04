@@ -5,7 +5,7 @@
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
 import { Message, proto3, Timestamp } from "@bufbuild/protobuf";
-import { GroupProfile, UserProfile } from "../../tenant/v1/tenant_pb.js";
+import { UserProfile } from "../../tenant/v1/tenant_pb.js";
 
 /**
  * SharingRole is the role of a user in a shared file.
@@ -2215,12 +2215,6 @@ export class SharedWith extends Message<SharedWith> {
      */
     value: UserProfile;
     case: "user";
-  } | {
-    /**
-     * @generated from field: tenant.v1.GroupProfile group = 4;
-     */
-    value: GroupProfile;
-    case: "group";
   } | { case: undefined; value?: undefined } = { case: undefined };
 
   constructor(data?: PartialMessage<SharedWith>) {
@@ -2234,7 +2228,6 @@ export class SharedWith extends Message<SharedWith> {
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "role", kind: "enum", T: proto3.getEnumType(SharingRole) },
     { no: 3, name: "user", kind: "message", T: UserProfile, oneof: "tenant" },
-    { no: 4, name: "group", kind: "message", T: GroupProfile, oneof: "tenant" },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SharedWith {

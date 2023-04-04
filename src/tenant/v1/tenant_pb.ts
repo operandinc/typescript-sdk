@@ -670,96 +670,6 @@ export class UpdateUserResponse extends Message<UpdateUserResponse> {
 }
 
 /**
- * GroupProfile is the groups public profile.
- *
- * @generated from message tenant.v1.GroupProfile
- */
-export class GroupProfile extends Message<GroupProfile> {
-  /**
-   * @generated from field: string id = 1;
-   */
-  id = "";
-
-  /**
-   * @generated from field: string name = 2;
-   */
-  name = "";
-
-  constructor(data?: PartialMessage<GroupProfile>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "tenant.v1.GroupProfile";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-    { no: 2, name: "name", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): GroupProfile {
-    return new GroupProfile().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): GroupProfile {
-    return new GroupProfile().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GroupProfile {
-    return new GroupProfile().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: GroupProfile | PlainMessage<GroupProfile> | undefined, b: GroupProfile | PlainMessage<GroupProfile> | undefined): boolean {
-    return proto3.util.equals(GroupProfile, a, b);
-  }
-}
-
-/**
- * Group is a group within the system.
- *
- * @generated from message tenant.v1.Group
- */
-export class Group extends Message<Group> {
-  /**
-   * @generated from field: tenant.v1.GroupProfile profile = 1;
-   */
-  profile?: GroupProfile;
-
-  /**
-   * @generated from field: google.protobuf.Timestamp created_at = 2;
-   */
-  createdAt?: Timestamp;
-
-  constructor(data?: PartialMessage<Group>) {
-    super();
-    proto3.util.initPartial(data, this);
-  }
-
-  static readonly runtime = proto3;
-  static readonly typeName = "tenant.v1.Group";
-  static readonly fields: FieldList = proto3.util.newFieldList(() => [
-    { no: 1, name: "profile", kind: "message", T: GroupProfile },
-    { no: 2, name: "created_at", kind: "message", T: Timestamp },
-  ]);
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Group {
-    return new Group().fromBinary(bytes, options);
-  }
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Group {
-    return new Group().fromJson(jsonValue, options);
-  }
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Group {
-    return new Group().fromJsonString(jsonString, options);
-  }
-
-  static equals(a: Group | PlainMessage<Group> | undefined, b: Group | PlainMessage<Group> | undefined): boolean {
-    return proto3.util.equals(Group, a, b);
-  }
-}
-
-/**
  * OAuthLinkRequest allows users to make a number of links to external services.
  *
  * @generated from message tenant.v1.OAuthLinkRequest
@@ -1474,6 +1384,291 @@ export class DeletePhoneNumberResponse extends Message<DeletePhoneNumberResponse
 
   static equals(a: DeletePhoneNumberResponse | PlainMessage<DeletePhoneNumberResponse> | undefined, b: DeletePhoneNumberResponse | PlainMessage<DeletePhoneNumberResponse> | undefined): boolean {
     return proto3.util.equals(DeletePhoneNumberResponse, a, b);
+  }
+}
+
+/**
+ * EmailAliasesRequest lists the email aliases for the authorized user.
+ *
+ * @generated from message tenant.v1.EmailAliasesRequest
+ */
+export class EmailAliasesRequest extends Message<EmailAliasesRequest> {
+  constructor(data?: PartialMessage<EmailAliasesRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.EmailAliasesRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmailAliasesRequest {
+    return new EmailAliasesRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmailAliasesRequest {
+    return new EmailAliasesRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmailAliasesRequest {
+    return new EmailAliasesRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmailAliasesRequest | PlainMessage<EmailAliasesRequest> | undefined, b: EmailAliasesRequest | PlainMessage<EmailAliasesRequest> | undefined): boolean {
+    return proto3.util.equals(EmailAliasesRequest, a, b);
+  }
+}
+
+/**
+ * EmailAlias is an email alias for a user.
+ *
+ * @generated from message tenant.v1.EmailAlias
+ */
+export class EmailAlias extends Message<EmailAlias> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 2;
+   */
+  createdAt?: Timestamp;
+
+  /**
+   * @generated from field: string email_address = 3;
+   */
+  emailAddress = "";
+
+  /**
+   * @generated from field: bool verified = 4;
+   */
+  verified = false;
+
+  constructor(data?: PartialMessage<EmailAlias>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.EmailAlias";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "created_at", kind: "message", T: Timestamp },
+    { no: 3, name: "email_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 4, name: "verified", kind: "scalar", T: 8 /* ScalarType.BOOL */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmailAlias {
+    return new EmailAlias().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmailAlias {
+    return new EmailAlias().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmailAlias {
+    return new EmailAlias().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmailAlias | PlainMessage<EmailAlias> | undefined, b: EmailAlias | PlainMessage<EmailAlias> | undefined): boolean {
+    return proto3.util.equals(EmailAlias, a, b);
+  }
+}
+
+/**
+ * EmailAliasesResponse returns the email aliases for the authorized user.
+ *
+ * @generated from message tenant.v1.EmailAliasesResponse
+ */
+export class EmailAliasesResponse extends Message<EmailAliasesResponse> {
+  /**
+   * @generated from field: repeated tenant.v1.EmailAlias email_aliases = 1;
+   */
+  emailAliases: EmailAlias[] = [];
+
+  constructor(data?: PartialMessage<EmailAliasesResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.EmailAliasesResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email_aliases", kind: "message", T: EmailAlias, repeated: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): EmailAliasesResponse {
+    return new EmailAliasesResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): EmailAliasesResponse {
+    return new EmailAliasesResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): EmailAliasesResponse {
+    return new EmailAliasesResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: EmailAliasesResponse | PlainMessage<EmailAliasesResponse> | undefined, b: EmailAliasesResponse | PlainMessage<EmailAliasesResponse> | undefined): boolean {
+    return proto3.util.equals(EmailAliasesResponse, a, b);
+  }
+}
+
+/**
+ * VerifyEmailAliasRequest verifies an email alias for the user.
+ *
+ * @generated from message tenant.v1.VerifyEmailAliasRequest
+ */
+export class VerifyEmailAliasRequest extends Message<VerifyEmailAliasRequest> {
+  /**
+   * @generated from field: string email_address = 1;
+   */
+  emailAddress = "";
+
+  /**
+   * @generated from field: optional string verification_code = 2;
+   */
+  verificationCode?: string;
+
+  constructor(data?: PartialMessage<VerifyEmailAliasRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.VerifyEmailAliasRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email_address", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "verification_code", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyEmailAliasRequest {
+    return new VerifyEmailAliasRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyEmailAliasRequest {
+    return new VerifyEmailAliasRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyEmailAliasRequest {
+    return new VerifyEmailAliasRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyEmailAliasRequest | PlainMessage<VerifyEmailAliasRequest> | undefined, b: VerifyEmailAliasRequest | PlainMessage<VerifyEmailAliasRequest> | undefined): boolean {
+    return proto3.util.equals(VerifyEmailAliasRequest, a, b);
+  }
+}
+
+/**
+ * VerifyEmailAliasResponse returns the created email alias object.
+ *
+ * @generated from message tenant.v1.VerifyEmailAliasResponse
+ */
+export class VerifyEmailAliasResponse extends Message<VerifyEmailAliasResponse> {
+  /**
+   * @generated from field: tenant.v1.EmailAlias email_alias = 1;
+   */
+  emailAlias?: EmailAlias;
+
+  constructor(data?: PartialMessage<VerifyEmailAliasResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.VerifyEmailAliasResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "email_alias", kind: "message", T: EmailAlias },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): VerifyEmailAliasResponse {
+    return new VerifyEmailAliasResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): VerifyEmailAliasResponse {
+    return new VerifyEmailAliasResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): VerifyEmailAliasResponse {
+    return new VerifyEmailAliasResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: VerifyEmailAliasResponse | PlainMessage<VerifyEmailAliasResponse> | undefined, b: VerifyEmailAliasResponse | PlainMessage<VerifyEmailAliasResponse> | undefined): boolean {
+    return proto3.util.equals(VerifyEmailAliasResponse, a, b);
+  }
+}
+
+/**
+ * DeleteEmailAliasRequest deletes an email alias for the authorized user.
+ *
+ * @generated from message tenant.v1.DeleteEmailAliasRequest
+ */
+export class DeleteEmailAliasRequest extends Message<DeleteEmailAliasRequest> {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id = "";
+
+  constructor(data?: PartialMessage<DeleteEmailAliasRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.DeleteEmailAliasRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteEmailAliasRequest {
+    return new DeleteEmailAliasRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteEmailAliasRequest {
+    return new DeleteEmailAliasRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteEmailAliasRequest {
+    return new DeleteEmailAliasRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteEmailAliasRequest | PlainMessage<DeleteEmailAliasRequest> | undefined, b: DeleteEmailAliasRequest | PlainMessage<DeleteEmailAliasRequest> | undefined): boolean {
+    return proto3.util.equals(DeleteEmailAliasRequest, a, b);
+  }
+}
+
+/**
+ * DeleteEmailAliasResponse acknowledges the deletion of an email alias.
+ *
+ * @generated from message tenant.v1.DeleteEmailAliasResponse
+ */
+export class DeleteEmailAliasResponse extends Message<DeleteEmailAliasResponse> {
+  constructor(data?: PartialMessage<DeleteEmailAliasResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime = proto3;
+  static readonly typeName = "tenant.v1.DeleteEmailAliasResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): DeleteEmailAliasResponse {
+    return new DeleteEmailAliasResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): DeleteEmailAliasResponse {
+    return new DeleteEmailAliasResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): DeleteEmailAliasResponse {
+    return new DeleteEmailAliasResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: DeleteEmailAliasResponse | PlainMessage<DeleteEmailAliasResponse> | undefined, b: DeleteEmailAliasResponse | PlainMessage<DeleteEmailAliasResponse> | undefined): boolean {
+    return proto3.util.equals(DeleteEmailAliasResponse, a, b);
   }
 }
 

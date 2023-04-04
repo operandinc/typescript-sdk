@@ -4,7 +4,7 @@
 // @ts-nocheck
 
 import { proto3, Timestamp } from "@bufbuild/protobuf";
-import { GroupProfile, UserProfile } from "../../tenant/v1/tenant_pb.js";
+import { UserProfile } from "../../tenant/v1/tenant_pb.js";
 
 /**
  * SharingRole is the role of a user in a shared file.
@@ -629,7 +629,6 @@ export const SharedWith = proto3.makeMessageType(
     { no: 1, name: "id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
     { no: 2, name: "role", kind: "enum", T: proto3.getEnumType(SharingRole) },
     { no: 3, name: "user", kind: "message", T: UserProfile, oneof: "tenant" },
-    { no: 4, name: "group", kind: "message", T: GroupProfile, oneof: "tenant" },
   ],
 );
 
