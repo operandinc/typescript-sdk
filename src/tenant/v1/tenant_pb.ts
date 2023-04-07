@@ -47,11 +47,17 @@ export enum OAuthProvider {
    * @generated from enum value: O_AUTH_PROVIDER_GITHUB = 1;
    */
   GITHUB = 1,
+
+  /**
+   * @generated from enum value: O_AUTH_PROVIDER_GOOGLE = 2;
+   */
+  GOOGLE = 2,
 }
 // Retrieve enum metadata with: proto3.getEnumType(OAuthProvider)
 proto3.util.setEnumType(OAuthProvider, "tenant.v1.OAuthProvider", [
   { no: 0, name: "O_AUTH_PROVIDER_UNSPECIFIED" },
   { no: 1, name: "O_AUTH_PROVIDER_GITHUB" },
+  { no: 2, name: "O_AUTH_PROVIDER_GOOGLE" },
 ]);
 
 /**

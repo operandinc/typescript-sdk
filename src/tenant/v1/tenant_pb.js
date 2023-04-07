@@ -27,6 +27,7 @@ export const OAuthProvider = proto3.makeEnum(
   [
     {no: 0, name: "O_AUTH_PROVIDER_UNSPECIFIED", localName: "UNSPECIFIED"},
     {no: 1, name: "O_AUTH_PROVIDER_GITHUB", localName: "GITHUB"},
+    {no: 2, name: "O_AUTH_PROVIDER_GOOGLE", localName: "GOOGLE"},
   ],
 );
 
