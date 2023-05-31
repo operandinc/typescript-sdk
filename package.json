@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@bufbuild/connect-web": "^0.7.0",
-    "@bufbuild/protobuf": "^1.0.0",
+    "@bufbuild/protobuf": "^1.2.1",
     "isomorphic-fetch": "^3.0.0"
   }
 }
